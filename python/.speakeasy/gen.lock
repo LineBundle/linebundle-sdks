@@ -1,21 +1,21 @@
 lockVersion: 2.0.0
-id: be62980e-8f59-46a8-8526-e6ea7e90b2f9
+id: 75a9c617-a60f-459b-b710-75c678d1cf96
 management:
   docChecksum: dfe6a626d5f1e23d179cc66d5a1c3256
   docVersion: 1.0.0
-  speakeasyVersion: 1.752.0
-  generationVersion: 2.859.2
+  speakeasyVersion: 1.753.0
+  generationVersion: 2.862.0
   releaseVersion: 0.0.1
   configChecksum: 56f8313306fe89895917c4a53a10e6d9
 persistentEdits:
-  generation_id: e64dd4a6-1c30-4dda-8a69-64da5710ee39
-  pristine_commit_hash: 639b7e77ae4db5401d21dfe94e6ba30998af4f8a
-  pristine_tree_hash: 76b8628d619ff19d3aeb6797ecac66e2e9105edc
+  generation_id: e38e5c53-2da5-4f26-883c-895a8d1928d0
+  pristine_commit_hash: 03137f4cc681ebdef22979e47bc0d609263a7483
+  pristine_tree_hash: dcd3d8e63c833abcd737fb7db1fdfb8ca142b2b5
 features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.7
-    core: 6.0.16
+    core: 6.0.18
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.1
     envVarSecurityUsage: 0.3.2
@@ -25,7 +25,7 @@ features:
     globalSecurityCallbacks: 1.0.0
     globalServerURLs: 3.2.1
     methodArguments: 1.0.2
-    methodSecurity: 3.0.2
+    methodSecurity: 3.0.3
     multipartFileContentType: 1.0.0
     nullables: 1.0.2
     responseFormat: 1.1.0
@@ -1656,8 +1656,8 @@ trackedFiles:
     pristine_git_object: 23003a98be95ca2520b495f72b63243820831e7a
   src/openapi/_version.py:
     id: 847cba25ff4f
-    last_write_checksum: sha1:29766742504802e665387a3df80536a4cde3f924
-    pristine_git_object: 182308145309c50f74772ce79e0d3e08a81de1fb
+    last_write_checksum: sha1:25d2f1c6db1c03f619c5cd7f747a2950d4f6c1dc
+    pristine_git_object: e6def1fc0544a29cb91dd9fea98a28cd77eb913a
   src/openapi/ai_agent.py:
     id: eb5181f5e159
     last_write_checksum: sha1:708aba815fac47bc4a0922b244337f46634dbb12

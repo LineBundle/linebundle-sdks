@@ -1,21 +1,21 @@
 lockVersion: 2.0.0
-id: f349db94-7cd8-4605-a647-6ffe56ebbaa4
+id: 4e450399-e512-4fef-aa35-737321f89378
 management:
   docChecksum: dfe6a626d5f1e23d179cc66d5a1c3256
   docVersion: 1.0.0
-  speakeasyVersion: 1.752.0
-  generationVersion: 2.859.2
+  speakeasyVersion: 1.753.0
+  generationVersion: 2.862.0
   releaseVersion: 0.0.1
   configChecksum: d5ad7ff5ff5cb26e251772d4a4006fd8
 persistentEdits:
-  generation_id: ce8ee601-a9d8-4019-9f31-bba41db80d73
-  pristine_commit_hash: b01f019578bbe9dcea9f20715f1ac57a5c4cf699
-  pristine_tree_hash: 9acb5c231dd49cbb96d833cead7385881f5e25dc
+  generation_id: 5dae1ffb-afc9-4041-a128-96bd2bc3232d
+  pristine_commit_hash: b3fb3f52e16f6088452580a993e1d51c45ac3a16
+  pristine_tree_hash: 9f27d7554231d5568b003c42cec6d631870bc550
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.14
-    core: 3.26.41
+    core: 3.26.42
     defaultEnabledRetries: 0.1.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
@@ -23,7 +23,7 @@ features:
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.83.1
     methodArguments: 0.1.2
-    methodSecurity: 2.82.7
+    methodSecurity: 2.82.8
     nullables: 0.1.1
     responseFormat: 0.3.0
     retries: 2.83.0
@@ -2561,8 +2561,8 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:d3fb3726fc93751d924382979042c9b955c609aa
-    pristine_git_object: 7fe0e1d1462acc6166be6a4cca10da07de3e7b24
+    last_write_checksum: sha1:8901b38dbad21d7d1a79069194441a6cd0bd8771
+    pristine_git_object: 8d7197e01ea0c42af4ccdd03b1d757c0305a7fea
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
