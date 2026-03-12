@@ -1,0 +1,9 @@
+# BodyUpdateCoverAPIV1EventEventIDCoverPatch
+
+
+## Fields
+
+| Field                                                                                                                | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `file`                                                                                                               | [models.BodyUpdateCoverAPIV1EventEventIDCoverPatchFile](../models/bodyupdatecoverapiv1eventeventidcoverpatchfile.md) | :heavy_check_mark:                                                                                                   | N/A                                                                                                                  |
+| `theme`                                                                                                              | *OptionalNullable[str]*                                                                                              | :heavy_minus_sign:                                                                                                   | JSON string of theme colors                                                                                          |

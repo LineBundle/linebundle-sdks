@@ -1,0 +1,9 @@
+# UpdateCoverAPIV1EventEventIDCoverPatchRequest
+
+
+## Fields
+
+| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `event_id`                                                                                                   | *int*                                                                                                        | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
+| `body`                                                                                                       | [models.BodyUpdateCoverAPIV1EventEventIDCoverPatch](../models/bodyupdatecoverapiv1eventeventidcoverpatch.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |

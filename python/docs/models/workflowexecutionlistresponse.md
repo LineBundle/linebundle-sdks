@@ -1,0 +1,11 @@
+# WorkflowExecutionListResponse
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `executions`                                                                     | List[[models.WorkflowExecutionResponse](../models/workflowexecutionresponse.md)] | :heavy_check_mark:                                                               | List of executions                                                               |
+| `total`                                                                          | *int*                                                                            | :heavy_check_mark:                                                               | Total number of executions                                                       |
+| `limit`                                                                          | *int*                                                                            | :heavy_check_mark:                                                               | Page size                                                                        |
+| `offset`                                                                         | *int*                                                                            | :heavy_check_mark:                                                               | Offset                                                                           |

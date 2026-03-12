@@ -1,0 +1,15 @@
+# ListPermissionAuditLogsAPIV1AuditLogsPermissionsGetRequest
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `user_id`                                                            | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | Filter by user ID                                                    |
+| `org_id`                                                             | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | Filter by organization ID                                            |
+| `permission_code`                                                    | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | Filter by permission code                                            |
+| `result`                                                             | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | Filter by result (granted/denied)                                    |
+| `start_date`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | Filter by start date                                                 |
+| `end_date`                                                           | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | Filter by end date                                                   |
+| `skip`                                                               | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | Number of records to skip                                            |
+| `limit`                                                              | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | Number of records to return                                          |

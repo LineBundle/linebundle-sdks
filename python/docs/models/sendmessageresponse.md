@@ -1,0 +1,14 @@
+# SendMessageResponse
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `session_id`                                                         | *str*                                                                | :heavy_check_mark:                                                   | Session ID                                                           |
+| `thread_id`                                                          | *str*                                                                | :heavy_check_mark:                                                   | Thread ID                                                            |
+| `message`                                                            | *str*                                                                | :heavy_check_mark:                                                   | AI agent response                                                    |
+| `message_count`                                                      | *int*                                                                | :heavy_check_mark:                                                   | Updated message count                                                |
+| `timestamp`                                                          | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | Response timestamp                                                   |
+| `tokens_used`                                                        | [OptionalNullable[models.TokenUsage]](../models/tokenusage.md)       | :heavy_minus_sign:                                                   | Token usage for this message                                         |
+| `cost_usd`                                                           | *OptionalNullable[float]*                                            | :heavy_minus_sign:                                                   | Cost in USD for this message                                         |

@@ -1,0 +1,12 @@
+# StartWorkflowRequest
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `workflow_type`                                                                        | [models.WorkflowType](../models/workflowtype.md)                                       | :heavy_check_mark:                                                                     | Enum representing different workflow types.                                            |
+| `workflow_name`                                                                        | *OptionalNullable[str]*                                                                | :heavy_minus_sign:                                                                     | Human-readable workflow name (auto-generated if not provided)                          |
+| `input_data`                                                                           | Dict[str, *Any*]                                                                       | :heavy_check_mark:                                                                     | Input parameters for the workflow                                                      |
+| `session_id`                                                                           | *OptionalNullable[str]*                                                                | :heavy_minus_sign:                                                                     | Optional session ID to associate with this workflow                                    |
+| `agent_types`                                                                          | List[[models.AgentType](../models/agenttype.md)]                                       | :heavy_minus_sign:                                                                     | Optional list of agent types to use in the workflow (required for some workflow types) |

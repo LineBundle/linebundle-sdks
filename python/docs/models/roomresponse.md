@@ -1,0 +1,17 @@
+# RoomResponse
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `id`                                                                 | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `org_id`                                                             | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `room_type`                                                          | [models.RoomType](../models/roomtype.md)                             | :heavy_check_mark:                                                   | N/A                                                                  |
+| `name`                                                               | *Nullable[str]*                                                      | :heavy_check_mark:                                                   | N/A                                                                  |
+| `description`                                                        | *Nullable[str]*                                                      | :heavy_check_mark:                                                   | N/A                                                                  |
+| `visibility`                                                         | *int*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `metadata`                                                           | Dict[str, *Any*]                                                     | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `creator_id`                                                         | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `created_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `updated_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |

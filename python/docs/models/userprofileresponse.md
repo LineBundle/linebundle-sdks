@@ -1,0 +1,14 @@
+# UserProfileResponse
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `id`                                                                 | *str*                                                                | :heavy_check_mark:                                                   | User ID                                                              |
+| `email`                                                              | *str*                                                                | :heavy_check_mark:                                                   | Email address                                                        |
+| `external_auth_id`                                                   | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | External auth provider ID                                            |
+| `username`                                                           | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | Username                                                             |
+| `avatar_url`                                                         | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | Avatar URL                                                           |
+| `created_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | Account creation date                                                |
+| `updated_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | Last update date                                                     |

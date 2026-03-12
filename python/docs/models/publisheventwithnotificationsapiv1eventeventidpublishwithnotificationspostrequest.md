@@ -1,0 +1,9 @@
+# PublishEventWithNotificationsAPIV1EventEventIDPublishWithNotificationsPostRequest
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `event_id`                                                                                       | *int*                                                                                            | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `body`                                                                                           | [models.PublishEventWithNotificationsRequest](../models/publisheventwithnotificationsrequest.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |

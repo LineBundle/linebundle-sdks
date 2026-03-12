@@ -1,0 +1,9 @@
+# BodyCreateEventAPIV1EventPost
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `request`                                                                                            | *str*                                                                                                | :heavy_check_mark:                                                                                   | JSON string of CreateEventRequest                                                                    |
+| `file`                                                                                               | [Optional[models.BodyCreateEventAPIV1EventPostFile]](../models/bodycreateeventapiv1eventpostfile.md) | :heavy_minus_sign:                                                                                   | Optional cover image file                                                                            |

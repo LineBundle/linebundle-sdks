@@ -1,0 +1,24 @@
+# ExecutionResponse
+
+Rule execution response.
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `id`                                                                 | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `rule_id`                                                            | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `org_id`                                                             | *Nullable[str]*                                                      | :heavy_check_mark:                                                   | N/A                                                                  |
+| `creator_id`                                                         | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `execution_key`                                                      | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `trigger_type`                                                       | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `trigger_context`                                                    | Dict[str, *Any*]                                                     | :heavy_check_mark:                                                   | N/A                                                                  |
+| `status`                                                             | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `started_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `completed_at`                                                       | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `condition_results`                                                  | Dict[str, *Any*]                                                     | :heavy_check_mark:                                                   | N/A                                                                  |
+| `action_results`                                                     | Dict[str, *Any*]                                                     | :heavy_check_mark:                                                   | N/A                                                                  |
+| `error_message`                                                      | *Nullable[str]*                                                      | :heavy_check_mark:                                                   | N/A                                                                  |
+| `retry_count`                                                        | *int*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `created_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |

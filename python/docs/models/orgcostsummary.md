@@ -1,0 +1,14 @@
+# OrgCostSummary
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `org_id`                                                             | *str*                                                                | :heavy_check_mark:                                                   | Organization ID                                                      |
+| `total_cost_usd`                                                     | *float*                                                              | :heavy_check_mark:                                                   | Total cost across all sessions                                       |
+| `total_tokens`                                                       | *int*                                                                | :heavy_check_mark:                                                   | Total tokens used                                                    |
+| `session_count`                                                      | *int*                                                                | :heavy_check_mark:                                                   | Number of sessions                                                   |
+| `user_count`                                                         | *int*                                                                | :heavy_check_mark:                                                   | Number of unique users                                               |
+| `start_date`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | Start date filter                                                    |
+| `end_date`                                                           | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | End date filter                                                      |

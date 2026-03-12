@@ -1,0 +1,21 @@
+# EventAttendeeRead
+
+Pydantic model for reading event attendee data.
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `status`                                                             | [Optional[models.AttendeeStatus]](../models/attendeestatus.md)       | :heavy_minus_sign:                                                   | Attendee status enumeration.                                         |
+| `notes`                                                              | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | Additional notes                                                     |
+| `id`                                                                 | *int*                                                                | :heavy_check_mark:                                                   | Attendee relationship ID                                             |
+| `event_id`                                                           | *int*                                                                | :heavy_check_mark:                                                   | Event ID                                                             |
+| `contact_id`                                                         | *str*                                                                | :heavy_check_mark:                                                   | Contact ID                                                           |
+| `is_checked_in`                                                      | *bool*                                                               | :heavy_check_mark:                                                   | Whether attendee has checked in                                      |
+| `checked_in_at`                                                      | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | Check-in timestamp                                                   |
+| `invited_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | Invitation timestamp                                                 |
+| `responded_at`                                                       | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | Response timestamp                                                   |
+| `created_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | Creation timestamp                                                   |
+| `updated_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | Last update timestamp                                                |
+| `contact`                                                            | [OptionalNullable[models.AttendeeInfo]](../models/attendeeinfo.md)   | :heavy_minus_sign:                                                   | Contact information                                                  |

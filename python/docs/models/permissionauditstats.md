@@ -1,0 +1,16 @@
+# PermissionAuditStats
+
+Response schema for permission audit statistics.
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `total_checks`                                                                 | *int*                                                                          | :heavy_check_mark:                                                             | N/A                                                                            |
+| `granted_count`                                                                | *int*                                                                          | :heavy_check_mark:                                                             | N/A                                                                            |
+| `denied_count`                                                                 | *int*                                                                          | :heavy_check_mark:                                                             | N/A                                                                            |
+| `unique_users`                                                                 | *int*                                                                          | :heavy_check_mark:                                                             | N/A                                                                            |
+| `unique_permissions`                                                           | *int*                                                                          | :heavy_check_mark:                                                             | N/A                                                                            |
+| `most_checked_permissions`                                                     | List[List[[models.MostCheckedPermission](../models/mostcheckedpermission.md)]] | :heavy_check_mark:                                                             | N/A                                                                            |
+| `most_denied_permissions`                                                      | List[List[[models.MostDeniedPermission](../models/mostdeniedpermission.md)]]   | :heavy_check_mark:                                                             | N/A                                                                            |

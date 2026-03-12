@@ -1,0 +1,15 @@
+# GetEventsBySpaceAPIV1EventSpaceSpaceIDGetRequest
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `space_id`                                                           | *int*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `limit`                                                              | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | Limit                                                                |
+| `offset`                                                             | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | Offset                                                               |
+| `sort_by`                                                            | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | Sort by field                                                        |
+| `sort_order`                                                         | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | Sort order (asc or desc)                                             |
+| `search`                                                             | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | Search query                                                         |
+| `start_dt`                                                           | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | Start date for filtering                                             |
+| `end_dt`                                                             | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | End date for filtering                                               |

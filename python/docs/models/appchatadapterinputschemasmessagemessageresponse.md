@@ -1,0 +1,16 @@
+# AppChatAdapterInputSchemasMessageMessageResponse
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `id`                                                                 | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `room_id`                                                            | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `sender_id`                                                          | *Nullable[str]*                                                      | :heavy_check_mark:                                                   | N/A                                                                  |
+| `sender`                                                             | [OptionalNullable[models.SenderProfile]](../models/senderprofile.md) | :heavy_minus_sign:                                                   | Sender profile information                                           |
+| `message_type`                                                       | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `content`                                                            | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `metadata`                                                           | Dict[str, *Any*]                                                     | :heavy_check_mark:                                                   | N/A                                                                  |
+| `created_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `updated_at`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |

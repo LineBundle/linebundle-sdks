@@ -1,0 +1,20 @@
+# SpaceStoryDTO
+
+
+## Fields
+
+| Field                                                        | Type                                                         | Required                                                     | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `id`                                                         | *int*                                                        | :heavy_check_mark:                                           | N/A                                                          |
+| `name`                                                       | *str*                                                        | :heavy_check_mark:                                           | N/A                                                          |
+| `role`                                                       | *str*                                                        | :heavy_check_mark:                                           | N/A                                                          |
+| `member_count`                                               | *int*                                                        | :heavy_check_mark:                                           | N/A                                                          |
+| `member_growth`                                              | *int*                                                        | :heavy_check_mark:                                           | N/A                                                          |
+| `active_events`                                              | List[[models.EventPreviewDTO](../models/eventpreviewdto.md)] | :heavy_minus_sign:                                           | N/A                                                          |
+| `ongoing_events_count`                                       | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `upcoming_events_count`                                      | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `remaining_events_count`                                     | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `material_count`                                             | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `subspace_count`                                             | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
+| `parent_space_name`                                          | *OptionalNullable[str]*                                      | :heavy_minus_sign:                                           | N/A                                                          |
+| `visibility`                                                 | *Optional[int]*                                              | :heavy_minus_sign:                                           | N/A                                                          |
