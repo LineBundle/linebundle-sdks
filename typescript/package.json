@@ -1,6 +1,6 @@
 {
-  "name": "@linebundle-dev/linebundle",
-  "version": "0.1.20",
+  "name": "@linebundle-sdk/ts",
+  "version": "0.1.21",
   "author": "Speakeasy",
   "type": "module",
   "main": "./esm/index.js",
