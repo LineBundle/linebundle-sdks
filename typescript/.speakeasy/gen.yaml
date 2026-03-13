@@ -31,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.0.1
+  version: 0.1.21
   acceptHeaderEnum: false
   additionalDependencies:
     dependencies: {}
@@ -76,7 +76,7 @@ typescript:
   moduleFormat: esm
   multipartArrayFormat: standard
   outputModelSuffix: output
-  packageName: openapi
+  packageName: @linebundle-sdk/ts
   preApplyUnionDiscriminators: true
   preserveModelFieldNames: false
   responseFormat: flat
