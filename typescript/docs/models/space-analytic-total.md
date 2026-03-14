@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SpaceAnalyticTotal } from "openapi/models";
+import { SpaceAnalyticTotal } from "@linebundle-sdk/ts/models";
 
 let value: SpaceAnalyticTotal = {
   totalCount: 613090,

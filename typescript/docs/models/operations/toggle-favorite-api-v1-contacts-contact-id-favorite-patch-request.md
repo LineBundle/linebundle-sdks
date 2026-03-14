@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ToggleFavoriteApiV1ContactsContactIdFavoritePatchRequest } from "openapi/models/operations";
+import { ToggleFavoriteApiV1ContactsContactIdFavoritePatchRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: ToggleFavoriteApiV1ContactsContactIdFavoritePatchRequest = {
   contactId: "86398281-917c-4389-a9fe-1f351a5068d9",

@@ -5,7 +5,7 @@ Display data for sub-space in list
 ## Example Usage
 
 ```typescript
-import { SubSpaceDisplayData } from "openapi/models";
+import { SubSpaceDisplayData } from "@linebundle-sdk/ts/models";
 
 let value: SubSpaceDisplayData = {
   id: 833754,

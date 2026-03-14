@@ -4,16 +4,16 @@
 
 ### Available Operations
 
-* [getSpaceEventsApiV1SpacesSpaceIdEventsGet](#getspaceeventsapiv1spacesspaceideventsget) - Get Space Events
-* [addEventToSpaceApiV1SpacesSpaceIdEventsPost](#addeventtospaceapiv1spacesspaceideventspost) - Add Event To Space
-* [getEventSpacesApiV1EventsEventIdSpacesGet](#geteventspacesapiv1eventseventidspacesget) - Get Event Spaces
-* [getSpaceEventApiV1SpaceEventsSpaceEventIdGet](#getspaceeventapiv1spaceeventsspaceeventidget) - Get Space Event
-* [removeEventFromSpaceApiV1SpaceEventsSpaceEventIdDelete](#removeeventfromspaceapiv1spaceeventsspaceeventiddelete) - Remove Event From Space
-* [bulkAddEventsToSpaceApiV1SpacesSpaceIdEventsBulkPost](#bulkaddeventstospaceapiv1spacesspaceideventsbulkpost) - Bulk Add Events To Space
-* [bulkRemoveEventsFromSpaceApiV1SpacesSpaceIdEventsBulkDelete](#bulkremoveeventsfromspaceapiv1spacesspaceideventsbulkdelete) - Bulk Remove Events From Space
-* [countSpaceEventsApiV1SpacesSpaceIdEventsCountGet](#countspaceeventsapiv1spacesspaceideventscountget) - Count Space Events
+* [get](#get) - Get Space Events
+* [add](#add) - Add Event To Space
+* [getEventSpaces](#geteventspaces) - Get Event Spaces
+* [getById](#getbyid) - Get Space Event
+* [removeEvent](#removeevent) - Remove Event From Space
+* [bulkAdd](#bulkadd) - Bulk Add Events To Space
+* [bulkRemove](#bulkremove) - Bulk Remove Events From Space
+* [count](#count) - Count Space Events
 
-## getSpaceEventsApiV1SpacesSpaceIdEventsGet
+## get
 
 Get all events for a specific space.
 
@@ -32,17 +32,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="get_space_events_api_v1_spaces__space_id__events_get" method="get" path="/api/v1/spaces/{space_id}/events" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceEvents.getSpaceEventsApiV1SpacesSpaceIdEventsGet({
+  const result = await linebundle.spaceEvents.get({
     spaceId: 930600,
   });
 
@@ -57,27 +56,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceEventsGetSpaceEventsApiV1SpacesSpaceIdEventsGet } from "openapi/funcs/space-events-get-space-events-api-v1-spaces-space-id-events-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceEventsGet } from "@linebundle-sdk/ts/funcs/space-events-get.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceEventsGetSpaceEventsApiV1SpacesSpaceIdEventsGet(sdk, {
+  const res = await spaceEventsGet(linebundle, {
     spaceId: 930600,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceEventsGetSpaceEventsApiV1SpacesSpaceIdEventsGet failed:", res.error);
+    console.log("spaceEventsGet failed:", res.error);
   }
 }
 
@@ -99,12 +97,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## addEventToSpaceApiV1SpacesSpaceIdEventsPost
+## add
 
 Add an event to a space.
 
@@ -122,17 +120,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="add_event_to_space_api_v1_spaces__space_id__events_post" method="post" path="/api/v1/spaces/{space_id}/events" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceEvents.addEventToSpaceApiV1SpacesSpaceIdEventsPost({
+  const result = await linebundle.spaceEvents.add({
     spaceId: 905375,
     body: {
       eventId: 981959,
@@ -150,20 +147,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceEventsAddEventToSpaceApiV1SpacesSpaceIdEventsPost } from "openapi/funcs/space-events-add-event-to-space-api-v1-spaces-space-id-events-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceEventsAdd } from "@linebundle-sdk/ts/funcs/space-events-add.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceEventsAddEventToSpaceApiV1SpacesSpaceIdEventsPost(sdk, {
+  const res = await spaceEventsAdd(linebundle, {
     spaceId: 905375,
     body: {
       eventId: 981959,
@@ -173,7 +169,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceEventsAddEventToSpaceApiV1SpacesSpaceIdEventsPost failed:", res.error);
+    console.log("spaceEventsAdd failed:", res.error);
   }
 }
 
@@ -195,12 +191,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getEventSpacesApiV1EventsEventIdSpacesGet
+## getEventSpaces
 
 Get all spaces for a specific event.
 
@@ -219,17 +215,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="get_event_spaces_api_v1_events__event_id__spaces_get" method="get" path="/api/v1/events/{event_id}/spaces" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceEvents.getEventSpacesApiV1EventsEventIdSpacesGet({
+  const result = await linebundle.spaceEvents.getEventSpaces({
     eventId: 370745,
   });
 
@@ -244,27 +239,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceEventsGetEventSpacesApiV1EventsEventIdSpacesGet } from "openapi/funcs/space-events-get-event-spaces-api-v1-events-event-id-spaces-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceEventsGetEventSpaces } from "@linebundle-sdk/ts/funcs/space-events-get-event-spaces.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceEventsGetEventSpacesApiV1EventsEventIdSpacesGet(sdk, {
+  const res = await spaceEventsGetEventSpaces(linebundle, {
     eventId: 370745,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceEventsGetEventSpacesApiV1EventsEventIdSpacesGet failed:", res.error);
+    console.log("spaceEventsGetEventSpaces failed:", res.error);
   }
 }
 
@@ -286,12 +280,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getSpaceEventApiV1SpaceEventsSpaceEventIdGet
+## getById
 
 Get space event by ID.
 
@@ -308,17 +302,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="get_space_event_api_v1_space_events__space_event_id__get" method="get" path="/api/v1/space-events/{space_event_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceEvents.getSpaceEventApiV1SpaceEventsSpaceEventIdGet({
+  const result = await linebundle.spaceEvents.getById({
     spaceEventId: 303300,
   });
 
@@ -333,27 +326,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceEventsGetSpaceEventApiV1SpaceEventsSpaceEventIdGet } from "openapi/funcs/space-events-get-space-event-api-v1-space-events-space-event-id-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceEventsGetById } from "@linebundle-sdk/ts/funcs/space-events-get-by-id.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceEventsGetSpaceEventApiV1SpaceEventsSpaceEventIdGet(sdk, {
+  const res = await spaceEventsGetById(linebundle, {
     spaceEventId: 303300,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceEventsGetSpaceEventApiV1SpaceEventsSpaceEventIdGet failed:", res.error);
+    console.log("spaceEventsGetById failed:", res.error);
   }
 }
 
@@ -375,12 +367,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## removeEventFromSpaceApiV1SpaceEventsSpaceEventIdDelete
+## removeEvent
 
 Remove an event from a space.
 
@@ -397,17 +389,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="remove_event_from_space_api_v1_space_events__space_event_id__delete" method="delete" path="/api/v1/space-events/{space_event_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceEvents.removeEventFromSpaceApiV1SpaceEventsSpaceEventIdDelete({
+  const result = await linebundle.spaceEvents.removeEvent({
     spaceEventId: 627694,
   });
 
@@ -422,27 +413,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceEventsRemoveEventFromSpaceApiV1SpaceEventsSpaceEventIdDelete } from "openapi/funcs/space-events-remove-event-from-space-api-v1-space-events-space-event-id-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceEventsRemoveEvent } from "@linebundle-sdk/ts/funcs/space-events-remove-event.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceEventsRemoveEventFromSpaceApiV1SpaceEventsSpaceEventIdDelete(sdk, {
+  const res = await spaceEventsRemoveEvent(linebundle, {
     spaceEventId: 627694,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceEventsRemoveEventFromSpaceApiV1SpaceEventsSpaceEventIdDelete failed:", res.error);
+    console.log("spaceEventsRemoveEvent failed:", res.error);
   }
 }
 
@@ -464,12 +454,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## bulkAddEventsToSpaceApiV1SpacesSpaceIdEventsBulkPost
+## bulkAdd
 
 Add multiple events to a space.
 
@@ -487,17 +477,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="bulk_add_events_to_space_api_v1_spaces__space_id__events_bulk_post" method="post" path="/api/v1/spaces/{space_id}/events/bulk" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceEvents.bulkAddEventsToSpaceApiV1SpacesSpaceIdEventsBulkPost({
+  const result = await linebundle.spaceEvents.bulkAdd({
     spaceId: 415319,
     body: [
       84998,
@@ -516,20 +505,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceEventsBulkAddEventsToSpaceApiV1SpacesSpaceIdEventsBulkPost } from "openapi/funcs/space-events-bulk-add-events-to-space-api-v1-spaces-space-id-events-bulk-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceEventsBulkAdd } from "@linebundle-sdk/ts/funcs/space-events-bulk-add.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceEventsBulkAddEventsToSpaceApiV1SpacesSpaceIdEventsBulkPost(sdk, {
+  const res = await spaceEventsBulkAdd(linebundle, {
     spaceId: 415319,
     body: [
       84998,
@@ -540,7 +528,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceEventsBulkAddEventsToSpaceApiV1SpacesSpaceIdEventsBulkPost failed:", res.error);
+    console.log("spaceEventsBulkAdd failed:", res.error);
   }
 }
 
@@ -562,12 +550,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## bulkRemoveEventsFromSpaceApiV1SpacesSpaceIdEventsBulkDelete
+## bulkRemove
 
 Bulk remove events from a space.
 
@@ -585,17 +573,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="bulk_remove_events_from_space_api_v1_spaces__space_id__events_bulk_delete" method="delete" path="/api/v1/spaces/{space_id}/events/bulk" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceEvents.bulkRemoveEventsFromSpaceApiV1SpacesSpaceIdEventsBulkDelete({
+  const result = await linebundle.spaceEvents.bulkRemove({
     spaceId: 405270,
     eventIds: [
       175699,
@@ -613,20 +600,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceEventsBulkRemoveEventsFromSpaceApiV1SpacesSpaceIdEventsBulkDelete } from "openapi/funcs/space-events-bulk-remove-events-from-space-api-v1-spaces-space-id-events-bulk-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceEventsBulkRemove } from "@linebundle-sdk/ts/funcs/space-events-bulk-remove.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceEventsBulkRemoveEventsFromSpaceApiV1SpacesSpaceIdEventsBulkDelete(sdk, {
+  const res = await spaceEventsBulkRemove(linebundle, {
     spaceId: 405270,
     eventIds: [
       175699,
@@ -636,7 +622,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceEventsBulkRemoveEventsFromSpaceApiV1SpacesSpaceIdEventsBulkDelete failed:", res.error);
+    console.log("spaceEventsBulkRemove failed:", res.error);
   }
 }
 
@@ -658,12 +644,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## countSpaceEventsApiV1SpacesSpaceIdEventsCountGet
+## count
 
 Count events in a space.
 
@@ -680,17 +666,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="count_space_events_api_v1_spaces__space_id__events_count_get" method="get" path="/api/v1/spaces/{space_id}/events/count" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceEvents.countSpaceEventsApiV1SpacesSpaceIdEventsCountGet({
+  const result = await linebundle.spaceEvents.count({
     spaceId: 494382,
   });
 
@@ -705,27 +690,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceEventsCountSpaceEventsApiV1SpacesSpaceIdEventsCountGet } from "openapi/funcs/space-events-count-space-events-api-v1-spaces-space-id-events-count-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceEventsCount } from "@linebundle-sdk/ts/funcs/space-events-count.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceEventsCountSpaceEventsApiV1SpacesSpaceIdEventsCountGet(sdk, {
+  const res = await spaceEventsCount(linebundle, {
     spaceId: 494382,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceEventsCountSpaceEventsApiV1SpacesSpaceIdEventsCountGet failed:", res.error);
+    console.log("spaceEventsCount failed:", res.error);
   }
 }
 
@@ -747,7 +731,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

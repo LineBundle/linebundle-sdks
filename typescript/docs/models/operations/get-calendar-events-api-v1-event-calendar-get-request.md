@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetCalendarEventsApiV1EventCalendarGetRequest } from "openapi/models/operations";
+import { GetCalendarEventsApiV1EventCalendarGetRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: GetCalendarEventsApiV1EventCalendarGetRequest = {
   startDate: new Date("2026-10-07T15:03:38.544Z"),

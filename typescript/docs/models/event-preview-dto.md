@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { EventPreviewDTO } from "openapi/models";
+import { EventPreviewDTO } from "@linebundle-sdk/ts/models";
 
 let value: EventPreviewDTO = {
   id: 376440,

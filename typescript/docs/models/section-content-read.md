@@ -6,7 +6,7 @@ Used by `PATCH /content` and `GET /section/content`.
 ## Example Usage
 
 ```typescript
-import { SectionContentRead } from "openapi/models";
+import { SectionContentRead } from "@linebundle-sdk/ts/models";
 
 let value: SectionContentRead = {
   id: 838547,

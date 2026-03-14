@@ -6,7 +6,7 @@ Used by `PATCH /settings` and `GET /section/settings`.
 ## Example Usage
 
 ```typescript
-import { SectionSettingsRead } from "openapi/models";
+import { SectionSettingsRead } from "@linebundle-sdk/ts/models";
 
 let value: SectionSettingsRead = {
   id: 195173,

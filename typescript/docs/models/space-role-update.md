@@ -5,7 +5,7 @@ Space role update model
 ## Example Usage
 
 ```typescript
-import { SpaceRoleUpdate } from "openapi/models";
+import { SpaceRoleUpdate } from "@linebundle-sdk/ts/models";
 
 let value: SpaceRoleUpdate = {};
 ```

@@ -5,7 +5,7 @@ Pydantic model for creating a new space contact.
 ## Example Usage
 
 ```typescript
-import { SpaceContactCreate } from "openapi/models";
+import { SpaceContactCreate } from "@linebundle-sdk/ts/models";
 
 let value: SpaceContactCreate = {
   contactId: "57c84358-1e29-4f64-90c8-4bfc53a9663d",

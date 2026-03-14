@@ -5,7 +5,7 @@ Space inheritance configuration
 ## Example Usage
 
 ```typescript
-import { SpaceInheritanceSettings } from "openapi/models";
+import { SpaceInheritanceSettings } from "@linebundle-sdk/ts/models";
 
 let value: SpaceInheritanceSettings = {};
 ```

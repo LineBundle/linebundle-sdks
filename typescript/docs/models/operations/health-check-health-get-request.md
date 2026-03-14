@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { HealthCheckHealthGetRequest } from "openapi/models/operations";
+import { HealthCheckHealthGetRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: HealthCheckHealthGetRequest = {};
 ```

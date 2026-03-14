@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```python
-from openapi.models import SortBy
+from linebundle_sdk.models import SortBy
 value: SortBy = "id"
 ```
 

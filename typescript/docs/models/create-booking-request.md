@@ -5,7 +5,7 @@ Request schema for creating a booking
 ## Example Usage
 
 ```typescript
-import { CreateBookingRequest } from "openapi/models";
+import { CreateBookingRequest } from "@linebundle-sdk/ts/models";
 
 let value: CreateBookingRequest = {
   placeId: 469052,

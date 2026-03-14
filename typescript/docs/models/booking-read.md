@@ -5,7 +5,7 @@ Response schema for booking data
 ## Example Usage
 
 ```typescript
-import { BookingRead } from "openapi/models";
+import { BookingRead } from "@linebundle-sdk/ts/models";
 
 let value: BookingRead = {
   id: 533121,

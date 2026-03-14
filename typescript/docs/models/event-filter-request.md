@@ -5,7 +5,7 @@ Complete filter request for POST endpoint.
 ## Example Usage
 
 ```typescript
-import { EventFilterRequest } from "openapi/models";
+import { EventFilterRequest } from "@linebundle-sdk/ts/models";
 
 let value: EventFilterRequest = {
   sort: {

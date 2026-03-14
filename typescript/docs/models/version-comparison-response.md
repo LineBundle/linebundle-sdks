@@ -5,7 +5,7 @@ Response showing differences between two versions.
 ## Example Usage
 
 ```typescript
-import { VersionComparisonResponse } from "openapi/models";
+import { VersionComparisonResponse } from "@linebundle-sdk/ts/models";
 
 let value: VersionComparisonResponse = {
   spaceId: 123,

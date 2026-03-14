@@ -5,7 +5,7 @@ Enum representing different workflow types.
 ## Example Usage
 
 ```typescript
-import { WorkflowType } from "openapi/models";
+import { WorkflowType } from "@linebundle-sdk/ts/models";
 
 let value: WorkflowType = "sequential";
 

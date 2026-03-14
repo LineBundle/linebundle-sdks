@@ -5,7 +5,7 @@ Attendee information for API responses.
 ## Example Usage
 
 ```typescript
-import { AttendeeInfo } from "openapi/models";
+import { AttendeeInfo } from "@linebundle-sdk/ts/models";
 
 let value: AttendeeInfo = {
   id: "d7a1c22a-fae5-4708-a656-cc11aa6ab631",

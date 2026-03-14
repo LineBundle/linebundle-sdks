@@ -4,16 +4,16 @@
 
 ### Available Operations
 
-* [getEventAttendeesApiV1EventsEventIdAttendeesGet](#geteventattendeesapiv1eventseventidattendeesget) - Get Event Attendees
-* [addEventAttendeeApiV1EventsEventIdAttendeesPost](#addeventattendeeapiv1eventseventidattendeespost) - Add Event Attendee
-* [addEventAttendeesBulkApiV1EventsEventIdAttendeesBulkPost](#addeventattendeesbulkapiv1eventseventidattendeesbulkpost) - Add Event Attendees Bulk
-* [removeEventAttendeesBulkApiV1EventsEventIdAttendeesBulkDelete](#removeeventattendeesbulkapiv1eventseventidattendeesbulkdelete) - Remove Event Attendees Bulk
-* [updateEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdPut](#updateeventattendeeapiv1eventseventidattendeesattendeeidput) - Update Event Attendee
-* [removeEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdDelete](#removeeventattendeeapiv1eventseventidattendeesattendeeiddelete) - Remove Event Attendee
-* [checkInAttendeeApiV1EventsEventIdAttendeesAttendeeIdCheckInPost](#checkinattendeeapiv1eventseventidattendeesattendeeidcheckinpost) - Check In Attendee
-* [updateAttendeesStatusBulkApiV1EventsEventIdAttendeesBulkStatusPatch](#updateattendeesstatusbulkapiv1eventseventidattendeesbulkstatuspatch) - Update Attendees Status Bulk
+* [get](#get) - Get Event Attendees
+* [add](#add) - Add Event Attendee
+* [addBulk](#addbulk) - Add Event Attendees Bulk
+* [removeBulk](#removebulk) - Remove Event Attendees Bulk
+* [update](#update) - Update Event Attendee
+* [remove](#remove) - Remove Event Attendee
+* [checkIn](#checkin) - Check In Attendee
+* [updateBulkStatus](#updatebulkstatus) - Update Attendees Status Bulk
 
-## getEventAttendeesApiV1EventsEventIdAttendeesGet
+## get
 
 Get all attendees for a specific event.
 
@@ -23,17 +23,16 @@ Supports filtering by status and check-in status.
 
 <!-- UsageSnippet language="typescript" operationID="get_event_attendees_api_v1_events__event_id__attendees_get" method="get" path="/api/v1/events/{event_id}/attendees" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventAttendees.getEventAttendeesApiV1EventsEventIdAttendeesGet({
+  const result = await linebundle.eventAttendees.get({
     eventId: 166052,
   });
 
@@ -48,27 +47,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventAttendeesGetEventAttendeesApiV1EventsEventIdAttendeesGet } from "openapi/funcs/event-attendees-get-event-attendees-api-v1-events-event-id-attendees-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventAttendeesGet } from "@linebundle-sdk/ts/funcs/event-attendees-get.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventAttendeesGetEventAttendeesApiV1EventsEventIdAttendeesGet(sdk, {
+  const res = await eventAttendeesGet(linebundle, {
     eventId: 166052,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventAttendeesGetEventAttendeesApiV1EventsEventIdAttendeesGet failed:", res.error);
+    console.log("eventAttendeesGet failed:", res.error);
   }
 }
 
@@ -90,12 +88,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## addEventAttendeeApiV1EventsEventIdAttendeesPost
+## add
 
 Add a contact as an attendee to an event.
 
@@ -105,17 +103,16 @@ The contact must belong to the user's contact list (personal or org).
 
 <!-- UsageSnippet language="typescript" operationID="add_event_attendee_api_v1_events__event_id__attendees_post" method="post" path="/api/v1/events/{event_id}/attendees" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventAttendees.addEventAttendeeApiV1EventsEventIdAttendeesPost({
+  const result = await linebundle.eventAttendees.add({
     eventId: 498036,
     body: {
       contactId: "3bb3695d-0966-4dbe-932b-7dc6fabed4dc",
@@ -133,20 +130,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventAttendeesAddEventAttendeeApiV1EventsEventIdAttendeesPost } from "openapi/funcs/event-attendees-add-event-attendee-api-v1-events-event-id-attendees-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventAttendeesAdd } from "@linebundle-sdk/ts/funcs/event-attendees-add.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventAttendeesAddEventAttendeeApiV1EventsEventIdAttendeesPost(sdk, {
+  const res = await eventAttendeesAdd(linebundle, {
     eventId: 498036,
     body: {
       contactId: "3bb3695d-0966-4dbe-932b-7dc6fabed4dc",
@@ -156,7 +152,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventAttendeesAddEventAttendeeApiV1EventsEventIdAttendeesPost failed:", res.error);
+    console.log("eventAttendeesAdd failed:", res.error);
   }
 }
 
@@ -178,12 +174,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## addEventAttendeesBulkApiV1EventsEventIdAttendeesBulkPost
+## addBulk
 
 Add multiple contacts as attendees to an event.
 
@@ -193,17 +189,16 @@ All contacts must belong to the user's contact list.
 
 <!-- UsageSnippet language="typescript" operationID="add_event_attendees_bulk_api_v1_events__event_id__attendees_bulk_post" method="post" path="/api/v1/events/{event_id}/attendees/bulk" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventAttendees.addEventAttendeesBulkApiV1EventsEventIdAttendeesBulkPost({
+  const result = await linebundle.eventAttendees.addBulk({
     eventId: 225763,
     body: [
       "5586f6bd-5f3b-4260-9df8-43124b6bacc2",
@@ -222,20 +217,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventAttendeesAddEventAttendeesBulkApiV1EventsEventIdAttendeesBulkPost } from "openapi/funcs/event-attendees-add-event-attendees-bulk-api-v1-events-event-id-attendees-bulk-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventAttendeesAddBulk } from "@linebundle-sdk/ts/funcs/event-attendees-add-bulk.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventAttendeesAddEventAttendeesBulkApiV1EventsEventIdAttendeesBulkPost(sdk, {
+  const res = await eventAttendeesAddBulk(linebundle, {
     eventId: 225763,
     body: [
       "5586f6bd-5f3b-4260-9df8-43124b6bacc2",
@@ -246,7 +240,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventAttendeesAddEventAttendeesBulkApiV1EventsEventIdAttendeesBulkPost failed:", res.error);
+    console.log("eventAttendeesAddBulk failed:", res.error);
   }
 }
 
@@ -268,12 +262,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## removeEventAttendeesBulkApiV1EventsEventIdAttendeesBulkDelete
+## removeBulk
 
 Remove multiple attendees from an event.
 
@@ -281,17 +275,16 @@ Remove multiple attendees from an event.
 
 <!-- UsageSnippet language="typescript" operationID="remove_event_attendees_bulk_api_v1_events__event_id__attendees_bulk_delete" method="delete" path="/api/v1/events/{event_id}/attendees/bulk" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventAttendees.removeEventAttendeesBulkApiV1EventsEventIdAttendeesBulkDelete({
+  const result = await linebundle.eventAttendees.removeBulk({
     eventId: 648531,
     body: [
       "6c68acd7-d9c9-465c-b5aa-1d5c0568d624",
@@ -309,20 +302,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventAttendeesRemoveEventAttendeesBulkApiV1EventsEventIdAttendeesBulkDelete } from "openapi/funcs/event-attendees-remove-event-attendees-bulk-api-v1-events-event-id-attendees-bulk-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventAttendeesRemoveBulk } from "@linebundle-sdk/ts/funcs/event-attendees-remove-bulk.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventAttendeesRemoveEventAttendeesBulkApiV1EventsEventIdAttendeesBulkDelete(sdk, {
+  const res = await eventAttendeesRemoveBulk(linebundle, {
     eventId: 648531,
     body: [
       "6c68acd7-d9c9-465c-b5aa-1d5c0568d624",
@@ -332,7 +324,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventAttendeesRemoveEventAttendeesBulkApiV1EventsEventIdAttendeesBulkDelete failed:", res.error);
+    console.log("eventAttendeesRemoveBulk failed:", res.error);
   }
 }
 
@@ -354,12 +346,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## updateEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdPut
+## update
 
 Update an attendee's information (status, notes, check-in status).
 
@@ -367,17 +359,16 @@ Update an attendee's information (status, notes, check-in status).
 
 <!-- UsageSnippet language="typescript" operationID="update_event_attendee_api_v1_events__event_id__attendees__attendee_id__put" method="put" path="/api/v1/events/{event_id}/attendees/{attendee_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventAttendees.updateEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdPut({
+  const result = await linebundle.eventAttendees.update({
     eventId: 976136,
     attendeeId: 914331,
     body: {},
@@ -394,20 +385,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventAttendeesUpdateEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdPut } from "openapi/funcs/event-attendees-update-event-attendee-api-v1-events-event-id-attendees-attendee-id-put.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventAttendeesUpdate } from "@linebundle-sdk/ts/funcs/event-attendees-update.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventAttendeesUpdateEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdPut(sdk, {
+  const res = await eventAttendeesUpdate(linebundle, {
     eventId: 976136,
     attendeeId: 914331,
     body: {},
@@ -416,7 +406,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventAttendeesUpdateEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdPut failed:", res.error);
+    console.log("eventAttendeesUpdate failed:", res.error);
   }
 }
 
@@ -438,12 +428,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## removeEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdDelete
+## remove
 
 Remove an attendee from an event.
 
@@ -451,17 +441,16 @@ Remove an attendee from an event.
 
 <!-- UsageSnippet language="typescript" operationID="remove_event_attendee_api_v1_events__event_id__attendees__attendee_id__delete" method="delete" path="/api/v1/events/{event_id}/attendees/{attendee_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  await sdk.eventAttendees.removeEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdDelete({
+  await linebundle.eventAttendees.remove({
     eventId: 727478,
     attendeeId: 297527,
   });
@@ -477,20 +466,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventAttendeesRemoveEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdDelete } from "openapi/funcs/event-attendees-remove-event-attendee-api-v1-events-event-id-attendees-attendee-id-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventAttendeesRemove } from "@linebundle-sdk/ts/funcs/event-attendees-remove.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventAttendeesRemoveEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdDelete(sdk, {
+  const res = await eventAttendeesRemove(linebundle, {
     eventId: 727478,
     attendeeId: 297527,
   });
@@ -498,7 +486,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("eventAttendeesRemoveEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdDelete failed:", res.error);
+    console.log("eventAttendeesRemove failed:", res.error);
   }
 }
 
@@ -520,12 +508,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## checkInAttendeeApiV1EventsEventIdAttendeesAttendeeIdCheckInPost
+## checkIn
 
 Check in an attendee to the event.
 
@@ -533,17 +521,16 @@ Check in an attendee to the event.
 
 <!-- UsageSnippet language="typescript" operationID="check_in_attendee_api_v1_events__event_id__attendees__attendee_id__check_in_post" method="post" path="/api/v1/events/{event_id}/attendees/{attendee_id}/check-in" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventAttendees.checkInAttendeeApiV1EventsEventIdAttendeesAttendeeIdCheckInPost({
+  const result = await linebundle.eventAttendees.checkIn({
     eventId: 860811,
     attendeeId: 571354,
   });
@@ -559,20 +546,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventAttendeesCheckInAttendeeApiV1EventsEventIdAttendeesAttendeeIdCheckInPost } from "openapi/funcs/event-attendees-check-in-attendee-api-v1-events-event-id-attendees-attendee-id-check-in-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventAttendeesCheckIn } from "@linebundle-sdk/ts/funcs/event-attendees-check-in.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventAttendeesCheckInAttendeeApiV1EventsEventIdAttendeesAttendeeIdCheckInPost(sdk, {
+  const res = await eventAttendeesCheckIn(linebundle, {
     eventId: 860811,
     attendeeId: 571354,
   });
@@ -580,7 +566,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventAttendeesCheckInAttendeeApiV1EventsEventIdAttendeesAttendeeIdCheckInPost failed:", res.error);
+    console.log("eventAttendeesCheckIn failed:", res.error);
   }
 }
 
@@ -602,12 +588,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## updateAttendeesStatusBulkApiV1EventsEventIdAttendeesBulkStatusPatch
+## updateBulkStatus
 
 Update status for multiple attendees at once.
 
@@ -615,17 +601,16 @@ Update status for multiple attendees at once.
 
 <!-- UsageSnippet language="typescript" operationID="update_attendees_status_bulk_api_v1_events__event_id__attendees_bulk_status_patch" method="patch" path="/api/v1/events/{event_id}/attendees/bulk/status" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventAttendees.updateAttendeesStatusBulkApiV1EventsEventIdAttendeesBulkStatusPatch({
+  const result = await linebundle.eventAttendees.updateBulkStatus({
     eventId: 891138,
     status: "tentative",
     body: [
@@ -644,22 +629,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import {
-  eventAttendeesUpdateAttendeesStatusBulkApiV1EventsEventIdAttendeesBulkStatusPatch,
-} from "openapi/funcs/event-attendees-update-attendees-status-bulk-api-v1-events-event-id-attendees-bulk-status-patch.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventAttendeesUpdateBulkStatus } from "@linebundle-sdk/ts/funcs/event-attendees-update-bulk-status.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventAttendeesUpdateAttendeesStatusBulkApiV1EventsEventIdAttendeesBulkStatusPatch(sdk, {
+  const res = await eventAttendeesUpdateBulkStatus(linebundle, {
     eventId: 891138,
     status: "tentative",
     body: [
@@ -670,7 +652,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventAttendeesUpdateAttendeesStatusBulkApiV1EventsEventIdAttendeesBulkStatusPatch failed:", res.error);
+    console.log("eventAttendeesUpdateBulkStatus failed:", res.error);
   }
 }
 
@@ -692,7 +674,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

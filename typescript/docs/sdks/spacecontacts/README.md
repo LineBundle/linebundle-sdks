@@ -4,16 +4,16 @@
 
 ### Available Operations
 
-* [getSpaceContactsApiV1SpacesSpaceIdContactsGet](#getspacecontactsapiv1spacesspaceidcontactsget) - Get Space Contacts
-* [addContactToSpaceApiV1SpacesSpaceIdContactsPost](#addcontacttospaceapiv1spacesspaceidcontactspost) - Add Contact To Space
-* [getContactSpacesApiV1ContactsContactIdSpacesGet](#getcontactspacesapiv1contactscontactidspacesget) - Get Contact Spaces
-* [getSpaceContactApiV1SpaceContactsSpaceContactIdGet](#getspacecontactapiv1spacecontactsspacecontactidget) - Get Space Contact
-* [removeContactFromSpaceApiV1SpaceContactsSpaceContactIdDelete](#removecontactfromspaceapiv1spacecontactsspacecontactiddelete) - Remove Contact From Space
-* [bulkAddContactsToSpaceApiV1SpacesSpaceIdContactsBulkPost](#bulkaddcontactstospaceapiv1spacesspaceidcontactsbulkpost) - Bulk Add Contacts To Space
-* [bulkRemoveContactsFromSpaceApiV1SpacesSpaceIdContactsBulkDelete](#bulkremovecontactsfromspaceapiv1spacesspaceidcontactsbulkdelete) - Bulk Remove Contacts From Space
-* [countSpaceContactsApiV1SpacesSpaceIdContactsCountGet](#countspacecontactsapiv1spacesspaceidcontactscountget) - Count Space Contacts
+* [getContactsBySpace](#getcontactsbyspace) - Get Space Contacts
+* [add](#add) - Add Contact To Space
+* [getSpacesByContact](#getspacesbycontact) - Get Contact Spaces
+* [get](#get) - Get Space Contact
+* [remove](#remove) - Remove Contact From Space
+* [addBulk](#addbulk) - Bulk Add Contacts To Space
+* [bulkDelete](#bulkdelete) - Bulk Remove Contacts From Space
+* [count](#count) - Count Space Contacts
 
-## getSpaceContactsApiV1SpacesSpaceIdContactsGet
+## getContactsBySpace
 
 Get all contacts for a specific space.
 
@@ -32,17 +32,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="get_space_contacts_api_v1_spaces__space_id__contacts_get" method="get" path="/api/v1/spaces/{space_id}/contacts" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceContacts.getSpaceContactsApiV1SpacesSpaceIdContactsGet({
+  const result = await linebundle.spaceContacts.getContactsBySpace({
     spaceId: 260446,
   });
 
@@ -57,27 +56,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceContactsGetSpaceContactsApiV1SpacesSpaceIdContactsGet } from "openapi/funcs/space-contacts-get-space-contacts-api-v1-spaces-space-id-contacts-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceContactsGetContactsBySpace } from "@linebundle-sdk/ts/funcs/space-contacts-get-contacts-by-space.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceContactsGetSpaceContactsApiV1SpacesSpaceIdContactsGet(sdk, {
+  const res = await spaceContactsGetContactsBySpace(linebundle, {
     spaceId: 260446,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceContactsGetSpaceContactsApiV1SpacesSpaceIdContactsGet failed:", res.error);
+    console.log("spaceContactsGetContactsBySpace failed:", res.error);
   }
 }
 
@@ -99,12 +97,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## addContactToSpaceApiV1SpacesSpaceIdContactsPost
+## add
 
 Add a contact to a space.
 
@@ -122,17 +120,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="add_contact_to_space_api_v1_spaces__space_id__contacts_post" method="post" path="/api/v1/spaces/{space_id}/contacts" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceContacts.addContactToSpaceApiV1SpacesSpaceIdContactsPost({
+  const result = await linebundle.spaceContacts.add({
     spaceId: 503177,
     body: {
       contactId: "c7b4bc6c-dbde-4dd7-b30c-c1ae77fc4016",
@@ -150,20 +147,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceContactsAddContactToSpaceApiV1SpacesSpaceIdContactsPost } from "openapi/funcs/space-contacts-add-contact-to-space-api-v1-spaces-space-id-contacts-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceContactsAdd } from "@linebundle-sdk/ts/funcs/space-contacts-add.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceContactsAddContactToSpaceApiV1SpacesSpaceIdContactsPost(sdk, {
+  const res = await spaceContactsAdd(linebundle, {
     spaceId: 503177,
     body: {
       contactId: "c7b4bc6c-dbde-4dd7-b30c-c1ae77fc4016",
@@ -173,7 +169,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceContactsAddContactToSpaceApiV1SpacesSpaceIdContactsPost failed:", res.error);
+    console.log("spaceContactsAdd failed:", res.error);
   }
 }
 
@@ -195,12 +191,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getContactSpacesApiV1ContactsContactIdSpacesGet
+## getSpacesByContact
 
 Get all spaces for a specific contact.
 
@@ -219,17 +215,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="get_contact_spaces_api_v1_contacts__contact_id__spaces_get" method="get" path="/api/v1/contacts/{contact_id}/spaces" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceContacts.getContactSpacesApiV1ContactsContactIdSpacesGet({
+  const result = await linebundle.spaceContacts.getSpacesByContact({
     contactId: "9bb1f2eb-c6ab-4c76-a1d4-ff656e5f0d1e",
   });
 
@@ -244,27 +239,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceContactsGetContactSpacesApiV1ContactsContactIdSpacesGet } from "openapi/funcs/space-contacts-get-contact-spaces-api-v1-contacts-contact-id-spaces-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceContactsGetSpacesByContact } from "@linebundle-sdk/ts/funcs/space-contacts-get-spaces-by-contact.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceContactsGetContactSpacesApiV1ContactsContactIdSpacesGet(sdk, {
+  const res = await spaceContactsGetSpacesByContact(linebundle, {
     contactId: "9bb1f2eb-c6ab-4c76-a1d4-ff656e5f0d1e",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceContactsGetContactSpacesApiV1ContactsContactIdSpacesGet failed:", res.error);
+    console.log("spaceContactsGetSpacesByContact failed:", res.error);
   }
 }
 
@@ -286,12 +280,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getSpaceContactApiV1SpaceContactsSpaceContactIdGet
+## get
 
 Get space contact by ID.
 
@@ -308,17 +302,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="get_space_contact_api_v1_space_contacts__space_contact_id__get" method="get" path="/api/v1/space-contacts/{space_contact_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceContacts.getSpaceContactApiV1SpaceContactsSpaceContactIdGet({
+  const result = await linebundle.spaceContacts.get({
     spaceContactId: 402469,
   });
 
@@ -333,27 +326,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceContactsGetSpaceContactApiV1SpaceContactsSpaceContactIdGet } from "openapi/funcs/space-contacts-get-space-contact-api-v1-space-contacts-space-contact-id-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceContactsGet } from "@linebundle-sdk/ts/funcs/space-contacts-get.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceContactsGetSpaceContactApiV1SpaceContactsSpaceContactIdGet(sdk, {
+  const res = await spaceContactsGet(linebundle, {
     spaceContactId: 402469,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceContactsGetSpaceContactApiV1SpaceContactsSpaceContactIdGet failed:", res.error);
+    console.log("spaceContactsGet failed:", res.error);
   }
 }
 
@@ -375,12 +367,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## removeContactFromSpaceApiV1SpaceContactsSpaceContactIdDelete
+## remove
 
 Remove a contact from a space.
 
@@ -397,17 +389,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="remove_contact_from_space_api_v1_space_contacts__space_contact_id__delete" method="delete" path="/api/v1/space-contacts/{space_contact_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceContacts.removeContactFromSpaceApiV1SpaceContactsSpaceContactIdDelete({
+  const result = await linebundle.spaceContacts.remove({
     spaceContactId: 481359,
   });
 
@@ -422,27 +413,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceContactsRemoveContactFromSpaceApiV1SpaceContactsSpaceContactIdDelete } from "openapi/funcs/space-contacts-remove-contact-from-space-api-v1-space-contacts-space-contact-id-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceContactsRemove } from "@linebundle-sdk/ts/funcs/space-contacts-remove.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceContactsRemoveContactFromSpaceApiV1SpaceContactsSpaceContactIdDelete(sdk, {
+  const res = await spaceContactsRemove(linebundle, {
     spaceContactId: 481359,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceContactsRemoveContactFromSpaceApiV1SpaceContactsSpaceContactIdDelete failed:", res.error);
+    console.log("spaceContactsRemove failed:", res.error);
   }
 }
 
@@ -464,12 +454,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## bulkAddContactsToSpaceApiV1SpacesSpaceIdContactsBulkPost
+## addBulk
 
 Add multiple contacts to a space.
 
@@ -487,17 +477,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="bulk_add_contacts_to_space_api_v1_spaces__space_id__contacts_bulk_post" method="post" path="/api/v1/spaces/{space_id}/contacts/bulk" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceContacts.bulkAddContactsToSpaceApiV1SpacesSpaceIdContactsBulkPost({
+  const result = await linebundle.spaceContacts.addBulk({
     spaceId: 857341,
     body: [
       "db6728a0-7d85-4190-831b-7c7f94249f7d",
@@ -515,20 +504,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceContactsBulkAddContactsToSpaceApiV1SpacesSpaceIdContactsBulkPost } from "openapi/funcs/space-contacts-bulk-add-contacts-to-space-api-v1-spaces-space-id-contacts-bulk-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceContactsAddBulk } from "@linebundle-sdk/ts/funcs/space-contacts-add-bulk.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceContactsBulkAddContactsToSpaceApiV1SpacesSpaceIdContactsBulkPost(sdk, {
+  const res = await spaceContactsAddBulk(linebundle, {
     spaceId: 857341,
     body: [
       "db6728a0-7d85-4190-831b-7c7f94249f7d",
@@ -538,7 +526,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceContactsBulkAddContactsToSpaceApiV1SpacesSpaceIdContactsBulkPost failed:", res.error);
+    console.log("spaceContactsAddBulk failed:", res.error);
   }
 }
 
@@ -560,12 +548,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## bulkRemoveContactsFromSpaceApiV1SpacesSpaceIdContactsBulkDelete
+## bulkDelete
 
 Bulk remove contacts from a space.
 
@@ -583,17 +571,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="bulk_remove_contacts_from_space_api_v1_spaces__space_id__contacts_bulk_delete" method="delete" path="/api/v1/spaces/{space_id}/contacts/bulk" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceContacts.bulkRemoveContactsFromSpaceApiV1SpacesSpaceIdContactsBulkDelete({
+  const result = await linebundle.spaceContacts.bulkDelete({
     spaceId: 618570,
     body: [
       "bffc934c-a67d-47d1-871d-d9ac0d11e2d8",
@@ -612,20 +599,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceContactsBulkRemoveContactsFromSpaceApiV1SpacesSpaceIdContactsBulkDelete } from "openapi/funcs/space-contacts-bulk-remove-contacts-from-space-api-v1-spaces-space-id-contacts-bulk-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceContactsBulkDelete } from "@linebundle-sdk/ts/funcs/space-contacts-bulk-delete.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceContactsBulkRemoveContactsFromSpaceApiV1SpacesSpaceIdContactsBulkDelete(sdk, {
+  const res = await spaceContactsBulkDelete(linebundle, {
     spaceId: 618570,
     body: [
       "bffc934c-a67d-47d1-871d-d9ac0d11e2d8",
@@ -636,7 +622,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceContactsBulkRemoveContactsFromSpaceApiV1SpacesSpaceIdContactsBulkDelete failed:", res.error);
+    console.log("spaceContactsBulkDelete failed:", res.error);
   }
 }
 
@@ -658,12 +644,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## countSpaceContactsApiV1SpacesSpaceIdContactsCountGet
+## count
 
 Count contacts in a space.
 
@@ -680,17 +666,16 @@ Returns:
 
 <!-- UsageSnippet language="typescript" operationID="count_space_contacts_api_v1_spaces__space_id__contacts_count_get" method="get" path="/api/v1/spaces/{space_id}/contacts/count" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceContacts.countSpaceContactsApiV1SpacesSpaceIdContactsCountGet({
+  const result = await linebundle.spaceContacts.count({
     spaceId: 42492,
   });
 
@@ -705,27 +690,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceContactsCountSpaceContactsApiV1SpacesSpaceIdContactsCountGet } from "openapi/funcs/space-contacts-count-space-contacts-api-v1-spaces-space-id-contacts-count-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceContactsCount } from "@linebundle-sdk/ts/funcs/space-contacts-count.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceContactsCountSpaceContactsApiV1SpacesSpaceIdContactsCountGet(sdk, {
+  const res = await spaceContactsCount(linebundle, {
     spaceId: 42492,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceContactsCountSpaceContactsApiV1SpacesSpaceIdContactsCountGet failed:", res.error);
+    console.log("spaceContactsCount failed:", res.error);
   }
 }
 
@@ -747,7 +731,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

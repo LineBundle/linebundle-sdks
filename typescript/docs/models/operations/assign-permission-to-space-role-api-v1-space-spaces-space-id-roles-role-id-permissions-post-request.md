@@ -5,7 +5,7 @@
 ```typescript
 import {
   AssignPermissionToSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdPermissionsPostRequest,
-} from "openapi/models/operations";
+} from "@linebundle-sdk/ts/models/operations";
 
 let value:
   AssignPermissionToSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdPermissionsPostRequest =

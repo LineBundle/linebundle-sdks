@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PulseDTO } from "openapi/models";
+import { PulseDTO } from "@linebundle-sdk/ts/models";
 
 let value: PulseDTO = {
   members: {},

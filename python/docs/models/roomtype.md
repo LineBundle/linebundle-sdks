@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```python
-from openapi.models import RoomType
+from linebundle_sdk.models import RoomType
 
 # Open enum: unrecognized values are captured as UnrecognizedStr
 value: RoomType = "direct"

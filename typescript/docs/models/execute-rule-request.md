@@ -5,7 +5,7 @@ Request to manually execute a rule.
 ## Example Usage
 
 ```typescript
-import { ExecuteRuleRequest } from "openapi/models";
+import { ExecuteRuleRequest } from "@linebundle-sdk/ts/models";
 
 let value: ExecuteRuleRequest = {};
 ```

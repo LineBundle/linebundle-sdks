@@ -4,9 +4,10 @@
 
 ### Available Operations
 
-* [automationHealthCheckApiV1AutomationHealthGet](#automationhealthcheckapiv1automationhealthget) - Automation Health Check
+* [checkAutomation](#checkautomation) - Automation Health Check
+* [check](#check) - Health Check
 
-## automationHealthCheckApiV1AutomationHealthGet
+## checkAutomation
 
 Health check for automation system.
 
@@ -20,17 +21,16 @@ Checks:
 
 <!-- UsageSnippet language="typescript" operationID="automation_health_check_api_v1_automation_health_get" method="get" path="/api/v1/automation/health" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.health.automationHealthCheckApiV1AutomationHealthGet();
+  const result = await linebundle.health.checkAutomation();
 
   console.log(result);
 }
@@ -43,25 +43,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { automationRulesAutomationHealthCheckApiV1AutomationHealthGet } from "openapi/funcs/automation-rules-automation-health-check-api-v1-automation-health-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { healthCheckAutomation } from "@linebundle-sdk/ts/funcs/health-check-automation.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await automationRulesAutomationHealthCheckApiV1AutomationHealthGet(sdk);
+  const res = await healthCheckAutomation(linebundle);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("automationRulesAutomationHealthCheckApiV1AutomationHealthGet failed:", res.error);
+    console.log("healthCheckAutomation failed:", res.error);
   }
 }
 
@@ -82,6 +81,85 @@ run();
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
+
+## check
+
+Health endpoint.
+
+- Default (`/health` or `/health?shallow=true`) is **liveness**: fast, no external deps.
+- Optional (`/health?deep=true` or `/health?shallow=false`) performs **readiness** checks.
+
+Readiness only treats DB + Redis as critical. Other checks are informational/skipped.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="health_check_health_get" method="get" path="/health" -->
+```typescript
+import { Linebundle } from "@linebundle-sdk/ts";
+
+const linebundle = new Linebundle({
+  security: {
+    oidc: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const result = await linebundle.health.check({});
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { healthCheck } from "@linebundle-sdk/ts/funcs/health-check.js";
+
+// Use `LinebundleCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const linebundle = new LinebundleCore({
+  security: {
+    oidc: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await healthCheck(linebundle, {});
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("healthCheck failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.HealthCheckHealthGetRequest](../../models/operations/health-check-health-get-request.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[any](../../models/.md)\>**
+
+### Errors
+
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

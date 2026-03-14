@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteRequest } from "openapi/models/operations";
+import { UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value:
   UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteRequest = {

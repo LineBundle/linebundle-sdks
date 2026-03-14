@@ -3,10 +3,10 @@
  */
 
 import * as z from "zod/v4/core";
-import { SDKError } from "./sdk-error.js";
+import { LinebundleError } from "./linebundle-error.js";
 import { formatZodError } from "./sdk-validation-error.js";
 
-export class ResponseValidationError extends SDKError {
+export class ResponseValidationError extends LinebundleError {
   /**
    * The raw value that failed validation.
    */

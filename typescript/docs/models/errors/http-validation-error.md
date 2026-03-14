@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { HTTPValidationError } from "openapi/models/errors";
+import { HTTPValidationError } from "@linebundle-sdk/ts/models/errors";
 
 // No examples available for this model
 ```

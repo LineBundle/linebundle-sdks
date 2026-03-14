@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { RoleListResponse } from "openapi/models";
+import { RoleListResponse } from "@linebundle-sdk/ts/models";
 
 let value: RoleListResponse = {
   id: "5ab7258a-6cb6-435e-a598-00d69494de27",

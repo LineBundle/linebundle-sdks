@@ -5,7 +5,7 @@ Enum representing AI agent session status.
 ## Example Usage
 
 ```typescript
-import { SessionStatus } from "openapi/models";
+import { SessionStatus } from "@linebundle-sdk/ts/models";
 
 let value: SessionStatus = "deleted";
 

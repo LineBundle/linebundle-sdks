@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetAnalyticTotalsDto } from "openapi/models";
+import { GetAnalyticTotalsDto } from "@linebundle-sdk/ts/models";
 
 let value: GetAnalyticTotalsDto = {
   event: {

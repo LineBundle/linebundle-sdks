@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { RollbackSpaceApiV1SpaceSpaceIdRollbackPostRequest } from "openapi/models/operations";
+import { RollbackSpaceApiV1SpaceSpaceIdRollbackPostRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: RollbackSpaceApiV1SpaceSpaceIdRollbackPostRequest = {
   spaceId: 263026,

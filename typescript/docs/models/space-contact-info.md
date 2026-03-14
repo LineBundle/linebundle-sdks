@@ -5,7 +5,7 @@ Space contact information for API responses.
 ## Example Usage
 
 ```typescript
-import { SpaceContactInfo } from "openapi/models";
+import { SpaceContactInfo } from "@linebundle-sdk/ts/models";
 
 let value: SpaceContactInfo = {
   id: "80cee6fd-e181-4107-a77a-5b4389a14491",

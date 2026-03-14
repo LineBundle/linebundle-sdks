@@ -4,27 +4,26 @@
 
 ### Available Operations
 
-* [get_latest_public_event_version_api_v1_public_event_event_id_versions_latest_get](#get_latest_public_event_version_api_v1_public_event_event_id_versions_latest_get) - Get Latest Event Version (Public Access)
+* [get_latest_version](#get_latest_version) - Get Latest Event Version (Public Access)
 
-## get_latest_public_event_version_api_v1_public_event_event_id_versions_latest_get
+## get_latest_version
 
 Get the most recent published version of an event. Supports unauthenticated access for PUBLIC events.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="get_latest_public_event_version_api_v1_public_event__event_id__versions_latest_get" method="get" path="/api/v1/public/event/{event_id}/versions/latest" -->
+<!-- UsageSnippet language="python" operationID="getLatestPublicEventVersion" method="get" path="/api/v1/public/event/{event_id}/versions/latest" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.public_events.get_latest_public_event_version_api_v1_public_event_event_id_versions_latest_get(event_id=291072)
+    res = linebundle.public_events.get_latest_version(event_id=75825)
 
     # Handle response
     print(res)
@@ -44,7 +43,7 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

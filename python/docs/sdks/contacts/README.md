@@ -4,15 +4,15 @@
 
 ### Available Operations
 
-* [list_contacts_api_v1_contacts_get](#list_contacts_api_v1_contacts_get) - List Contacts
-* [create_contact_api_v1_contacts_post](#create_contact_api_v1_contacts_post) - Create Contact
-* [search_contacts_api_v1_contacts_search_get](#search_contacts_api_v1_contacts_search_get) - Search Contacts
-* [get_contact_api_v1_contacts_contact_id_get](#get_contact_api_v1_contacts_contact_id_get) - Get Contact
-* [update_contact_api_v1_contacts_contact_id_put](#update_contact_api_v1_contacts_contact_id_put) - Update Contact
-* [delete_contact_api_v1_contacts_contact_id_delete](#delete_contact_api_v1_contacts_contact_id_delete) - Delete Contact
-* [toggle_favorite_api_v1_contacts_contact_id_favorite_patch](#toggle_favorite_api_v1_contacts_contact_id_favorite_patch) - Toggle Favorite
+* [list](#list) - List Contacts
+* [create](#create) - Create Contact
+* [search](#search) - Search Contacts
+* [get](#get) - Get Contact
+* [update](#update) - Update Contact
+* [delete](#delete) - Delete Contact
+* [toggle_favorite](#toggle_favorite) - Toggle Favorite
 
-## list_contacts_api_v1_contacts_get
+## list
 
 List all contacts for the current user with tenant isolation.
 
@@ -20,17 +20,16 @@ List all contacts for the current user with tenant isolation.
 
 <!-- UsageSnippet language="python" operationID="list_contacts_api_v1_contacts_get" method="get" path="/api/v1/contacts" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.contacts.list_contacts_api_v1_contacts_get(limit=50, offset=0)
+    res = linebundle.contacts.list(limit=50, offset=0)
 
     # Handle response
     print(res)
@@ -54,12 +53,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## create_contact_api_v1_contacts_post
+## create
 
 Create a new contact.
 
@@ -67,17 +66,16 @@ Create a new contact.
 
 <!-- UsageSnippet language="python" operationID="create_contact_api_v1_contacts_post" method="post" path="/api/v1/contacts" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.contacts.create_contact_api_v1_contacts_post(is_favorite=False)
+    res = linebundle.contacts.create(is_favorite=False)
 
     # Handle response
     print(res)
@@ -119,12 +117,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## search_contacts_api_v1_contacts_search_get
+## search
 
 Search contacts by query string with tenant isolation.
 
@@ -132,17 +130,16 @@ Search contacts by query string with tenant isolation.
 
 <!-- UsageSnippet language="python" operationID="search_contacts_api_v1_contacts_search_get" method="get" path="/api/v1/contacts/search" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.contacts.search_contacts_api_v1_contacts_search_get(query="<value>", limit=20, offset=0)
+    res = linebundle.contacts.search(query="<value>", limit=20, offset=0)
 
     # Handle response
     print(res)
@@ -164,12 +161,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_contact_api_v1_contacts_contact_id_get
+## get
 
 Get a specific contact by ID.
 
@@ -177,17 +174,16 @@ Get a specific contact by ID.
 
 <!-- UsageSnippet language="python" operationID="get_contact_api_v1_contacts__contact_id__get" method="get" path="/api/v1/contacts/{contact_id}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.contacts.get_contact_api_v1_contacts_contact_id_get(contact_id="d55d19ee-02a1-4352-aed9-4ca75ea454a2")
+    res = linebundle.contacts.get(contact_id="d55d19ee-02a1-4352-aed9-4ca75ea454a2")
 
     # Handle response
     print(res)
@@ -207,12 +203,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## update_contact_api_v1_contacts_contact_id_put
+## update
 
 Update a contact.
 
@@ -220,17 +216,16 @@ Update a contact.
 
 <!-- UsageSnippet language="python" operationID="update_contact_api_v1_contacts__contact_id__put" method="put" path="/api/v1/contacts/{contact_id}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.contacts.update_contact_api_v1_contacts_contact_id_put(contact_id="56b1f168-3f8b-49ee-bf97-4db8cc488ef1")
+    res = linebundle.contacts.update(contact_id="56b1f168-3f8b-49ee-bf97-4db8cc488ef1")
 
     # Handle response
     print(res)
@@ -273,12 +268,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## delete_contact_api_v1_contacts_contact_id_delete
+## delete
 
 Delete a contact.
 
@@ -286,17 +281,16 @@ Delete a contact.
 
 <!-- UsageSnippet language="python" operationID="delete_contact_api_v1_contacts__contact_id__delete" method="delete" path="/api/v1/contacts/{contact_id}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    sdk.contacts.delete_contact_api_v1_contacts_contact_id_delete(contact_id="182112b5-9e0b-4499-b088-d2e528ac9b5a")
+    linebundle.contacts.delete(contact_id="182112b5-9e0b-4499-b088-d2e528ac9b5a")
 
     # Use the SDK ...
 
@@ -311,12 +305,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## toggle_favorite_api_v1_contacts_contact_id_favorite_patch
+## toggle_favorite
 
 Toggle contact favorite status.
 
@@ -324,17 +318,16 @@ Toggle contact favorite status.
 
 <!-- UsageSnippet language="python" operationID="toggle_favorite_api_v1_contacts__contact_id__favorite_patch" method="patch" path="/api/v1/contacts/{contact_id}/favorite" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.contacts.toggle_favorite_api_v1_contacts_contact_id_favorite_patch(contact_id="5554e3b3-a9d3-4626-976d-37d55690993b")
+    res = linebundle.contacts.toggle_favorite(contact_id="5554e3b3-a9d3-4626-976d-37d55690993b")
 
     # Handle response
     print(res)
@@ -355,7 +348,7 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

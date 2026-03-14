@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateGroupRoomRequest } from "openapi/models";
+import { CreateGroupRoomRequest } from "@linebundle-sdk/ts/models";
 
 let value: CreateGroupRoomRequest = {
   name: "<value>",

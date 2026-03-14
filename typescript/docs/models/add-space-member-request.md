@@ -5,7 +5,7 @@ Request model for adding a member to a space
 ## Example Usage
 
 ```typescript
-import { AddSpaceMemberRequest } from "openapi/models";
+import { AddSpaceMemberRequest } from "@linebundle-sdk/ts/models";
 
 let value: AddSpaceMemberRequest = {
   email: "Rey24@hotmail.com",

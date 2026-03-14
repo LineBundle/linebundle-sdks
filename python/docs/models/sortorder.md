@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```python
-from openapi.models import SortOrder
+from linebundle_sdk.models import SortOrder
 value: SortOrder = "asc"
 ```
 

@@ -23,6 +23,15 @@ export type AppChatAdapterInputSchemasMessageMessageResponse = {
   sender?: SenderProfile | null | undefined;
   messageType: string;
   content: string;
+  /**
+   * Named schema for arbitrary key-value metadata on chat rooms and messages.
+   *
+   * @remarks
+   *
+   * Using ``RootModel`` instead of an inline ``dict[str, Any]`` ensures FastAPI/Pydantic
+   * emits a single named ``ChatMetadata`` component (``$ref``) in the OpenAPI spec,
+   * preventing Speakeasy from flagging duplicate anonymous schemas.
+   */
   metadata: { [k: string]: any };
   createdAt: Date;
   updatedAt: Date;

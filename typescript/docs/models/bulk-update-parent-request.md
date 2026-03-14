@@ -5,7 +5,7 @@ Request to update parent for multiple spaces
 ## Example Usage
 
 ```typescript
-import { BulkUpdateParentRequest } from "openapi/models";
+import { BulkUpdateParentRequest } from "@linebundle-sdk/ts/models";
 
 let value: BulkUpdateParentRequest = {
   spaceIds: [],

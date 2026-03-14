@@ -5,7 +5,7 @@ Metadata describing an automation task (trigger, condition, or action).
 ## Example Usage
 
 ```typescript
-import { TaskMetadata } from "openapi/models";
+import { TaskMetadata } from "@linebundle-sdk/ts/models";
 
 let value: TaskMetadata = {
   taskType: "send_email_notification",

@@ -5,7 +5,7 @@ Request to rollback space to a specific version.
 ## Example Usage
 
 ```typescript
-import { RollbackSpaceRequest } from "openapi/models";
+import { RollbackSpaceRequest } from "@linebundle-sdk/ts/models";
 
 let value: RollbackSpaceRequest = {
   versionNumber: 928000,

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UpdateRoleRequest } from "openapi/models";
+import { UpdateRoleRequest } from "@linebundle-sdk/ts/models";
 
 let value: UpdateRoleRequest = {};
 ```

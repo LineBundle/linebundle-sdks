@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SortBy } from "openapi/models";
+import { SortBy } from "@linebundle-sdk/ts/models";
 
 let value: SortBy = "latitude";
 ```

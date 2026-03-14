@@ -5,7 +5,7 @@ Enum representing workflow execution status.
 ## Example Usage
 
 ```python
-from openapi.models import WorkflowStatus
+from linebundle_sdk.models import WorkflowStatus
 
 # Open enum: unrecognized values are captured as UnrecognizedStr
 value: WorkflowStatus = "pending"

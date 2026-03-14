@@ -1,17 +1,16 @@
 <!-- Start SDK Example Usage [usage] -->
 ```python
 # Synchronous Example
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.handle_org_created_api_v1_integration_org_created_post()
+    res = linebundle.user.get_assistant()
 
     # Handle response
     print(res)
@@ -24,18 +23,17 @@ The same SDK client can also be used to make asynchronous requests by importing 
 ```python
 # Asynchronous Example
 import asyncio
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 async def main():
 
-    async with SDK(
-        "https://api.example.com",
+    async with Linebundle(
         security=models.Security(
             oidc="<YOUR_API_KEY_HERE>",
         ),
-    ) as sdk:
+    ) as linebundle:
 
-        res = await sdk.handle_org_created_api_v1_integration_org_created_post_async()
+        res = await linebundle.user.get_assistant_async()
 
         # Handle response
         print(res)

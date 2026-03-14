@@ -1,6 +1,6 @@
 configVersion: 2.0.0
 generation:
-  sdkClassName: SDK
+  sdkClassName: Linebundle
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
@@ -31,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.1.21
+  version: 0.3.0
   acceptHeaderEnum: false
   additionalDependencies:
     dependencies: {}
@@ -40,11 +40,11 @@ typescript:
   additionalPackageJSON: {}
   additionalScripts: {}
   alwaysIncludeInboundAndOutbound: false
-  author: Speakeasy
-  baseErrorName: SDKError
+  author: Linebundle
+  baseErrorName: LinebundleError
   clientServerStatusCodesAsErrors: true
   constFieldsAlwaysOptional: false
-  defaultErrorName: SDKDefaultError
+  defaultErrorName: LinebundleDefaultError
   enableCustomCodeRegions: false
   enableMCPServer: false
   enableReactQuery: false
@@ -76,7 +76,7 @@ typescript:
   moduleFormat: esm
   multipartArrayFormat: standard
   outputModelSuffix: output
-  packageName: @linebundle-sdk/ts
+  packageName: '@linebundle-sdk/ts'
   preApplyUnionDiscriminators: true
   preserveModelFieldNames: false
   responseFormat: flat

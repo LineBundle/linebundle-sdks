@@ -5,7 +5,7 @@
 ```typescript
 import {
   RemoveUserFromSpaceRoleApiV1SpaceSpacesSpaceIdMembersUserIdRolesSpaceRoleIdDeleteRequest,
-} from "openapi/models/operations";
+} from "@linebundle-sdk/ts/models/operations";
 
 let value:
   RemoveUserFromSpaceRoleApiV1SpaceSpacesSpaceIdMembersUserIdRolesSpaceRoleIdDeleteRequest =

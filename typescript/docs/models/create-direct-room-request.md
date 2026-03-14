@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateDirectRoomRequest } from "openapi/models";
+import { CreateDirectRoomRequest } from "@linebundle-sdk/ts/models";
 
 let value: CreateDirectRoomRequest = {
   otherUserId: "6a07772f-13ab-4bd5-92b4-d62df4687fe9",

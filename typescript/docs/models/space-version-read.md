@@ -5,7 +5,7 @@ Published space version response.
 ## Example Usage
 
 ```typescript
-import { SpaceVersionRead } from "openapi/models";
+import { SpaceVersionRead } from "@linebundle-sdk/ts/models";
 
 let value: SpaceVersionRead = {
   id: 805341,

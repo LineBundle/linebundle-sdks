@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateInviteRequest } from "openapi/models";
+import { CreateInviteRequest } from "@linebundle-sdk/ts/models";
 
 let value: CreateInviteRequest = {
   email: "August_Hane52@hotmail.com",

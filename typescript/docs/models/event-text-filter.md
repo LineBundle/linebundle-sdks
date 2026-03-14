@@ -5,7 +5,7 @@ Text-based filtering options for events.
 ## Example Usage
 
 ```typescript
-import { EventTextFilter } from "openapi/models";
+import { EventTextFilter } from "@linebundle-sdk/ts/models";
 
 let value: EventTextFilter = {};
 ```

@@ -5,7 +5,7 @@ Combined response with all metadata types.
 ## Example Usage
 
 ```typescript
-import { CombinedMetadataResponse } from "openapi/models";
+import { CombinedMetadataResponse } from "@linebundle-sdk/ts/models";
 
 let value: CombinedMetadataResponse = {
   triggers: [

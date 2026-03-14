@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AppAiAgentAdapterInputApiV1SchemasSendMessageRequest } from "openapi/models";
+import { AppAiAgentAdapterInputApiV1SchemasSendMessageRequest } from "@linebundle-sdk/ts/models";
 
 let value: AppAiAgentAdapterInputApiV1SchemasSendMessageRequest = {
   message: "<value>",

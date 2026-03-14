@@ -5,7 +5,7 @@ Recurrence/repeat-based filtering options for events.
 ## Example Usage
 
 ```typescript
-import { EventRepeatFilter } from "openapi/models";
+import { EventRepeatFilter } from "@linebundle-sdk/ts/models";
 
 let value: EventRepeatFilter = {};
 ```

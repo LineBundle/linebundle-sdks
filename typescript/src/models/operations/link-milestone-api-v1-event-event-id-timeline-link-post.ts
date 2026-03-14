@@ -5,47 +5,11 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 
-export type LinkMilestoneApiV1EventEventIdTimelineLinkPostSecurity = {
-  permissionDependency: string;
-};
-
 export type LinkMilestoneApiV1EventEventIdTimelineLinkPostRequest = {
   eventId: number;
   milestoneEventId: number;
   sequence?: number | undefined;
 };
-
-/** @internal */
-export type LinkMilestoneApiV1EventEventIdTimelineLinkPostSecurity$Outbound = {
-  PermissionDependency: string;
-};
-
-/** @internal */
-export const LinkMilestoneApiV1EventEventIdTimelineLinkPostSecurity$outboundSchema:
-  z.ZodMiniType<
-    LinkMilestoneApiV1EventEventIdTimelineLinkPostSecurity$Outbound,
-    LinkMilestoneApiV1EventEventIdTimelineLinkPostSecurity
-  > = z.pipe(
-    z.object({
-      permissionDependency: z.string(),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        permissionDependency: "PermissionDependency",
-      });
-    }),
-  );
-
-export function linkMilestoneApiV1EventEventIdTimelineLinkPostSecurityToJSON(
-  linkMilestoneApiV1EventEventIdTimelineLinkPostSecurity:
-    LinkMilestoneApiV1EventEventIdTimelineLinkPostSecurity,
-): string {
-  return JSON.stringify(
-    LinkMilestoneApiV1EventEventIdTimelineLinkPostSecurity$outboundSchema.parse(
-      linkMilestoneApiV1EventEventIdTimelineLinkPostSecurity,
-    ),
-  );
-}
 
 /** @internal */
 export type LinkMilestoneApiV1EventEventIdTimelineLinkPostRequest$Outbound = {

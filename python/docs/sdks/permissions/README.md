@@ -4,28 +4,27 @@
 
 ### Available Operations
 
-* [list_permissions_endpoint_api_v1_api_v1_permissions_get](#list_permissions_endpoint_api_v1_api_v1_permissions_get) - List Permissions Endpoint
-* [get_permission_endpoint_api_v1_api_v1_permissions_permission_code_get](#get_permission_endpoint_api_v1_api_v1_permissions_permission_code_get) - Get Permission Endpoint
+* [list](#list) - List Permissions Endpoint
+* [get](#get) - Get Permission Endpoint
 
-## list_permissions_endpoint_api_v1_api_v1_permissions_get
+## list
 
 List all available permissions in the system.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="list_permissions_endpoint_api_v1_api_v1_permissions_get" method="get" path="/api/v1/api/v1/permissions" -->
+<!-- UsageSnippet language="python" operationID="list_permissions_endpoint_api_v1_permissions_get" method="get" path="/api/v1/permissions" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.permissions.list_permissions_endpoint_api_v1_api_v1_permissions_get()
+    res = linebundle.permissions.list()
 
     # Handle response
     print(res)
@@ -44,29 +43,28 @@ with SDK(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_permission_endpoint_api_v1_api_v1_permissions_permission_code_get
+## get
 
 Get a specific permission by code.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="get_permission_endpoint_api_v1_api_v1_permissions__permission_code__get" method="get" path="/api/v1/api/v1/permissions/{permission_code}" -->
+<!-- UsageSnippet language="python" operationID="get_permission_endpoint_api_v1_permissions__permission_code__get" method="get" path="/api/v1/permissions/{permission_code}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.permissions.get_permission_endpoint_api_v1_api_v1_permissions_permission_code_get(permission_code="<value>")
+    res = linebundle.permissions.get(permission_code="<value>")
 
     # Handle response
     print(res)
@@ -86,7 +84,7 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

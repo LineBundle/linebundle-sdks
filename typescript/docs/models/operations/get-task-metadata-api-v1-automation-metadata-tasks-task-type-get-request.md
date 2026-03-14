@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetTaskMetadataApiV1AutomationMetadataTasksTaskTypeGetRequest } from "openapi/models/operations";
+import { GetTaskMetadataApiV1AutomationMetadataTasksTaskTypeGetRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: GetTaskMetadataApiV1AutomationMetadataTasksTaskTypeGetRequest = {
   taskType: "<value>",

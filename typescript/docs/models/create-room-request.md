@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateRoomRequest } from "openapi/models";
+import { CreateRoomRequest } from "@linebundle-sdk/ts/models";
 
 let value: CreateRoomRequest = {
   title: "<value>",

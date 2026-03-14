@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PaginationMeta } from "openapi/models";
+import { PaginationMeta } from "@linebundle-sdk/ts/models";
 
 let value: PaginationMeta = {
   limit: 143888,

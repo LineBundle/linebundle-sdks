@@ -5,7 +5,7 @@ Request to update space parent
 ## Example Usage
 
 ```typescript
-import { UpdateParentRequest } from "openapi/models";
+import { UpdateParentRequest } from "@linebundle-sdk/ts/models";
 
 let value: UpdateParentRequest = {};
 ```

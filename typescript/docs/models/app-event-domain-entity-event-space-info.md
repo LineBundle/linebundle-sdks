@@ -5,7 +5,7 @@ Comparison model for Space information.
 ## Example Usage
 
 ```typescript
-import { AppEventDomainEntityEventSpaceInfo } from "openapi/models";
+import { AppEventDomainEntityEventSpaceInfo } from "@linebundle-sdk/ts/models";
 
 let value: AppEventDomainEntityEventSpaceInfo = {
   id: 886343,

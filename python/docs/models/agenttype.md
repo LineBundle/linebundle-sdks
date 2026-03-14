@@ -5,7 +5,7 @@ Enum representing different types of AI agents.
 ## Example Usage
 
 ```python
-from openapi.models import AgentType
+from linebundle_sdk.models import AgentType
 
 # Open enum: unrecognized values are captured as UnrecognizedStr
 value: AgentType = "general"

@@ -5,7 +5,7 @@ Pydantic model for reading space event data.
 ## Example Usage
 
 ```typescript
-import { SpaceEventRead } from "openapi/models";
+import { SpaceEventRead } from "@linebundle-sdk/ts/models";
 
 let value: SpaceEventRead = {
   id: 206471,

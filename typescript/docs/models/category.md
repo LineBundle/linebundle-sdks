@@ -5,7 +5,7 @@ Task category
 ## Example Usage
 
 ```typescript
-import { Category } from "openapi/models";
+import { Category } from "@linebundle-sdk/ts/models";
 
 let value: Category = "action";
 

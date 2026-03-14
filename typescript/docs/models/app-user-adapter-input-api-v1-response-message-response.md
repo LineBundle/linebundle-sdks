@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AppUserAdapterInputApiV1ResponseMessageResponse } from "openapi/models";
+import { AppUserAdapterInputApiV1ResponseMessageResponse } from "@linebundle-sdk/ts/models";
 
 let value: AppUserAdapterInputApiV1ResponseMessageResponse = {
   message: "<value>",

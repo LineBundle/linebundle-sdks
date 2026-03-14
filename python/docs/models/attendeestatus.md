@@ -5,7 +5,7 @@ Attendee status enumeration.
 ## Example Usage
 
 ```python
-from openapi.models import AttendeeStatus
+from linebundle_sdk.models import AttendeeStatus
 
 # Open enum: unrecognized values are captured as UnrecognizedStr
 value: AttendeeStatus = "invited"

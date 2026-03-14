@@ -4,10 +4,10 @@
 
 ### Available Operations
 
-* [get_analytic_totals_api_v1_analytic_counts_get](#get_analytic_totals_api_v1_analytic_counts_get) - Get Analytic Totals
-* [get_dashboard_analytics_api_v1_analytic_dashboard_get](#get_dashboard_analytics_api_v1_analytic_dashboard_get) - Get Dashboard Analytics
+* [get_totals](#get_totals) - Get Analytic Totals
+* [get_dashboard](#get_dashboard) - Get Dashboard Analytics
 
-## get_analytic_totals_api_v1_analytic_counts_get
+## get_totals
 
 Get Analytic Totals
 
@@ -15,17 +15,16 @@ Get Analytic Totals
 
 <!-- UsageSnippet language="python" operationID="get_analytic_totals_api_v1_analytic_counts_get" method="get" path="/api/v1/analytic/counts" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.analytic.get_analytic_totals_api_v1_analytic_counts_get()
+    res = linebundle.analytic.get_totals()
 
     # Handle response
     print(res)
@@ -44,11 +43,11 @@ with SDK(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_dashboard_analytics_api_v1_analytic_dashboard_get
+## get_dashboard
 
 Get Dashboard Analytics
 
@@ -56,17 +55,16 @@ Get Dashboard Analytics
 
 <!-- UsageSnippet language="python" operationID="get_dashboard_analytics_api_v1_analytic_dashboard_get" method="get" path="/api/v1/analytic/dashboard" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.analytic.get_dashboard_analytics_api_v1_analytic_dashboard_get()
+    res = linebundle.analytic.get_dashboard()
 
     # Handle response
     print(res)
@@ -85,6 +83,6 @@ with SDK(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateSpaceRequest } from "openapi/models";
+import { CreateSpaceRequest } from "@linebundle-sdk/ts/models";
 
 let value: CreateSpaceRequest = {
   title: "<value>",

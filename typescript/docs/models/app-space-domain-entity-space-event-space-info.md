@@ -5,7 +5,7 @@ Space information for API responses.
 ## Example Usage
 
 ```typescript
-import { AppSpaceDomainEntitySpaceEventSpaceInfo } from "openapi/models";
+import { AppSpaceDomainEntitySpaceEventSpaceInfo } from "@linebundle-sdk/ts/models";
 
 let value: AppSpaceDomainEntitySpaceEventSpaceInfo = {
   id: 502924,

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetSessionApiV1AiSessionsSessionIdGetRequest } from "openapi/models/operations";
+import { GetSessionApiV1AiSessionsSessionIdGetRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: GetSessionApiV1AiSessionsSessionIdGetRequest = {
   sessionId: "bfb0f212-500e-4ba6-9990-fd56279f0529",

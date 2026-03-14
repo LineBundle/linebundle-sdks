@@ -3,11 +3,6 @@
  */
 
 import * as z from "zod/v4-mini";
-import { remap as remap$ } from "../../lib/primitives.js";
-
-export type GetUserListApiV1UserGetSecurity = {
-  permissionDependency: string;
-};
 
 export type GetUserListApiV1UserGetRequest = {
   /**
@@ -19,36 +14,6 @@ export type GetUserListApiV1UserGetRequest = {
    */
   prev?: number | undefined;
 };
-
-/** @internal */
-export type GetUserListApiV1UserGetSecurity$Outbound = {
-  PermissionDependency: string;
-};
-
-/** @internal */
-export const GetUserListApiV1UserGetSecurity$outboundSchema: z.ZodMiniType<
-  GetUserListApiV1UserGetSecurity$Outbound,
-  GetUserListApiV1UserGetSecurity
-> = z.pipe(
-  z.object({
-    permissionDependency: z.string(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      permissionDependency: "PermissionDependency",
-    });
-  }),
-);
-
-export function getUserListApiV1UserGetSecurityToJSON(
-  getUserListApiV1UserGetSecurity: GetUserListApiV1UserGetSecurity,
-): string {
-  return JSON.stringify(
-    GetUserListApiV1UserGetSecurity$outboundSchema.parse(
-      getUserListApiV1UserGetSecurity,
-    ),
-  );
-}
 
 /** @internal */
 export type GetUserListApiV1UserGetRequest$Outbound = {

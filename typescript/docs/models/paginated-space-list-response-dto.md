@@ -5,7 +5,7 @@ Paginated response for space list to support infinite scrolling
 ## Example Usage
 
 ```typescript
-import { PaginatedSpaceListResponseDTO } from "openapi/models";
+import { PaginatedSpaceListResponseDTO } from "@linebundle-sdk/ts/models";
 
 let value: PaginatedSpaceListResponseDTO = {
   items: [

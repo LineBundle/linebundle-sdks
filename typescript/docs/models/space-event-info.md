@@ -5,7 +5,7 @@ Space event information for API responses.
 ## Example Usage
 
 ```typescript
-import { SpaceEventInfo } from "openapi/models";
+import { SpaceEventInfo } from "@linebundle-sdk/ts/models";
 
 let value: SpaceEventInfo = {
   id: 709781,

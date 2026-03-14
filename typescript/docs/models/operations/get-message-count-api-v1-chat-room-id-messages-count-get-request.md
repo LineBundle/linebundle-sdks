@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetMessageCountApiV1ChatRoomIdMessagesCountGetRequest } from "openapi/models/operations";
+import { GetMessageCountApiV1ChatRoomIdMessagesCountGetRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: GetMessageCountApiV1ChatRoomIdMessagesCountGetRequest = {
   roomId: "5ae75103-b8bb-4137-8437-6d61f69dde27",

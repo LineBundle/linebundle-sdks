@@ -5,7 +5,7 @@ Extended space response with relationship fields
 ## Example Usage
 
 ```typescript
-import { SpaceWithRelationshipsResponse } from "openapi/models";
+import { SpaceWithRelationshipsResponse } from "@linebundle-sdk/ts/models";
 
 let value: SpaceWithRelationshipsResponse = {
   id: 634156,

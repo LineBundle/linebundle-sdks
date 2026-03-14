@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UserCostBreakdown } from "openapi/models";
+import { UserCostBreakdown } from "@linebundle-sdk/ts/models";
 
 let value: UserCostBreakdown = {
   userId: "4171110c-a061-48d9-ac8e-94fa73ad6883",

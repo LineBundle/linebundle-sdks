@@ -5,50 +5,11 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 
-export type UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurity =
-  {
-    permissionDependency: string;
-  };
-
 export type UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteRequest =
   {
     eventId: number;
     milestoneEventId: number;
   };
-
-/** @internal */
-export type UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurity$Outbound =
-  {
-    PermissionDependency: string;
-  };
-
-/** @internal */
-export const UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurity$outboundSchema:
-  z.ZodMiniType<
-    UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurity$Outbound,
-    UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurity
-  > = z.pipe(
-    z.object({
-      permissionDependency: z.string(),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        permissionDependency: "PermissionDependency",
-      });
-    }),
-  );
-
-export function unlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurityToJSON(
-  unlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurity:
-    UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurity,
-): string {
-  return JSON.stringify(
-    UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurity$outboundSchema
-      .parse(
-        unlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteSecurity,
-      ),
-  );
-}
 
 /** @internal */
 export type UnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDeleteRequest$Outbound =

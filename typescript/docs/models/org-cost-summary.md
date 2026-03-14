@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { OrgCostSummary } from "openapi/models";
+import { OrgCostSummary } from "@linebundle-sdk/ts/models";
 
 let value: OrgCostSummary = {
   orgId: "4bfe49a3-4438-4c0b-ac23-a64255d4144c",

@@ -5,7 +5,7 @@ Complete advanced filtering options for events.
 ## Example Usage
 
 ```typescript
-import { EventAdvancedFilters } from "openapi/models";
+import { EventAdvancedFilters } from "@linebundle-sdk/ts/models";
 
 let value: EventAdvancedFilters = {};
 ```

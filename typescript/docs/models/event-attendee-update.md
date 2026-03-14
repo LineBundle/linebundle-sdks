@@ -5,7 +5,7 @@ Pydantic model for updating an existing event attendee.
 ## Example Usage
 
 ```typescript
-import { EventAttendeeUpdate } from "openapi/models";
+import { EventAttendeeUpdate } from "@linebundle-sdk/ts/models";
 
 let value: EventAttendeeUpdate = {};
 ```

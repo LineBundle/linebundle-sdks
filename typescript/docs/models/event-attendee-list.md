@@ -5,7 +5,7 @@ Model for list of attendees with contact info.
 ## Example Usage
 
 ```typescript
-import { EventAttendeeList } from "openapi/models";
+import { EventAttendeeList } from "@linebundle-sdk/ts/models";
 
 let value: EventAttendeeList = {
   total: 96244,

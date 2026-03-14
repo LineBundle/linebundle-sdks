@@ -5,7 +5,7 @@ Date-based filtering options for events.
 ## Example Usage
 
 ```typescript
-import { EventDateFilter } from "openapi/models";
+import { EventDateFilter } from "@linebundle-sdk/ts/models";
 
 let value: EventDateFilter = {};
 ```

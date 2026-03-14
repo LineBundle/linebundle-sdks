@@ -6,7 +6,7 @@ Used by `PATCH /identification` and `GET /section/identification`.
 ## Example Usage
 
 ```typescript
-import { SectionIdentificationRead } from "openapi/models";
+import { SectionIdentificationRead } from "@linebundle-sdk/ts/models";
 
 let value: SectionIdentificationRead = {
   id: 211589,

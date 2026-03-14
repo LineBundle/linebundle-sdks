@@ -5,7 +5,7 @@ Response schema for availability checks
 ## Example Usage
 
 ```typescript
-import { AvailabilityResponse } from "openapi/models";
+import { AvailabilityResponse } from "@linebundle-sdk/ts/models";
 
 let value: AvailabilityResponse = {
   available: true,

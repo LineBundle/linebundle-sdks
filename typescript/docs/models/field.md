@@ -5,7 +5,7 @@ Field to sort by. Available fields: id, title, description, created_dt, start_dt
 ## Example Usage
 
 ```typescript
-import { Field } from "openapi/models";
+import { Field } from "@linebundle-sdk/ts/models";
 
 let value: Field = "created_dt";
 ```

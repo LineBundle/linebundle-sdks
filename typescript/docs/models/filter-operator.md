@@ -5,7 +5,7 @@ Supported filter operators for building query conditions.
 ## Example Usage
 
 ```typescript
-import { FilterOperator } from "openapi/models";
+import { FilterOperator } from "@linebundle-sdk/ts/models";
 
 let value: FilterOperator = "icontains";
 ```

@@ -5,7 +5,7 @@ Automation rule response.
 ## Example Usage
 
 ```typescript
-import { RuleResponse } from "openapi/models";
+import { RuleResponse } from "@linebundle-sdk/ts/models";
 
 let value: RuleResponse = {
   id: "b66b81ba-0c41-4148-9f69-e811981b7081",

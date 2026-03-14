@@ -5,7 +5,7 @@ Enum representing different workflow types.
 ## Example Usage
 
 ```python
-from openapi.models import WorkflowType
+from linebundle_sdk.models import WorkflowType
 
 # Open enum: unrecognized values are captured as UnrecognizedStr
 value: WorkflowType = "supervisor"

@@ -5,7 +5,7 @@ Request model for creating a new contact.
 ## Example Usage
 
 ```typescript
-import { CreateContactRequest } from "openapi/models";
+import { CreateContactRequest } from "@linebundle-sdk/ts/models";
 
 let value: CreateContactRequest = {};
 ```

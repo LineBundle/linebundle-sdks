@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListSpaceVersionsApiV1SpaceSpaceIdVersionsGetRequest } from "openapi/models/operations";
+import { ListSpaceVersionsApiV1SpaceSpaceIdVersionsGetRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: ListSpaceVersionsApiV1SpaceSpaceIdVersionsGetRequest = {
   spaceId: 111515,

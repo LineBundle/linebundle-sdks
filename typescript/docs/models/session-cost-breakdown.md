@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SessionCostBreakdown } from "openapi/models";
+import { SessionCostBreakdown } from "@linebundle-sdk/ts/models";
 
 let value: SessionCostBreakdown = {
   totalCostUsd: 9669,

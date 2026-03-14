@@ -5,7 +5,7 @@ Rule execution response.
 ## Example Usage
 
 ```typescript
-import { ExecutionResponse } from "openapi/models";
+import { ExecutionResponse } from "@linebundle-sdk/ts/models";
 
 let value: ExecutionResponse = {
   id: "8722873f-1786-412d-aa40-a8681d2696c1",

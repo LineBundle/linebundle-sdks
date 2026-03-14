@@ -5,7 +5,7 @@ Enum representing different types of AI agents.
 ## Example Usage
 
 ```typescript
-import { AgentType } from "openapi/models";
+import { AgentType } from "@linebundle-sdk/ts/models";
 
 let value: AgentType = "content_writer";
 

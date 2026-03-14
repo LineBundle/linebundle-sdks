@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { BodyCreateEventApiV1EventPost } from "openapi/models";
+import { BodyCreateEventApiV1EventPost } from "@linebundle-sdk/ts/models";
 
 // No examples available for this model
 ```

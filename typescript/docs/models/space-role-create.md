@@ -5,7 +5,7 @@ Space role creation model
 ## Example Usage
 
 ```typescript
-import { SpaceRoleCreate } from "openapi/models";
+import { SpaceRoleCreate } from "@linebundle-sdk/ts/models";
 
 let value: SpaceRoleCreate = {
   name: "<value>",

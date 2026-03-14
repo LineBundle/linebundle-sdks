@@ -4,17 +4,17 @@
 
 ### Available Operations
 
-* [list_organizations_endpoint_api_v1_organizations_get](#list_organizations_endpoint_api_v1_organizations_get) - List Organizations Endpoint
-* [create_organization_endpoint_api_v1_organizations_post](#create_organization_endpoint_api_v1_organizations_post) - Create Organization Endpoint
-* [get_current_organization_endpoint_api_v1_organizations_me_get](#get_current_organization_endpoint_api_v1_organizations_me_get) - Get Current Organization Endpoint
-* [get_organization_invites_endpoint_api_v1_organizations_org_id_invites_get](#get_organization_invites_endpoint_api_v1_organizations_org_id_invites_get) - Get Organization Invites Endpoint
-* [create_invite_endpoint_api_v1_organizations_org_id_invites_post](#create_invite_endpoint_api_v1_organizations_org_id_invites_post) - Create Invite Endpoint
-* [delete_invite_endpoint_api_v1_organizations_org_id_invites_invite_id_delete](#delete_invite_endpoint_api_v1_organizations_org_id_invites_invite_id_delete) - Delete Invite Endpoint
-* [get_organization_endpoint_api_v1_organizations_org_id_get](#get_organization_endpoint_api_v1_organizations_org_id_get) - Get Organization Endpoint
-* [update_organization_endpoint_api_v1_organizations_org_id_put](#update_organization_endpoint_api_v1_organizations_org_id_put) - Update Organization Endpoint
-* [archive_organization_endpoint_api_v1_organizations_org_id_delete](#archive_organization_endpoint_api_v1_organizations_org_id_delete) - Archive Organization Endpoint
+* [list](#list) - List Organizations Endpoint
+* [create](#create) - Create Organization Endpoint
+* [get_current](#get_current) - Get Current Organization Endpoint
+* [get_invites](#get_invites) - Get Organization Invites Endpoint
+* [create_invite](#create_invite) - Create Invite Endpoint
+* [delete_invite](#delete_invite) - Delete Invite Endpoint
+* [get_by_id](#get_by_id) - Get Organization Endpoint
+* [update](#update) - Update Organization Endpoint
+* [archive](#archive) - Archive Organization Endpoint
 
-## list_organizations_endpoint_api_v1_organizations_get
+## list
 
 List all organizations the current user belongs to.
 
@@ -22,17 +22,16 @@ List all organizations the current user belongs to.
 
 <!-- UsageSnippet language="python" operationID="list_organizations_endpoint_api_v1_organizations_get" method="get" path="/api/v1/organizations" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.organizations.list_organizations_endpoint_api_v1_organizations_get(limit=100, offset=0)
+    res = linebundle.organizations.list(limit=100, offset=0)
 
     # Handle response
     print(res)
@@ -53,12 +52,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## create_organization_endpoint_api_v1_organizations_post
+## create
 
 Create a new organization.
 
@@ -66,17 +65,16 @@ Create a new organization.
 
 <!-- UsageSnippet language="python" operationID="create_organization_endpoint_api_v1_organizations_post" method="post" path="/api/v1/organizations" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.organizations.create_organization_endpoint_api_v1_organizations_post(plan="free", allow_public_visibility=True)
+    res = linebundle.organizations.create(plan="free", allow_public_visibility=True)
 
     # Handle response
     print(res)
@@ -97,12 +95,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_current_organization_endpoint_api_v1_organizations_me_get
+## get_current
 
 Get the current organization from JWT claims.
 Returns the org that the user is currently authenticated for.
@@ -111,17 +109,16 @@ Returns the org that the user is currently authenticated for.
 
 <!-- UsageSnippet language="python" operationID="get_current_organization_endpoint_api_v1_organizations_me_get" method="get" path="/api/v1/organizations/me" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.organizations.get_current_organization_endpoint_api_v1_organizations_me_get()
+    res = linebundle.organizations.get_current()
 
     # Handle response
     print(res)
@@ -140,11 +137,11 @@ with SDK(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_organization_invites_endpoint_api_v1_organizations_org_id_invites_get
+## get_invites
 
 Get all pending invitations for an organization.
 
@@ -152,17 +149,16 @@ Get all pending invitations for an organization.
 
 <!-- UsageSnippet language="python" operationID="get_organization_invites_endpoint_api_v1_organizations__org_id__invites_get" method="get" path="/api/v1/organizations/{org_id}/invites" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.organizations.get_organization_invites_endpoint_api_v1_organizations_org_id_invites_get(org_id="<id>")
+    res = linebundle.organizations.get_invites(org_id="<id>")
 
     # Handle response
     print(res)
@@ -182,12 +178,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## create_invite_endpoint_api_v1_organizations_org_id_invites_post
+## create_invite
 
 Create an invite to the organization. Requires owner or admin role.
 
@@ -195,17 +191,16 @@ Create an invite to the organization. Requires owner or admin role.
 
 <!-- UsageSnippet language="python" operationID="create_invite_endpoint_api_v1_organizations__org_id__invites_post" method="post" path="/api/v1/organizations/{org_id}/invites" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.organizations.create_invite_endpoint_api_v1_organizations_org_id_invites_post(org_id="<id>", email="Clinton_Kerluke89@hotmail.com", role="member", expires_in_days=7)
+    res = linebundle.organizations.create_invite(org_id="<id>", email="Clinton_Kerluke89@hotmail.com", role="member", expires_in_days=7)
 
     # Handle response
     print(res)
@@ -228,12 +223,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## delete_invite_endpoint_api_v1_organizations_org_id_invites_invite_id_delete
+## delete_invite
 
 Delete/rescind an organization invite. Requires owner or admin role.
 
@@ -241,17 +236,16 @@ Delete/rescind an organization invite. Requires owner or admin role.
 
 <!-- UsageSnippet language="python" operationID="delete_invite_endpoint_api_v1_organizations__org_id__invites__invite_id__delete" method="delete" path="/api/v1/organizations/{org_id}/invites/{invite_id}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    sdk.organizations.delete_invite_endpoint_api_v1_organizations_org_id_invites_invite_id_delete(org_id="<id>", invite_id="<id>")
+    linebundle.organizations.delete_invite(org_id="<id>", invite_id="<id>")
 
     # Use the SDK ...
 
@@ -267,12 +261,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_organization_endpoint_api_v1_organizations_org_id_get
+## get_by_id
 
 Get a single organization by ID.
 
@@ -280,17 +274,16 @@ Get a single organization by ID.
 
 <!-- UsageSnippet language="python" operationID="get_organization_endpoint_api_v1_organizations__org_id__get" method="get" path="/api/v1/organizations/{org_id}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.organizations.get_organization_endpoint_api_v1_organizations_org_id_get(org_id="<id>")
+    res = linebundle.organizations.get_by_id(org_id="<id>")
 
     # Handle response
     print(res)
@@ -310,12 +303,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## update_organization_endpoint_api_v1_organizations_org_id_put
+## update
 
 Update an organization. Requires owner or admin role.
 
@@ -323,17 +316,16 @@ Update an organization. Requires owner or admin role.
 
 <!-- UsageSnippet language="python" operationID="update_organization_endpoint_api_v1_organizations__org_id__put" method="put" path="/api/v1/organizations/{org_id}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.organizations.update_organization_endpoint_api_v1_organizations_org_id_put(org_id="<id>")
+    res = linebundle.organizations.update(org_id="<id>")
 
     # Handle response
     print(res)
@@ -355,12 +347,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## archive_organization_endpoint_api_v1_organizations_org_id_delete
+## archive
 
 Archive an organization (soft delete). Requires owner role only.
 
@@ -368,17 +360,16 @@ Archive an organization (soft delete). Requires owner role only.
 
 <!-- UsageSnippet language="python" operationID="archive_organization_endpoint_api_v1_organizations__org_id__delete" method="delete" path="/api/v1/organizations/{org_id}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    sdk.organizations.archive_organization_endpoint_api_v1_organizations_org_id_delete(org_id="<id>")
+    linebundle.organizations.archive(org_id="<id>")
 
     # Use the SDK ...
 
@@ -393,7 +384,7 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

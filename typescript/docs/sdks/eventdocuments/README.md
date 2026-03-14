@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [addDocumentToEventApiV1EventsEventIdDocumentsDocumentIdPost](#adddocumenttoeventapiv1eventseventiddocumentsdocumentidpost) - Add Document To Event
-* [removeDocumentFromEventApiV1EventsEventIdDocumentsDocumentIdDelete](#removedocumentfromeventapiv1eventseventiddocumentsdocumentiddelete) - Remove Document From Event
-* [getEventDocumentsApiV1EventsEventIdDocumentsGet](#geteventdocumentsapiv1eventseventiddocumentsget) - Get Event Documents
+* [addDocument](#adddocument) - Add Document To Event
+* [remove](#remove) - Remove Document From Event
+* [getDocuments](#getdocuments) - Get Event Documents
 
-## addDocumentToEventApiV1EventsEventIdDocumentsDocumentIdPost
+## addDocument
 
 Associate a document with an event.
 
@@ -16,17 +16,16 @@ Associate a document with an event.
 
 <!-- UsageSnippet language="typescript" operationID="add_document_to_event_api_v1_events__event_id__documents__document_id__post" method="post" path="/api/v1/events/{event_id}/documents/{document_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventDocuments.addDocumentToEventApiV1EventsEventIdDocumentsDocumentIdPost({
+  const result = await linebundle.eventDocuments.addDocument({
     eventId: 70437,
     documentId: "d5325fe4-b647-4305-81c3-35db0502e73b",
   });
@@ -42,20 +41,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventDocumentsAddDocumentToEventApiV1EventsEventIdDocumentsDocumentIdPost } from "openapi/funcs/event-documents-add-document-to-event-api-v1-events-event-id-documents-document-id-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventDocumentsAddDocument } from "@linebundle-sdk/ts/funcs/event-documents-add-document.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventDocumentsAddDocumentToEventApiV1EventsEventIdDocumentsDocumentIdPost(sdk, {
+  const res = await eventDocumentsAddDocument(linebundle, {
     eventId: 70437,
     documentId: "d5325fe4-b647-4305-81c3-35db0502e73b",
   });
@@ -63,7 +61,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventDocumentsAddDocumentToEventApiV1EventsEventIdDocumentsDocumentIdPost failed:", res.error);
+    console.log("eventDocumentsAddDocument failed:", res.error);
   }
 }
 
@@ -85,12 +83,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## removeDocumentFromEventApiV1EventsEventIdDocumentsDocumentIdDelete
+## remove
 
 Remove a document from an event.
 
@@ -98,17 +96,16 @@ Remove a document from an event.
 
 <!-- UsageSnippet language="typescript" operationID="remove_document_from_event_api_v1_events__event_id__documents__document_id__delete" method="delete" path="/api/v1/events/{event_id}/documents/{document_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  await sdk.eventDocuments.removeDocumentFromEventApiV1EventsEventIdDocumentsDocumentIdDelete({
+  await linebundle.eventDocuments.remove({
     eventId: 847385,
     documentId: "4b451b53-5306-4f5e-8068-129a884c3540",
   });
@@ -124,20 +121,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventDocumentsRemoveDocumentFromEventApiV1EventsEventIdDocumentsDocumentIdDelete } from "openapi/funcs/event-documents-remove-document-from-event-api-v1-events-event-id-documents-document-id-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventDocumentsRemove } from "@linebundle-sdk/ts/funcs/event-documents-remove.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventDocumentsRemoveDocumentFromEventApiV1EventsEventIdDocumentsDocumentIdDelete(sdk, {
+  const res = await eventDocumentsRemove(linebundle, {
     eventId: 847385,
     documentId: "4b451b53-5306-4f5e-8068-129a884c3540",
   });
@@ -145,7 +141,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("eventDocumentsRemoveDocumentFromEventApiV1EventsEventIdDocumentsDocumentIdDelete failed:", res.error);
+    console.log("eventDocumentsRemove failed:", res.error);
   }
 }
 
@@ -167,12 +163,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getEventDocumentsApiV1EventsEventIdDocumentsGet
+## getDocuments
 
 Get all documents for an event.
 
@@ -180,17 +176,16 @@ Get all documents for an event.
 
 <!-- UsageSnippet language="typescript" operationID="get_event_documents_api_v1_events__event_id__documents_get" method="get" path="/api/v1/events/{event_id}/documents" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventDocuments.getEventDocumentsApiV1EventsEventIdDocumentsGet({
+  const result = await linebundle.eventDocuments.getDocuments({
     eventId: 438312,
   });
 
@@ -205,27 +200,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventDocumentsGetEventDocumentsApiV1EventsEventIdDocumentsGet } from "openapi/funcs/event-documents-get-event-documents-api-v1-events-event-id-documents-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventDocumentsGetDocuments } from "@linebundle-sdk/ts/funcs/event-documents-get-documents.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventDocumentsGetEventDocumentsApiV1EventsEventIdDocumentsGet(sdk, {
+  const res = await eventDocumentsGetDocuments(linebundle, {
     eventId: 438312,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventDocumentsGetEventDocumentsApiV1EventsEventIdDocumentsGet failed:", res.error);
+    console.log("eventDocumentsGetDocuments failed:", res.error);
   }
 }
 
@@ -247,7 +241,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

@@ -1,6 +1,6 @@
-# openapi Examples
+# @linebundle-sdk/ts Examples
 
-This directory contains example scripts demonstrating how to use the openapi SDK.
+This directory contains example scripts demonstrating how to use the @linebundle-sdk/ts SDK.
 
 ## Prerequisites
 

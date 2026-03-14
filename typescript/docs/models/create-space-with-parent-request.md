@@ -5,7 +5,7 @@ Request to create a space with parent relationship
 ## Example Usage
 
 ```typescript
-import { CreateSpaceWithParentRequest } from "openapi/models";
+import { CreateSpaceWithParentRequest } from "@linebundle-sdk/ts/models";
 
 let value: CreateSpaceWithParentRequest = {
   title: "<value>",

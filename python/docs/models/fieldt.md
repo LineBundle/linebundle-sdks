@@ -5,7 +5,7 @@ Field to sort by. Available fields: id, title, description, created_dt, start_dt
 ## Example Usage
 
 ```python
-from openapi.models import FieldT
+from linebundle_sdk.models import FieldT
 value: FieldT = "id"
 ```
 

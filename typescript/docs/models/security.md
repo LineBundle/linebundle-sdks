@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Security } from "openapi/models";
+import { Security } from "@linebundle-sdk/ts/models";
 
 let value: Security = {};
 ```

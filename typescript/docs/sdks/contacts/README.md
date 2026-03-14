@@ -4,15 +4,15 @@
 
 ### Available Operations
 
-* [listContactsApiV1ContactsGet](#listcontactsapiv1contactsget) - List Contacts
-* [createContactApiV1ContactsPost](#createcontactapiv1contactspost) - Create Contact
-* [searchContactsApiV1ContactsSearchGet](#searchcontactsapiv1contactssearchget) - Search Contacts
-* [getContactApiV1ContactsContactIdGet](#getcontactapiv1contactscontactidget) - Get Contact
-* [updateContactApiV1ContactsContactIdPut](#updatecontactapiv1contactscontactidput) - Update Contact
-* [deleteContactApiV1ContactsContactIdDelete](#deletecontactapiv1contactscontactiddelete) - Delete Contact
-* [toggleFavoriteApiV1ContactsContactIdFavoritePatch](#togglefavoriteapiv1contactscontactidfavoritepatch) - Toggle Favorite
+* [list](#list) - List Contacts
+* [create](#create) - Create Contact
+* [search](#search) - Search Contacts
+* [get](#get) - Get Contact
+* [update](#update) - Update Contact
+* [delete](#delete) - Delete Contact
+* [toggleFavorite](#togglefavorite) - Toggle Favorite
 
-## listContactsApiV1ContactsGet
+## list
 
 List all contacts for the current user with tenant isolation.
 
@@ -20,17 +20,16 @@ List all contacts for the current user with tenant isolation.
 
 <!-- UsageSnippet language="typescript" operationID="list_contacts_api_v1_contacts_get" method="get" path="/api/v1/contacts" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.contacts.listContactsApiV1ContactsGet({});
+  const result = await linebundle.contacts.list({});
 
   console.log(result);
 }
@@ -43,25 +42,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { contactsListContactsApiV1ContactsGet } from "openapi/funcs/contacts-list-contacts-api-v1-contacts-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { contactsList } from "@linebundle-sdk/ts/funcs/contacts-list.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await contactsListContactsApiV1ContactsGet(sdk, {});
+  const res = await contactsList(linebundle, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("contactsListContactsApiV1ContactsGet failed:", res.error);
+    console.log("contactsList failed:", res.error);
   }
 }
 
@@ -83,12 +81,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## createContactApiV1ContactsPost
+## create
 
 Create a new contact.
 
@@ -96,17 +94,16 @@ Create a new contact.
 
 <!-- UsageSnippet language="typescript" operationID="create_contact_api_v1_contacts_post" method="post" path="/api/v1/contacts" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.contacts.createContactApiV1ContactsPost({});
+  const result = await linebundle.contacts.create({});
 
   console.log(result);
 }
@@ -119,25 +116,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { contactsCreateContactApiV1ContactsPost } from "openapi/funcs/contacts-create-contact-api-v1-contacts-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { contactsCreate } from "@linebundle-sdk/ts/funcs/contacts-create.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await contactsCreateContactApiV1ContactsPost(sdk, {});
+  const res = await contactsCreate(linebundle, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("contactsCreateContactApiV1ContactsPost failed:", res.error);
+    console.log("contactsCreate failed:", res.error);
   }
 }
 
@@ -159,12 +155,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## searchContactsApiV1ContactsSearchGet
+## search
 
 Search contacts by query string with tenant isolation.
 
@@ -172,17 +168,16 @@ Search contacts by query string with tenant isolation.
 
 <!-- UsageSnippet language="typescript" operationID="search_contacts_api_v1_contacts_search_get" method="get" path="/api/v1/contacts/search" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.contacts.searchContactsApiV1ContactsSearchGet({
+  const result = await linebundle.contacts.search({
     query: "<value>",
   });
 
@@ -197,27 +192,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { contactsSearchContactsApiV1ContactsSearchGet } from "openapi/funcs/contacts-search-contacts-api-v1-contacts-search-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { contactsSearch } from "@linebundle-sdk/ts/funcs/contacts-search.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await contactsSearchContactsApiV1ContactsSearchGet(sdk, {
+  const res = await contactsSearch(linebundle, {
     query: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("contactsSearchContactsApiV1ContactsSearchGet failed:", res.error);
+    console.log("contactsSearch failed:", res.error);
   }
 }
 
@@ -239,12 +233,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getContactApiV1ContactsContactIdGet
+## get
 
 Get a specific contact by ID.
 
@@ -252,17 +246,16 @@ Get a specific contact by ID.
 
 <!-- UsageSnippet language="typescript" operationID="get_contact_api_v1_contacts__contact_id__get" method="get" path="/api/v1/contacts/{contact_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.contacts.getContactApiV1ContactsContactIdGet({
+  const result = await linebundle.contacts.get({
     contactId: "d55d19ee-02a1-4352-aed9-4ca75ea454a2",
   });
 
@@ -277,27 +270,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { contactsGetContactApiV1ContactsContactIdGet } from "openapi/funcs/contacts-get-contact-api-v1-contacts-contact-id-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { contactsGet } from "@linebundle-sdk/ts/funcs/contacts-get.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await contactsGetContactApiV1ContactsContactIdGet(sdk, {
+  const res = await contactsGet(linebundle, {
     contactId: "d55d19ee-02a1-4352-aed9-4ca75ea454a2",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("contactsGetContactApiV1ContactsContactIdGet failed:", res.error);
+    console.log("contactsGet failed:", res.error);
   }
 }
 
@@ -319,12 +311,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## updateContactApiV1ContactsContactIdPut
+## update
 
 Update a contact.
 
@@ -332,17 +324,16 @@ Update a contact.
 
 <!-- UsageSnippet language="typescript" operationID="update_contact_api_v1_contacts__contact_id__put" method="put" path="/api/v1/contacts/{contact_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.contacts.updateContactApiV1ContactsContactIdPut({
+  const result = await linebundle.contacts.update({
     contactId: "56b1f168-3f8b-49ee-bf97-4db8cc488ef1",
     body: {},
   });
@@ -358,20 +349,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { contactsUpdateContactApiV1ContactsContactIdPut } from "openapi/funcs/contacts-update-contact-api-v1-contacts-contact-id-put.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { contactsUpdate } from "@linebundle-sdk/ts/funcs/contacts-update.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await contactsUpdateContactApiV1ContactsContactIdPut(sdk, {
+  const res = await contactsUpdate(linebundle, {
     contactId: "56b1f168-3f8b-49ee-bf97-4db8cc488ef1",
     body: {},
   });
@@ -379,7 +369,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("contactsUpdateContactApiV1ContactsContactIdPut failed:", res.error);
+    console.log("contactsUpdate failed:", res.error);
   }
 }
 
@@ -401,12 +391,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## deleteContactApiV1ContactsContactIdDelete
+## delete
 
 Delete a contact.
 
@@ -414,17 +404,16 @@ Delete a contact.
 
 <!-- UsageSnippet language="typescript" operationID="delete_contact_api_v1_contacts__contact_id__delete" method="delete" path="/api/v1/contacts/{contact_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  await sdk.contacts.deleteContactApiV1ContactsContactIdDelete({
+  await linebundle.contacts.delete({
     contactId: "182112b5-9e0b-4499-b088-d2e528ac9b5a",
   });
 
@@ -439,27 +428,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { contactsDeleteContactApiV1ContactsContactIdDelete } from "openapi/funcs/contacts-delete-contact-api-v1-contacts-contact-id-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { contactsDelete } from "@linebundle-sdk/ts/funcs/contacts-delete.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await contactsDeleteContactApiV1ContactsContactIdDelete(sdk, {
+  const res = await contactsDelete(linebundle, {
     contactId: "182112b5-9e0b-4499-b088-d2e528ac9b5a",
   });
   if (res.ok) {
     const { value: result } = res;
     
   } else {
-    console.log("contactsDeleteContactApiV1ContactsContactIdDelete failed:", res.error);
+    console.log("contactsDelete failed:", res.error);
   }
 }
 
@@ -481,12 +469,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## toggleFavoriteApiV1ContactsContactIdFavoritePatch
+## toggleFavorite
 
 Toggle contact favorite status.
 
@@ -494,17 +482,16 @@ Toggle contact favorite status.
 
 <!-- UsageSnippet language="typescript" operationID="toggle_favorite_api_v1_contacts__contact_id__favorite_patch" method="patch" path="/api/v1/contacts/{contact_id}/favorite" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.contacts.toggleFavoriteApiV1ContactsContactIdFavoritePatch({
+  const result = await linebundle.contacts.toggleFavorite({
     contactId: "5554e3b3-a9d3-4626-976d-37d55690993b",
     body: {},
   });
@@ -520,20 +507,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { contactsToggleFavoriteApiV1ContactsContactIdFavoritePatch } from "openapi/funcs/contacts-toggle-favorite-api-v1-contacts-contact-id-favorite-patch.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { contactsToggleFavorite } from "@linebundle-sdk/ts/funcs/contacts-toggle-favorite.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await contactsToggleFavoriteApiV1ContactsContactIdFavoritePatch(sdk, {
+  const res = await contactsToggleFavorite(linebundle, {
     contactId: "5554e3b3-a9d3-4626-976d-37d55690993b",
     body: {},
   });
@@ -541,7 +527,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("contactsToggleFavoriteApiV1ContactsContactIdFavoritePatch failed:", res.error);
+    console.log("contactsToggleFavorite failed:", res.error);
   }
 }
 
@@ -563,7 +549,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

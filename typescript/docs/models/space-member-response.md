@@ -5,7 +5,7 @@ Response model for space member information
 ## Example Usage
 
 ```typescript
-import { SpaceMemberResponse } from "openapi/models";
+import { SpaceMemberResponse } from "@linebundle-sdk/ts/models";
 
 let value: SpaceMemberResponse = {
   userId: "<id>",

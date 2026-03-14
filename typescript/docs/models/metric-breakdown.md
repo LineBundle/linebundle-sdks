@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { MetricBreakdown } from "openapi/models";
+import { MetricBreakdown } from "@linebundle-sdk/ts/models";
 
 let value: MetricBreakdown = {};
 ```

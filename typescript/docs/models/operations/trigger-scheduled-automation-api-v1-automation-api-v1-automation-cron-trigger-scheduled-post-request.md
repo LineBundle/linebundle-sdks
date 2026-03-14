@@ -5,7 +5,7 @@
 ```typescript
 import {
   TriggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPostRequest,
-} from "openapi/models/operations";
+} from "@linebundle-sdk/ts/models/operations";
 
 let value:
   TriggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPostRequest =

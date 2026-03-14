@@ -5,7 +5,7 @@ Request model for toggling contact favorite status.
 ## Example Usage
 
 ```typescript
-import { ToggleFavoriteRequest } from "openapi/models";
+import { ToggleFavoriteRequest } from "@linebundle-sdk/ts/models";
 
 let value: ToggleFavoriteRequest = {};
 ```

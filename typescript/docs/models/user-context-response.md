@@ -5,7 +5,7 @@ Response schema for auth context endpoint.
 ## Example Usage
 
 ```typescript
-import { UserContextResponse } from "openapi/models";
+import { UserContextResponse } from "@linebundle-sdk/ts/models";
 
 let value: UserContextResponse = {
   userId: "<id>",

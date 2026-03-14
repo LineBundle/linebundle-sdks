@@ -19,25 +19,24 @@ specific category of applications.
 ## Example
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { handleOrgCreatedApiV1IntegrationOrgCreatedPost } from "openapi/funcs/handle-org-created-api-v1-integration-org-created-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { userGetAssistant } from "@linebundle-sdk/ts/funcs/user-get-assistant.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await handleOrgCreatedApiV1IntegrationOrgCreatedPost(sdk);
+  const res = await userGetAssistant(linebundle);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("handleOrgCreatedApiV1IntegrationOrgCreatedPost failed:", res.error);
+    console.log("userGetAssistant failed:", res.error);
   }
 }
 

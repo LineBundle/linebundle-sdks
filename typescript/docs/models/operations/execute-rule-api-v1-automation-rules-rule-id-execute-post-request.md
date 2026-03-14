@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ExecuteRuleApiV1AutomationRulesRuleIdExecutePostRequest } from "openapi/models/operations";
+import { ExecuteRuleApiV1AutomationRulesRuleIdExecutePostRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: ExecuteRuleApiV1AutomationRulesRuleIdExecutePostRequest = {
   ruleId: "dadb6bfe-5013-45c9-a543-5e00958527f6",

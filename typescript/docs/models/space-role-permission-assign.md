@@ -5,7 +5,7 @@ Model for assigning permissions to space roles
 ## Example Usage
 
 ```typescript
-import { SpaceRolePermissionAssign } from "openapi/models";
+import { SpaceRolePermissionAssign } from "@linebundle-sdk/ts/models";
 
 let value: SpaceRolePermissionAssign = {
   permissionId: "d026e87c-af2d-4d96-9eae-ad1bf2718912",

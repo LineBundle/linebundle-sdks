@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AddMemberRequest } from "openapi/models";
+import { AddMemberRequest } from "@linebundle-sdk/ts/models";
 
 let value: AddMemberRequest = {
   userId: "5ca10b04-68fd-4404-a1ad-2eef91b5bc67",

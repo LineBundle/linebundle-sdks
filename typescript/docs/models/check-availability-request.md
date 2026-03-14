@@ -5,7 +5,7 @@ Request schema for checking place availability
 ## Example Usage
 
 ```typescript
-import { CheckAvailabilityRequest } from "openapi/models";
+import { CheckAvailabilityRequest } from "@linebundle-sdk/ts/models";
 
 let value: CheckAvailabilityRequest = {
   placeId: 193342,

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { LocationUpdateSchema } from "openapi/models";
+import { LocationUpdateSchema } from "@linebundle-sdk/ts/models";
 
 let value: LocationUpdateSchema = {};
 ```

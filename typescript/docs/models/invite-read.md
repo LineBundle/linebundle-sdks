@@ -5,7 +5,7 @@ Schema representing an organization invitation.
 ## Example Usage
 
 ```typescript
-import { InviteRead } from "openapi/models";
+import { InviteRead } from "@linebundle-sdk/ts/models";
 
 let value: InviteRead = {
   id: "<id>",

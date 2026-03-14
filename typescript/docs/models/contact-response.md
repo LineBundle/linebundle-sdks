@@ -5,7 +5,7 @@ Response model for a single contact.
 ## Example Usage
 
 ```typescript
-import { ContactResponse } from "openapi/models";
+import { ContactResponse } from "@linebundle-sdk/ts/models";
 
 let value: ContactResponse = {
   id: "f9503712-a487-4eb8-a32b-143d0df0c9f8",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetSpaceListResponseDTO } from "openapi/models";
+import { GetSpaceListResponseDTO } from "@linebundle-sdk/ts/models";
 
 let value: GetSpaceListResponseDTO = {
   id: 626740,

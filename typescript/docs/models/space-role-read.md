@@ -5,7 +5,7 @@ Space role read model for API responses
 ## Example Usage
 
 ```typescript
-import { SpaceRoleRead } from "openapi/models";
+import { SpaceRoleRead } from "@linebundle-sdk/ts/models";
 
 let value: SpaceRoleRead = {
   id: "d84ed6da-fa12-4a1d-9563-84ddbc5ea257",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SpaceVersionMember } from "openapi/models";
+import { SpaceVersionMember } from "@linebundle-sdk/ts/models";
 
 let value: SpaceVersionMember = {
   userId: "6d492270-7fd9-4923-a997-9d54822fd251",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UpdateContactApiV1ContactsContactIdPutRequest } from "openapi/models/operations";
+import { UpdateContactApiV1ContactsContactIdPutRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: UpdateContactApiV1ContactsContactIdPutRequest = {
   contactId: "bd59ff5d-f0bc-4337-b6c3-8e15962dfa08",

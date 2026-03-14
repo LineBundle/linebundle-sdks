@@ -5,7 +5,7 @@ Request model for updating a space member's role
 ## Example Usage
 
 ```typescript
-import { UpdateSpaceMemberRoleRequest } from "openapi/models";
+import { UpdateSpaceMemberRoleRequest } from "@linebundle-sdk/ts/models";
 
 let value: UpdateSpaceMemberRoleRequest = {
   role: "space_member",

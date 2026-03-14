@@ -5,7 +5,7 @@ List of space versions.
 ## Example Usage
 
 ```typescript
-import { SpaceVersionListResponse } from "openapi/models";
+import { SpaceVersionListResponse } from "@linebundle-sdk/ts/models";
 
 let value: SpaceVersionListResponse = {
   versions: [

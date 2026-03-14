@@ -5,7 +5,7 @@ Request model for updating an existing contact.
 ## Example Usage
 
 ```typescript
-import { UpdateContactRequest } from "openapi/models";
+import { UpdateContactRequest } from "@linebundle-sdk/ts/models";
 
 let value: UpdateContactRequest = {};
 ```

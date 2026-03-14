@@ -5,7 +5,7 @@
 ```typescript
 import {
   PublishEventWithNotificationsApiV1EventEventIdPublishWithNotificationsPostRequest,
-} from "openapi/models/operations";
+} from "@linebundle-sdk/ts/models/operations";
 
 let value:
   PublishEventWithNotificationsApiV1EventEventIdPublishWithNotificationsPostRequest =

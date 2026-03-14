@@ -5,7 +5,7 @@ Sorting options for event queries - supports multiple sort fields.
 ## Example Usage
 
 ```typescript
-import { EventSortOptions } from "openapi/models";
+import { EventSortOptions } from "@linebundle-sdk/ts/models";
 
 let value: EventSortOptions = {
   sorts: [

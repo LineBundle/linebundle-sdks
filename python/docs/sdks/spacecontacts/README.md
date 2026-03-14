@@ -4,16 +4,16 @@
 
 ### Available Operations
 
-* [get_space_contacts_api_v1_spaces_space_id_contacts_get](#get_space_contacts_api_v1_spaces_space_id_contacts_get) - Get Space Contacts
-* [add_contact_to_space_api_v1_spaces_space_id_contacts_post](#add_contact_to_space_api_v1_spaces_space_id_contacts_post) - Add Contact To Space
-* [get_contact_spaces_api_v1_contacts_contact_id_spaces_get](#get_contact_spaces_api_v1_contacts_contact_id_spaces_get) - Get Contact Spaces
-* [get_space_contact_api_v1_space_contacts_space_contact_id_get](#get_space_contact_api_v1_space_contacts_space_contact_id_get) - Get Space Contact
-* [remove_contact_from_space_api_v1_space_contacts_space_contact_id_delete](#remove_contact_from_space_api_v1_space_contacts_space_contact_id_delete) - Remove Contact From Space
-* [bulk_add_contacts_to_space_api_v1_spaces_space_id_contacts_bulk_post](#bulk_add_contacts_to_space_api_v1_spaces_space_id_contacts_bulk_post) - Bulk Add Contacts To Space
-* [bulk_remove_contacts_from_space_api_v1_spaces_space_id_contacts_bulk_delete](#bulk_remove_contacts_from_space_api_v1_spaces_space_id_contacts_bulk_delete) - Bulk Remove Contacts From Space
-* [count_space_contacts_api_v1_spaces_space_id_contacts_count_get](#count_space_contacts_api_v1_spaces_space_id_contacts_count_get) - Count Space Contacts
+* [get_contacts_by_space](#get_contacts_by_space) - Get Space Contacts
+* [add](#add) - Add Contact To Space
+* [get_spaces_by_contact](#get_spaces_by_contact) - Get Contact Spaces
+* [get](#get) - Get Space Contact
+* [remove](#remove) - Remove Contact From Space
+* [add_bulk](#add_bulk) - Bulk Add Contacts To Space
+* [bulk_delete](#bulk_delete) - Bulk Remove Contacts From Space
+* [count](#count) - Count Space Contacts
 
-## get_space_contacts_api_v1_spaces_space_id_contacts_get
+## get_contacts_by_space
 
 Get all contacts for a specific space.
 
@@ -32,17 +32,16 @@ Returns:
 
 <!-- UsageSnippet language="python" operationID="get_space_contacts_api_v1_spaces__space_id__contacts_get" method="get" path="/api/v1/spaces/{space_id}/contacts" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.space_contacts.get_space_contacts_api_v1_spaces_space_id_contacts_get(space_id=260446, limit=50, offset=0)
+    res = linebundle.space_contacts.get_contacts_by_space(space_id=260446, limit=50, offset=0)
 
     # Handle response
     print(res)
@@ -64,12 +63,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## add_contact_to_space_api_v1_spaces_space_id_contacts_post
+## add
 
 Add a contact to a space.
 
@@ -87,17 +86,16 @@ Returns:
 
 <!-- UsageSnippet language="python" operationID="add_contact_to_space_api_v1_spaces__space_id__contacts_post" method="post" path="/api/v1/spaces/{space_id}/contacts" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.space_contacts.add_contact_to_space_api_v1_spaces_space_id_contacts_post(space_id=503177, contact_id="c7b4bc6c-dbde-4dd7-b30c-c1ae77fc4016")
+    res = linebundle.space_contacts.add(space_id=503177, contact_id="c7b4bc6c-dbde-4dd7-b30c-c1ae77fc4016")
 
     # Handle response
     print(res)
@@ -118,12 +116,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_contact_spaces_api_v1_contacts_contact_id_spaces_get
+## get_spaces_by_contact
 
 Get all spaces for a specific contact.
 
@@ -142,17 +140,16 @@ Returns:
 
 <!-- UsageSnippet language="python" operationID="get_contact_spaces_api_v1_contacts__contact_id__spaces_get" method="get" path="/api/v1/contacts/{contact_id}/spaces" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.space_contacts.get_contact_spaces_api_v1_contacts_contact_id_spaces_get(contact_id="9bb1f2eb-c6ab-4c76-a1d4-ff656e5f0d1e", limit=50, offset=0)
+    res = linebundle.space_contacts.get_spaces_by_contact(contact_id="9bb1f2eb-c6ab-4c76-a1d4-ff656e5f0d1e", limit=50, offset=0)
 
     # Handle response
     print(res)
@@ -174,12 +171,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_space_contact_api_v1_space_contacts_space_contact_id_get
+## get
 
 Get space contact by ID.
 
@@ -196,17 +193,16 @@ Returns:
 
 <!-- UsageSnippet language="python" operationID="get_space_contact_api_v1_space_contacts__space_contact_id__get" method="get" path="/api/v1/space-contacts/{space_contact_id}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.space_contacts.get_space_contact_api_v1_space_contacts_space_contact_id_get(space_contact_id=402469)
+    res = linebundle.space_contacts.get(space_contact_id=402469)
 
     # Handle response
     print(res)
@@ -226,12 +222,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## remove_contact_from_space_api_v1_space_contacts_space_contact_id_delete
+## remove
 
 Remove a contact from a space.
 
@@ -248,17 +244,16 @@ Returns:
 
 <!-- UsageSnippet language="python" operationID="remove_contact_from_space_api_v1_space_contacts__space_contact_id__delete" method="delete" path="/api/v1/space-contacts/{space_contact_id}" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.space_contacts.remove_contact_from_space_api_v1_space_contacts_space_contact_id_delete(space_contact_id=481359)
+    res = linebundle.space_contacts.remove(space_contact_id=481359)
 
     # Handle response
     print(res)
@@ -278,12 +273,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## bulk_add_contacts_to_space_api_v1_spaces_space_id_contacts_bulk_post
+## add_bulk
 
 Add multiple contacts to a space.
 
@@ -301,17 +296,16 @@ Returns:
 
 <!-- UsageSnippet language="python" operationID="bulk_add_contacts_to_space_api_v1_spaces__space_id__contacts_bulk_post" method="post" path="/api/v1/spaces/{space_id}/contacts/bulk" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.space_contacts.bulk_add_contacts_to_space_api_v1_spaces_space_id_contacts_bulk_post(space_id=857341, body=[
+    res = linebundle.space_contacts.add_bulk(space_id=857341, body=[
         "db6728a0-7d85-4190-831b-7c7f94249f7d",
     ])
 
@@ -334,12 +328,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## bulk_remove_contacts_from_space_api_v1_spaces_space_id_contacts_bulk_delete
+## bulk_delete
 
 Bulk remove contacts from a space.
 
@@ -357,17 +351,16 @@ Returns:
 
 <!-- UsageSnippet language="python" operationID="bulk_remove_contacts_from_space_api_v1_spaces__space_id__contacts_bulk_delete" method="delete" path="/api/v1/spaces/{space_id}/contacts/bulk" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.space_contacts.bulk_remove_contacts_from_space_api_v1_spaces_space_id_contacts_bulk_delete(space_id=618570, body=[
+    res = linebundle.space_contacts.bulk_delete(space_id=618570, body=[
         "bffc934c-a67d-47d1-871d-d9ac0d11e2d8",
         "46024cac-3eb2-4d0b-9db3-b714d934147c",
     ])
@@ -391,12 +384,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## count_space_contacts_api_v1_spaces_space_id_contacts_count_get
+## count
 
 Count contacts in a space.
 
@@ -413,17 +406,16 @@ Returns:
 
 <!-- UsageSnippet language="python" operationID="count_space_contacts_api_v1_spaces__space_id__contacts_count_get" method="get" path="/api/v1/spaces/{space_id}/contacts/count" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.space_contacts.count_space_contacts_api_v1_spaces_space_id_contacts_count_get(space_id=42492)
+    res = linebundle.space_contacts.count(space_id=42492)
 
     # Handle response
     print(res)
@@ -443,7 +435,7 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

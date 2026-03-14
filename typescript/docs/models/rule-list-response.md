@@ -5,7 +5,7 @@ List of automation rules.
 ## Example Usage
 
 ```typescript
-import { RuleListResponse } from "openapi/models";
+import { RuleListResponse } from "@linebundle-sdk/ts/models";
 
 let value: RuleListResponse = {
   rules: [],

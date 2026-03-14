@@ -5,7 +5,7 @@ Response model for a list of contacts.
 ## Example Usage
 
 ```typescript
-import { ContactListResponse } from "openapi/models";
+import { ContactListResponse } from "@linebundle-sdk/ts/models";
 
 let value: ContactListResponse = {
   contacts: [],

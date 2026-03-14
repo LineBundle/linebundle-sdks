@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { TokenUsage } from "openapi/models";
+import { TokenUsage } from "@linebundle-sdk/ts/models";
 
 let value: TokenUsage = {
   input: 554754,

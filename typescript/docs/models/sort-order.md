@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SortOrder } from "openapi/models";
+import { SortOrder } from "@linebundle-sdk/ts/models";
 
 let value: SortOrder = "desc";
 ```

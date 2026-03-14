@@ -4,10 +4,10 @@
 
 ### Available Operations
 
-* [triggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPost](#triggerscheduledautomationapiv1automationapiv1automationcrontriggerscheduledpost) - Trigger Scheduled Automation
-* [cronHealthCheckApiV1AutomationApiV1AutomationCronHealthGet](#cronhealthcheckapiv1automationapiv1automationcronhealthget) - Cron Health Check
+* [triggerScheduled](#triggerscheduled) - Trigger Scheduled Automation
+* [healthCheck](#healthcheck) - Cron Health Check
 
-## triggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPost
+## triggerScheduled
 
 Trigger execution of all scheduled automation rules.
 
@@ -41,17 +41,16 @@ This endpoint is designed to be called by external cron services like:
 
 <!-- UsageSnippet language="typescript" operationID="trigger_scheduled_automation_api_v1_automation_api_v1_automation_cron_trigger_scheduled_post" method="post" path="/api/v1/automation/api/v1/automation/cron/trigger-scheduled" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.automationCron.triggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPost({
+  const result = await linebundle.automationCron.triggerScheduled({
     xAutomationKey: "<value>",
   });
 
@@ -66,29 +65,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import {
-  automationRulesTriggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPost,
-} from "openapi/funcs/automation-rules-trigger-scheduled-automation-api-v1-automation-api-v1-automation-cron-trigger-scheduled-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { automationCronTriggerScheduled } from "@linebundle-sdk/ts/funcs/automation-cron-trigger-scheduled.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await automationRulesTriggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPost(sdk, {
+  const res = await automationCronTriggerScheduled(linebundle, {
     xAutomationKey: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("automationRulesTriggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPost failed:", res.error);
+    console.log("automationCronTriggerScheduled failed:", res.error);
   }
 }
 
@@ -110,12 +106,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## cronHealthCheckApiV1AutomationApiV1AutomationCronHealthGet
+## healthCheck
 
 Health check endpoint for external cron services.
 
@@ -127,17 +123,16 @@ endpoint is accessible.
 
 <!-- UsageSnippet language="typescript" operationID="cron_health_check_api_v1_automation_api_v1_automation_cron_health_get" method="get" path="/api/v1/automation/api/v1/automation/cron/health" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.automationCron.cronHealthCheckApiV1AutomationApiV1AutomationCronHealthGet();
+  const result = await linebundle.automationCron.healthCheck();
 
   console.log(result);
 }
@@ -150,25 +145,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { automationRulesCronHealthCheckApiV1AutomationApiV1AutomationCronHealthGet } from "openapi/funcs/automation-rules-cron-health-check-api-v1-automation-api-v1-automation-cron-health-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { automationCronHealthCheck } from "@linebundle-sdk/ts/funcs/automation-cron-health-check.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await automationRulesCronHealthCheckApiV1AutomationApiV1AutomationCronHealthGet(sdk);
+  const res = await automationCronHealthCheck(linebundle);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("automationRulesCronHealthCheckApiV1AutomationApiV1AutomationCronHealthGet failed:", res.error);
+    console.log("automationCronHealthCheck failed:", res.error);
   }
 }
 
@@ -189,6 +183,6 @@ run();
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { StartWorkflowAsyncResponse } from "openapi/models";
+import { StartWorkflowAsyncResponse } from "@linebundle-sdk/ts/models";
 
 let value: StartWorkflowAsyncResponse = {
   executionId: "5ed1aa7c-c4e8-4021-9006-95687b404079",

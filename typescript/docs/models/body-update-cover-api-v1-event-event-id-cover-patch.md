@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { BodyUpdateCoverApiV1EventEventIdCoverPatch } from "openapi/models";
+import { BodyUpdateCoverApiV1EventEventIdCoverPatch } from "@linebundle-sdk/ts/models";
 
 // No examples available for this model
 ```

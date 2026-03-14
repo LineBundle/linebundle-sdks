@@ -4,7 +4,7 @@
 
 export * from "./http-client-errors.js";
 export * from "./http-validation-error.js";
+export * from "./linebundle-default-error.js";
+export * from "./linebundle-error.js";
 export * from "./response-validation-error.js";
-export * from "./sdk-default-error.js";
-export * from "./sdk-error.js";
 export * from "./sdk-validation-error.js";

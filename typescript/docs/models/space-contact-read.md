@@ -5,7 +5,7 @@ Pydantic model for reading space contact data.
 ## Example Usage
 
 ```typescript
-import { SpaceContactRead } from "openapi/models";
+import { SpaceContactRead } from "@linebundle-sdk/ts/models";
 
 let value: SpaceContactRead = {
   id: 589344,

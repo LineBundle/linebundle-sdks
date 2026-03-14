@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PaginatedEventListResponse } from "openapi/models";
+import { PaginatedEventListResponse } from "@linebundle-sdk/ts/models";
 
 let value: PaginatedEventListResponse = {
   items: [

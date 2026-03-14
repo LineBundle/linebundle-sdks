@@ -5,7 +5,7 @@ Space roles with hierarchical permissions
 ## Example Usage
 
 ```python
-from openapi.models import SpaceRole
+from linebundle_sdk.models import SpaceRole
 
 # Open enum: unrecognized values are captured as UnrecognizedStr
 value: SpaceRole = "space_owner"

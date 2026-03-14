@@ -4,28 +4,27 @@
 
 ### Available Operations
 
-* [getLatestPublicEventVersionApiV1PublicEventEventIdVersionsLatestGet](#getlatestpubliceventversionapiv1publiceventeventidversionslatestget) - Get Latest Event Version (Public Access)
+* [getLatestVersion](#getlatestversion) - Get Latest Event Version (Public Access)
 
-## getLatestPublicEventVersionApiV1PublicEventEventIdVersionsLatestGet
+## getLatestVersion
 
 Get the most recent published version of an event. Supports unauthenticated access for PUBLIC events.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_latest_public_event_version_api_v1_public_event__event_id__versions_latest_get" method="get" path="/api/v1/public/event/{event_id}/versions/latest" -->
+<!-- UsageSnippet language="typescript" operationID="getLatestPublicEventVersion" method="get" path="/api/v1/public/event/{event_id}/versions/latest" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.publicEvents.getLatestPublicEventVersionApiV1PublicEventEventIdVersionsLatestGet({
-    eventId: 291072,
+  const result = await linebundle.publicEvents.getLatestVersion({
+    eventId: 75825,
   });
 
   console.log(result);
@@ -39,27 +38,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { publicEventsGetLatestPublicEventVersionApiV1PublicEventEventIdVersionsLatestGet } from "openapi/funcs/public-events-get-latest-public-event-version-api-v1-public-event-event-id-versions-latest-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { publicEventsGetLatestVersion } from "@linebundle-sdk/ts/funcs/public-events-get-latest-version.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await publicEventsGetLatestPublicEventVersionApiV1PublicEventEventIdVersionsLatestGet(sdk, {
-    eventId: 291072,
+  const res = await publicEventsGetLatestVersion(linebundle, {
+    eventId: 75825,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("publicEventsGetLatestPublicEventVersionApiV1PublicEventEventIdVersionsLatestGet failed:", res.error);
+    console.log("publicEventsGetLatestVersion failed:", res.error);
   }
 }
 
@@ -68,12 +66,12 @@ run();
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                    | Type                                                                                                                                                                                                         | Required                                                                                                                                                                                                     | Description                                                                                                                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                                                    | [operations.GetLatestPublicEventVersionApiV1PublicEventEventIdVersionsLatestGetRequest](../../models/operations/get-latest-public-event-version-api-v1-public-event-event-id-versions-latest-get-request.md) | :heavy_check_mark:                                                                                                                                                                                           | The request object to use for the request.                                                                                                                                                                   |
-| `options`                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                        |
-| `options.fetchOptions`                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                               |
-| `options.retries`                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                             |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetLatestPublicEventVersionRequest](../../models/operations/get-latest-public-event-version-request.md)                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
@@ -81,7 +79,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

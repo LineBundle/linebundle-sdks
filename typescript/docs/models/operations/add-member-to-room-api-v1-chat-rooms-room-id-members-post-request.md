@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AddMemberToRoomApiV1ChatRoomsRoomIdMembersPostRequest } from "openapi/models/operations";
+import { AddMemberToRoomApiV1ChatRoomsRoomIdMembersPostRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: AddMemberToRoomApiV1ChatRoomsRoomIdMembersPostRequest = {
   roomId: "cd473d12-4851-430c-9ad9-acd841ba30b0",

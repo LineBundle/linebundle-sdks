@@ -5,7 +5,7 @@ Pagination options for event queries.
 ## Example Usage
 
 ```typescript
-import { EventPaginationOptions } from "openapi/models";
+import { EventPaginationOptions } from "@linebundle-sdk/ts/models";
 
 let value: EventPaginationOptions = {};
 ```

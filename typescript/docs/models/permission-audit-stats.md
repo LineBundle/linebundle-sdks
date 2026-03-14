@@ -5,7 +5,7 @@ Response schema for permission audit statistics.
 ## Example Usage
 
 ```typescript
-import { PermissionAuditStats } from "openapi/models";
+import { PermissionAuditStats } from "@linebundle-sdk/ts/models";
 
 let value: PermissionAuditStats = {
   totalChecks: 906999,

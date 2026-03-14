@@ -5,7 +5,7 @@ Relationship-based filtering options for events.
 ## Example Usage
 
 ```typescript
-import { EventRelationshipFilter } from "openapi/models";
+import { EventRelationshipFilter } from "@linebundle-sdk/ts/models";
 
 let value: EventRelationshipFilter = {};
 ```

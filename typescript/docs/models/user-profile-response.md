@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UserProfileResponse } from "openapi/models";
+import { UserProfileResponse } from "@linebundle-sdk/ts/models";
 
 let value: UserProfileResponse = {
   id: "<id>",

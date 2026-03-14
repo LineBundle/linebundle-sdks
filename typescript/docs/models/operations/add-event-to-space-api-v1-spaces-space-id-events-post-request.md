@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AddEventToSpaceApiV1SpacesSpaceIdEventsPostRequest } from "openapi/models/operations";
+import { AddEventToSpaceApiV1SpacesSpaceIdEventsPostRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: AddEventToSpaceApiV1SpacesSpaceIdEventsPostRequest = {
   spaceId: 819568,

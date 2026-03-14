@@ -5,7 +5,7 @@ Attendee status enumeration.
 ## Example Usage
 
 ```typescript
-import { AttendeeStatus } from "openapi/models";
+import { AttendeeStatus } from "@linebundle-sdk/ts/models";
 
 let value: AttendeeStatus = "confirmed";
 

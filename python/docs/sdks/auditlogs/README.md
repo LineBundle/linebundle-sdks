@@ -4,10 +4,10 @@
 
 ### Available Operations
 
-* [list_permission_audit_logs_api_v1_audit_logs_permissions_get](#list_permission_audit_logs_api_v1_audit_logs_permissions_get) - List Permission Audit Logs
-* [get_permission_audit_stats_api_v1_audit_logs_permissions_stats_get](#get_permission_audit_stats_api_v1_audit_logs_permissions_stats_get) - Get Permission Audit Stats
+* [list_permissions](#list_permissions) - List Permission Audit Logs
+* [get_permission_stats](#get_permission_stats) - Get Permission Audit Stats
 
-## list_permission_audit_logs_api_v1_audit_logs_permissions_get
+## list_permissions
 
 List permission audit logs with filtering and pagination.
 
@@ -30,17 +30,16 @@ The org_id filter is automatically applied based on the user's permissions.
 
 <!-- UsageSnippet language="python" operationID="list_permission_audit_logs_api_v1_audit_logs_permissions_get" method="get" path="/api/v1/audit-logs/permissions" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.audit_logs.list_permission_audit_logs_api_v1_audit_logs_permissions_get(skip=0, limit=100)
+    res = linebundle.audit_logs.list_permissions(skip=0, limit=100)
 
     # Handle response
     print(res)
@@ -67,12 +66,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_permission_audit_stats_api_v1_audit_logs_permissions_stats_get
+## get_permission_stats
 
 Get aggregate statistics for permission audit logs.
 
@@ -93,17 +92,16 @@ Requires PERMISSION_READ permission.
 
 <!-- UsageSnippet language="python" operationID="get_permission_audit_stats_api_v1_audit_logs_permissions_stats_get" method="get" path="/api/v1/audit-logs/permissions/stats" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.audit_logs.get_permission_audit_stats_api_v1_audit_logs_permissions_stats_get()
+    res = linebundle.audit_logs.get_permission_stats()
 
     # Handle response
     print(res)
@@ -125,7 +123,7 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

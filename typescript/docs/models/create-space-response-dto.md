@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateSpaceResponseDTO } from "openapi/models";
+import { CreateSpaceResponseDTO } from "@linebundle-sdk/ts/models";
 
 let value: CreateSpaceResponseDTO = {
   id: 894825,

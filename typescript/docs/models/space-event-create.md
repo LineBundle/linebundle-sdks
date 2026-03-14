@@ -5,7 +5,7 @@ Pydantic model for creating a new space event association.
 ## Example Usage
 
 ```typescript
-import { SpaceEventCreate } from "openapi/models";
+import { SpaceEventCreate } from "@linebundle-sdk/ts/models";
 
 let value: SpaceEventCreate = {
   eventId: 607346,

@@ -6,7 +6,7 @@ Note: first_name and last_name are managed by external auth (Zitadel).
 ## Example Usage
 
 ```typescript
-import { UpdateProfileRequest } from "openapi/models";
+import { UpdateProfileRequest } from "@linebundle-sdk/ts/models";
 
 let value: UpdateProfileRequest = {};
 ```

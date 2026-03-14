@@ -4,10 +4,10 @@
 
 ### Available Operations
 
-* [trigger_scheduled_automation_api_v1_automation_api_v1_automation_cron_trigger_scheduled_post](#trigger_scheduled_automation_api_v1_automation_api_v1_automation_cron_trigger_scheduled_post) - Trigger Scheduled Automation
-* [cron_health_check_api_v1_automation_api_v1_automation_cron_health_get](#cron_health_check_api_v1_automation_api_v1_automation_cron_health_get) - Cron Health Check
+* [trigger_scheduled](#trigger_scheduled) - Trigger Scheduled Automation
+* [health_check](#health_check) - Cron Health Check
 
-## trigger_scheduled_automation_api_v1_automation_api_v1_automation_cron_trigger_scheduled_post
+## trigger_scheduled
 
 Trigger execution of all scheduled automation rules.
 
@@ -41,17 +41,16 @@ This endpoint is designed to be called by external cron services like:
 
 <!-- UsageSnippet language="python" operationID="trigger_scheduled_automation_api_v1_automation_api_v1_automation_cron_trigger_scheduled_post" method="post" path="/api/v1/automation/api/v1/automation/cron/trigger-scheduled" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.automation_cron.trigger_scheduled_automation_api_v1_automation_api_v1_automation_cron_trigger_scheduled_post(x_automation_key="<value>")
+    res = linebundle.automation_cron.trigger_scheduled(x_automation_key="<value>")
 
     # Handle response
     print(res)
@@ -71,12 +70,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## cron_health_check_api_v1_automation_api_v1_automation_cron_health_get
+## health_check
 
 Health check endpoint for external cron services.
 
@@ -88,17 +87,16 @@ endpoint is accessible.
 
 <!-- UsageSnippet language="python" operationID="cron_health_check_api_v1_automation_api_v1_automation_cron_health_get" method="get" path="/api/v1/automation/api/v1/automation/cron/health" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.automation_cron.cron_health_check_api_v1_automation_api_v1_automation_cron_health_get()
+    res = linebundle.automation_cron.health_check()
 
     # Handle response
     print(res)
@@ -117,6 +115,6 @@ with SDK(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

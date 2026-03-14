@@ -5,45 +5,9 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 
-export type GetTimelineApiV1EventEventIdTimelineGetSecurity = {
-  permissionDependency: string;
-};
-
 export type GetTimelineApiV1EventEventIdTimelineGetRequest = {
   eventId: number;
 };
-
-/** @internal */
-export type GetTimelineApiV1EventEventIdTimelineGetSecurity$Outbound = {
-  PermissionDependency: string;
-};
-
-/** @internal */
-export const GetTimelineApiV1EventEventIdTimelineGetSecurity$outboundSchema:
-  z.ZodMiniType<
-    GetTimelineApiV1EventEventIdTimelineGetSecurity$Outbound,
-    GetTimelineApiV1EventEventIdTimelineGetSecurity
-  > = z.pipe(
-    z.object({
-      permissionDependency: z.string(),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        permissionDependency: "PermissionDependency",
-      });
-    }),
-  );
-
-export function getTimelineApiV1EventEventIdTimelineGetSecurityToJSON(
-  getTimelineApiV1EventEventIdTimelineGetSecurity:
-    GetTimelineApiV1EventEventIdTimelineGetSecurity,
-): string {
-  return JSON.stringify(
-    GetTimelineApiV1EventEventIdTimelineGetSecurity$outboundSchema.parse(
-      getTimelineApiV1EventEventIdTimelineGetSecurity,
-    ),
-  );
-}
 
 /** @internal */
 export type GetTimelineApiV1EventEventIdTimelineGetRequest$Outbound = {

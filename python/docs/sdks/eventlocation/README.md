@@ -4,10 +4,10 @@
 
 ### Available Operations
 
-* [get_event_location_api_v1_events_event_id_location_get](#get_event_location_api_v1_events_event_id_location_get) - Get Event Location
-* [update_event_location_api_v1_events_event_id_location_put](#update_event_location_api_v1_events_event_id_location_put) - Update Event Location
+* [get](#get) - Get Event Location
+* [update](#update) - Update Event Location
 
-## get_event_location_api_v1_events_event_id_location_get
+## get
 
 Get the location details for an event.
 
@@ -15,17 +15,16 @@ Get the location details for an event.
 
 <!-- UsageSnippet language="python" operationID="get_event_location_api_v1_events__event_id__location_get" method="get" path="/api/v1/events/{event_id}/location" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.event_location.get_event_location_api_v1_events_event_id_location_get(event_id=20391)
+    res = linebundle.event_location.get(event_id=20391)
 
     # Handle response
     print(res)
@@ -45,12 +44,12 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## update_event_location_api_v1_events_event_id_location_put
+## update
 
 Update the location details for an event.
 
@@ -58,17 +57,16 @@ Update the location details for an event.
 
 <!-- UsageSnippet language="python" operationID="update_event_location_api_v1_events__event_id__location_put" method="put" path="/api/v1/events/{event_id}/location" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.event_location.update_event_location_api_v1_events_event_id_location_put(event_id=563901)
+    res = linebundle.event_location.update(event_id=563901)
 
     # Handle response
     print(res)
@@ -91,7 +89,7 @@ with SDK(
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

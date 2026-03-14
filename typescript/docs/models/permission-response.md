@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PermissionResponse } from "openapi/models";
+import { PermissionResponse } from "@linebundle-sdk/ts/models";
 
 let value: PermissionResponse = {
   code: "<value>",

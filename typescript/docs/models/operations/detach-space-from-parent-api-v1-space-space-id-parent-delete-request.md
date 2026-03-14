@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DetachSpaceFromParentApiV1SpaceSpaceIdParentDeleteRequest } from "openapi/models/operations";
+import { DetachSpaceFromParentApiV1SpaceSpaceIdParentDeleteRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: DetachSpaceFromParentApiV1SpaceSpaceIdParentDeleteRequest = {
   spaceId: 361817,

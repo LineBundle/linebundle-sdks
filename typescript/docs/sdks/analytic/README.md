@@ -4,10 +4,10 @@
 
 ### Available Operations
 
-* [getAnalyticTotalsApiV1AnalyticCountsGet](#getanalytictotalsapiv1analyticcountsget) - Get Analytic Totals
-* [getDashboardAnalyticsApiV1AnalyticDashboardGet](#getdashboardanalyticsapiv1analyticdashboardget) - Get Dashboard Analytics
+* [getTotals](#gettotals) - Get Analytic Totals
+* [getDashboard](#getdashboard) - Get Dashboard Analytics
 
-## getAnalyticTotalsApiV1AnalyticCountsGet
+## getTotals
 
 Get Analytic Totals
 
@@ -15,17 +15,16 @@ Get Analytic Totals
 
 <!-- UsageSnippet language="typescript" operationID="get_analytic_totals_api_v1_analytic_counts_get" method="get" path="/api/v1/analytic/counts" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.analytic.getAnalyticTotalsApiV1AnalyticCountsGet();
+  const result = await linebundle.analytic.getTotals();
 
   console.log(result);
 }
@@ -38,25 +37,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { analyticGetAnalyticTotalsApiV1AnalyticCountsGet } from "openapi/funcs/analytic-get-analytic-totals-api-v1-analytic-counts-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { analyticGetTotals } from "@linebundle-sdk/ts/funcs/analytic-get-totals.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await analyticGetAnalyticTotalsApiV1AnalyticCountsGet(sdk);
+  const res = await analyticGetTotals(linebundle);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticGetAnalyticTotalsApiV1AnalyticCountsGet failed:", res.error);
+    console.log("analyticGetTotals failed:", res.error);
   }
 }
 
@@ -77,11 +75,11 @@ run();
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getDashboardAnalyticsApiV1AnalyticDashboardGet
+## getDashboard
 
 Get Dashboard Analytics
 
@@ -89,17 +87,16 @@ Get Dashboard Analytics
 
 <!-- UsageSnippet language="typescript" operationID="get_dashboard_analytics_api_v1_analytic_dashboard_get" method="get" path="/api/v1/analytic/dashboard" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.analytic.getDashboardAnalyticsApiV1AnalyticDashboardGet();
+  const result = await linebundle.analytic.getDashboard();
 
   console.log(result);
 }
@@ -112,25 +109,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { analyticGetDashboardAnalyticsApiV1AnalyticDashboardGet } from "openapi/funcs/analytic-get-dashboard-analytics-api-v1-analytic-dashboard-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { analyticGetDashboard } from "@linebundle-sdk/ts/funcs/analytic-get-dashboard.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await analyticGetDashboardAnalyticsApiV1AnalyticDashboardGet(sdk);
+  const res = await analyticGetDashboard(linebundle);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticGetDashboardAnalyticsApiV1AnalyticDashboardGet failed:", res.error);
+    console.log("analyticGetDashboard failed:", res.error);
   }
 }
 
@@ -151,6 +147,6 @@ run();
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

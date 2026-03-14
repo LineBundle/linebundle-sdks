@@ -5,7 +5,7 @@ Model for list of space contacts with contact info.
 ## Example Usage
 
 ```typescript
-import { SpaceContactList } from "openapi/models";
+import { SpaceContactList } from "@linebundle-sdk/ts/models";
 
 let value: SpaceContactList = {
   total: 684141,

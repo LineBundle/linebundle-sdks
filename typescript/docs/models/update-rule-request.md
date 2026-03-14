@@ -5,7 +5,7 @@ Request to update automation rule.
 ## Example Usage
 
 ```typescript
-import { UpdateRuleRequest } from "openapi/models";
+import { UpdateRuleRequest } from "@linebundle-sdk/ts/models";
 
 let value: UpdateRuleRequest = {};
 ```

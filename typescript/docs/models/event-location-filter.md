@@ -5,7 +5,7 @@ Location-based filtering options for events.
 ## Example Usage
 
 ```typescript
-import { EventLocationFilter } from "openapi/models";
+import { EventLocationFilter } from "@linebundle-sdk/ts/models";
 
 let value: EventLocationFilter = {};
 ```

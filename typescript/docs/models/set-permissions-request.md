@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SetPermissionsRequest } from "openapi/models";
+import { SetPermissionsRequest } from "@linebundle-sdk/ts/models";
 
 let value: SetPermissionsRequest = {
   permissionCodes: [],

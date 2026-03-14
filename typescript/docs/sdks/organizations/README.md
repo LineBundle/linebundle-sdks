@@ -4,17 +4,17 @@
 
 ### Available Operations
 
-* [listOrganizationsEndpointApiV1OrganizationsGet](#listorganizationsendpointapiv1organizationsget) - List Organizations Endpoint
-* [createOrganizationEndpointApiV1OrganizationsPost](#createorganizationendpointapiv1organizationspost) - Create Organization Endpoint
-* [getCurrentOrganizationEndpointApiV1OrganizationsMeGet](#getcurrentorganizationendpointapiv1organizationsmeget) - Get Current Organization Endpoint
-* [getOrganizationInvitesEndpointApiV1OrganizationsOrgIdInvitesGet](#getorganizationinvitesendpointapiv1organizationsorgidinvitesget) - Get Organization Invites Endpoint
-* [createInviteEndpointApiV1OrganizationsOrgIdInvitesPost](#createinviteendpointapiv1organizationsorgidinvitespost) - Create Invite Endpoint
-* [deleteInviteEndpointApiV1OrganizationsOrgIdInvitesInviteIdDelete](#deleteinviteendpointapiv1organizationsorgidinvitesinviteiddelete) - Delete Invite Endpoint
-* [getOrganizationEndpointApiV1OrganizationsOrgIdGet](#getorganizationendpointapiv1organizationsorgidget) - Get Organization Endpoint
-* [updateOrganizationEndpointApiV1OrganizationsOrgIdPut](#updateorganizationendpointapiv1organizationsorgidput) - Update Organization Endpoint
-* [archiveOrganizationEndpointApiV1OrganizationsOrgIdDelete](#archiveorganizationendpointapiv1organizationsorgiddelete) - Archive Organization Endpoint
+* [list](#list) - List Organizations Endpoint
+* [create](#create) - Create Organization Endpoint
+* [getCurrent](#getcurrent) - Get Current Organization Endpoint
+* [getInvites](#getinvites) - Get Organization Invites Endpoint
+* [createInvite](#createinvite) - Create Invite Endpoint
+* [deleteInvite](#deleteinvite) - Delete Invite Endpoint
+* [getById](#getbyid) - Get Organization Endpoint
+* [update](#update) - Update Organization Endpoint
+* [archive](#archive) - Archive Organization Endpoint
 
-## listOrganizationsEndpointApiV1OrganizationsGet
+## list
 
 List all organizations the current user belongs to.
 
@@ -22,17 +22,16 @@ List all organizations the current user belongs to.
 
 <!-- UsageSnippet language="typescript" operationID="list_organizations_endpoint_api_v1_organizations_get" method="get" path="/api/v1/organizations" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.organizations.listOrganizationsEndpointApiV1OrganizationsGet({});
+  const result = await linebundle.organizations.list({});
 
   console.log(result);
 }
@@ -45,25 +44,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsListOrganizationsEndpointApiV1OrganizationsGet } from "openapi/funcs/organizations-list-organizations-endpoint-api-v1-organizations-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { organizationsList } from "@linebundle-sdk/ts/funcs/organizations-list.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await organizationsListOrganizationsEndpointApiV1OrganizationsGet(sdk, {});
+  const res = await organizationsList(linebundle, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationsListOrganizationsEndpointApiV1OrganizationsGet failed:", res.error);
+    console.log("organizationsList failed:", res.error);
   }
 }
 
@@ -85,12 +83,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## createOrganizationEndpointApiV1OrganizationsPost
+## create
 
 Create a new organization.
 
@@ -98,17 +96,16 @@ Create a new organization.
 
 <!-- UsageSnippet language="typescript" operationID="create_organization_endpoint_api_v1_organizations_post" method="post" path="/api/v1/organizations" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.organizations.createOrganizationEndpointApiV1OrganizationsPost({});
+  const result = await linebundle.organizations.create({});
 
   console.log(result);
 }
@@ -121,25 +118,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsCreateOrganizationEndpointApiV1OrganizationsPost } from "openapi/funcs/organizations-create-organization-endpoint-api-v1-organizations-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { organizationsCreate } from "@linebundle-sdk/ts/funcs/organizations-create.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await organizationsCreateOrganizationEndpointApiV1OrganizationsPost(sdk, {});
+  const res = await organizationsCreate(linebundle, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationsCreateOrganizationEndpointApiV1OrganizationsPost failed:", res.error);
+    console.log("organizationsCreate failed:", res.error);
   }
 }
 
@@ -161,12 +157,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getCurrentOrganizationEndpointApiV1OrganizationsMeGet
+## getCurrent
 
 Get the current organization from JWT claims.
 Returns the org that the user is currently authenticated for.
@@ -175,17 +171,16 @@ Returns the org that the user is currently authenticated for.
 
 <!-- UsageSnippet language="typescript" operationID="get_current_organization_endpoint_api_v1_organizations_me_get" method="get" path="/api/v1/organizations/me" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.organizations.getCurrentOrganizationEndpointApiV1OrganizationsMeGet();
+  const result = await linebundle.organizations.getCurrent();
 
   console.log(result);
 }
@@ -198,25 +193,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsGetCurrentOrganizationEndpointApiV1OrganizationsMeGet } from "openapi/funcs/organizations-get-current-organization-endpoint-api-v1-organizations-me-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { organizationsGetCurrent } from "@linebundle-sdk/ts/funcs/organizations-get-current.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await organizationsGetCurrentOrganizationEndpointApiV1OrganizationsMeGet(sdk);
+  const res = await organizationsGetCurrent(linebundle);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationsGetCurrentOrganizationEndpointApiV1OrganizationsMeGet failed:", res.error);
+    console.log("organizationsGetCurrent failed:", res.error);
   }
 }
 
@@ -237,11 +231,11 @@ run();
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getOrganizationInvitesEndpointApiV1OrganizationsOrgIdInvitesGet
+## getInvites
 
 Get all pending invitations for an organization.
 
@@ -249,17 +243,16 @@ Get all pending invitations for an organization.
 
 <!-- UsageSnippet language="typescript" operationID="get_organization_invites_endpoint_api_v1_organizations__org_id__invites_get" method="get" path="/api/v1/organizations/{org_id}/invites" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.organizations.getOrganizationInvitesEndpointApiV1OrganizationsOrgIdInvitesGet({
+  const result = await linebundle.organizations.getInvites({
     orgId: "<id>",
   });
 
@@ -274,27 +267,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsGetOrganizationInvitesEndpointApiV1OrganizationsOrgIdInvitesGet } from "openapi/funcs/organizations-get-organization-invites-endpoint-api-v1-organizations-org-id-invites-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { organizationsGetInvites } from "@linebundle-sdk/ts/funcs/organizations-get-invites.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await organizationsGetOrganizationInvitesEndpointApiV1OrganizationsOrgIdInvitesGet(sdk, {
+  const res = await organizationsGetInvites(linebundle, {
     orgId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationsGetOrganizationInvitesEndpointApiV1OrganizationsOrgIdInvitesGet failed:", res.error);
+    console.log("organizationsGetInvites failed:", res.error);
   }
 }
 
@@ -316,12 +308,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## createInviteEndpointApiV1OrganizationsOrgIdInvitesPost
+## createInvite
 
 Create an invite to the organization. Requires owner or admin role.
 
@@ -329,17 +321,16 @@ Create an invite to the organization. Requires owner or admin role.
 
 <!-- UsageSnippet language="typescript" operationID="create_invite_endpoint_api_v1_organizations__org_id__invites_post" method="post" path="/api/v1/organizations/{org_id}/invites" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.organizations.createInviteEndpointApiV1OrganizationsOrgIdInvitesPost({
+  const result = await linebundle.organizations.createInvite({
     orgId: "<id>",
     body: {
       email: "Clinton_Kerluke89@hotmail.com",
@@ -357,20 +348,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsCreateInviteEndpointApiV1OrganizationsOrgIdInvitesPost } from "openapi/funcs/organizations-create-invite-endpoint-api-v1-organizations-org-id-invites-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { organizationsCreateInvite } from "@linebundle-sdk/ts/funcs/organizations-create-invite.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await organizationsCreateInviteEndpointApiV1OrganizationsOrgIdInvitesPost(sdk, {
+  const res = await organizationsCreateInvite(linebundle, {
     orgId: "<id>",
     body: {
       email: "Clinton_Kerluke89@hotmail.com",
@@ -380,7 +370,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationsCreateInviteEndpointApiV1OrganizationsOrgIdInvitesPost failed:", res.error);
+    console.log("organizationsCreateInvite failed:", res.error);
   }
 }
 
@@ -402,12 +392,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## deleteInviteEndpointApiV1OrganizationsOrgIdInvitesInviteIdDelete
+## deleteInvite
 
 Delete/rescind an organization invite. Requires owner or admin role.
 
@@ -415,17 +405,16 @@ Delete/rescind an organization invite. Requires owner or admin role.
 
 <!-- UsageSnippet language="typescript" operationID="delete_invite_endpoint_api_v1_organizations__org_id__invites__invite_id__delete" method="delete" path="/api/v1/organizations/{org_id}/invites/{invite_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  await sdk.organizations.deleteInviteEndpointApiV1OrganizationsOrgIdInvitesInviteIdDelete({
+  await linebundle.organizations.deleteInvite({
     orgId: "<id>",
     inviteId: "<id>",
   });
@@ -441,20 +430,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsDeleteInviteEndpointApiV1OrganizationsOrgIdInvitesInviteIdDelete } from "openapi/funcs/organizations-delete-invite-endpoint-api-v1-organizations-org-id-invites-invite-id-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { organizationsDeleteInvite } from "@linebundle-sdk/ts/funcs/organizations-delete-invite.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await organizationsDeleteInviteEndpointApiV1OrganizationsOrgIdInvitesInviteIdDelete(sdk, {
+  const res = await organizationsDeleteInvite(linebundle, {
     orgId: "<id>",
     inviteId: "<id>",
   });
@@ -462,7 +450,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("organizationsDeleteInviteEndpointApiV1OrganizationsOrgIdInvitesInviteIdDelete failed:", res.error);
+    console.log("organizationsDeleteInvite failed:", res.error);
   }
 }
 
@@ -484,12 +472,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getOrganizationEndpointApiV1OrganizationsOrgIdGet
+## getById
 
 Get a single organization by ID.
 
@@ -497,17 +485,16 @@ Get a single organization by ID.
 
 <!-- UsageSnippet language="typescript" operationID="get_organization_endpoint_api_v1_organizations__org_id__get" method="get" path="/api/v1/organizations/{org_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.organizations.getOrganizationEndpointApiV1OrganizationsOrgIdGet({
+  const result = await linebundle.organizations.getById({
     orgId: "<id>",
   });
 
@@ -522,27 +509,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsGetOrganizationEndpointApiV1OrganizationsOrgIdGet } from "openapi/funcs/organizations-get-organization-endpoint-api-v1-organizations-org-id-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { organizationsGetById } from "@linebundle-sdk/ts/funcs/organizations-get-by-id.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await organizationsGetOrganizationEndpointApiV1OrganizationsOrgIdGet(sdk, {
+  const res = await organizationsGetById(linebundle, {
     orgId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationsGetOrganizationEndpointApiV1OrganizationsOrgIdGet failed:", res.error);
+    console.log("organizationsGetById failed:", res.error);
   }
 }
 
@@ -564,12 +550,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## updateOrganizationEndpointApiV1OrganizationsOrgIdPut
+## update
 
 Update an organization. Requires owner or admin role.
 
@@ -577,17 +563,16 @@ Update an organization. Requires owner or admin role.
 
 <!-- UsageSnippet language="typescript" operationID="update_organization_endpoint_api_v1_organizations__org_id__put" method="put" path="/api/v1/organizations/{org_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.organizations.updateOrganizationEndpointApiV1OrganizationsOrgIdPut({
+  const result = await linebundle.organizations.update({
     orgId: "<id>",
     body: {},
   });
@@ -603,20 +588,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsUpdateOrganizationEndpointApiV1OrganizationsOrgIdPut } from "openapi/funcs/organizations-update-organization-endpoint-api-v1-organizations-org-id-put.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { organizationsUpdate } from "@linebundle-sdk/ts/funcs/organizations-update.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await organizationsUpdateOrganizationEndpointApiV1OrganizationsOrgIdPut(sdk, {
+  const res = await organizationsUpdate(linebundle, {
     orgId: "<id>",
     body: {},
   });
@@ -624,7 +608,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationsUpdateOrganizationEndpointApiV1OrganizationsOrgIdPut failed:", res.error);
+    console.log("organizationsUpdate failed:", res.error);
   }
 }
 
@@ -646,12 +630,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## archiveOrganizationEndpointApiV1OrganizationsOrgIdDelete
+## archive
 
 Archive an organization (soft delete). Requires owner role only.
 
@@ -659,17 +643,16 @@ Archive an organization (soft delete). Requires owner role only.
 
 <!-- UsageSnippet language="typescript" operationID="archive_organization_endpoint_api_v1_organizations__org_id__delete" method="delete" path="/api/v1/organizations/{org_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  await sdk.organizations.archiveOrganizationEndpointApiV1OrganizationsOrgIdDelete({
+  await linebundle.organizations.archive({
     orgId: "<id>",
   });
 
@@ -684,27 +667,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsArchiveOrganizationEndpointApiV1OrganizationsOrgIdDelete } from "openapi/funcs/organizations-archive-organization-endpoint-api-v1-organizations-org-id-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { organizationsArchive } from "@linebundle-sdk/ts/funcs/organizations-archive.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await organizationsArchiveOrganizationEndpointApiV1OrganizationsOrgIdDelete(sdk, {
+  const res = await organizationsArchive(linebundle, {
     orgId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     
   } else {
-    console.log("organizationsArchiveOrganizationEndpointApiV1OrganizationsOrgIdDelete failed:", res.error);
+    console.log("organizationsArchive failed:", res.error);
   }
 }
 
@@ -726,7 +708,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

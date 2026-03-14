@@ -6,46 +6,10 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 
-export type CreateMilestoneApiV1EventEventIdTimelineMilestonesPostSecurity = {
-  permissionDependency: string;
-};
-
 export type CreateMilestoneApiV1EventEventIdTimelineMilestonesPostRequest = {
   eventId: number;
   body: models.BodyCreateMilestoneApiV1EventEventIdTimelineMilestonesPost;
 };
-
-/** @internal */
-export type CreateMilestoneApiV1EventEventIdTimelineMilestonesPostSecurity$Outbound =
-  {
-    PermissionDependency: string;
-  };
-
-/** @internal */
-export const CreateMilestoneApiV1EventEventIdTimelineMilestonesPostSecurity$outboundSchema:
-  z.ZodMiniType<
-    CreateMilestoneApiV1EventEventIdTimelineMilestonesPostSecurity$Outbound,
-    CreateMilestoneApiV1EventEventIdTimelineMilestonesPostSecurity
-  > = z.pipe(
-    z.object({
-      permissionDependency: z.string(),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        permissionDependency: "PermissionDependency",
-      });
-    }),
-  );
-
-export function createMilestoneApiV1EventEventIdTimelineMilestonesPostSecurityToJSON(
-  createMilestoneApiV1EventEventIdTimelineMilestonesPostSecurity:
-    CreateMilestoneApiV1EventEventIdTimelineMilestonesPostSecurity,
-): string {
-  return JSON.stringify(
-    CreateMilestoneApiV1EventEventIdTimelineMilestonesPostSecurity$outboundSchema
-      .parse(createMilestoneApiV1EventEventIdTimelineMilestonesPostSecurity),
-  );
-}
 
 /** @internal */
 export type CreateMilestoneApiV1EventEventIdTimelineMilestonesPostRequest$Outbound =

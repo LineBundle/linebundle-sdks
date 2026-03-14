@@ -5,7 +5,7 @@ Basic info about a base event when the current event is a milestone.
 ## Example Usage
 
 ```typescript
-import { BaseEventInfo } from "openapi/models";
+import { BaseEventInfo } from "@linebundle-sdk/ts/models";
 
 let value: BaseEventInfo = {
   id: 517402,

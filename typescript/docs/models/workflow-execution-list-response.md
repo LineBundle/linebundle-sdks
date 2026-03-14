@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { WorkflowExecutionListResponse } from "openapi/models";
+import { WorkflowExecutionListResponse } from "@linebundle-sdk/ts/models";
 
 let value: WorkflowExecutionListResponse = {
   executions: [],

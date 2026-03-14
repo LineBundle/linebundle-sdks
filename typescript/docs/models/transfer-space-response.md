@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { TransferSpaceResponse } from "openapi/models";
+import { TransferSpaceResponse } from "@linebundle-sdk/ts/models";
 
 let value: TransferSpaceResponse = {
   status: "<value>",

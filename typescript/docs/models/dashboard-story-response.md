@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DashboardStoryResponse } from "openapi/models";
+import { DashboardStoryResponse } from "@linebundle-sdk/ts/models";
 
 let value: DashboardStoryResponse = {
   pulse: {

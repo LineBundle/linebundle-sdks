@@ -5,7 +5,7 @@ Space hierarchy item for tree display
 ## Example Usage
 
 ```typescript
-import { SpaceHierarchyItem } from "openapi/models";
+import { SpaceHierarchyItem } from "@linebundle-sdk/ts/models";
 
 let value: SpaceHierarchyItem = {
   id: 928584,

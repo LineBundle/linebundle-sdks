@@ -6,10 +6,10 @@ Realtime WebSocket channel documentation
 
 ### Available Operations
 
-* [realtime_info_realtime_info_get](#realtime_info_realtime_info_get) - Realtime WebSocket protocol info
-* [get_ws](#get_ws) - Establish realtime WebSocket connection (upgrade)
+* [get_info](#get_info) - Realtime WebSocket protocol info
+* [connect](#connect) - Establish realtime WebSocket connection (upgrade)
 
-## realtime_info_realtime_info_get
+## get_info
 
 Get WebSocket protocol information.
 
@@ -26,17 +26,16 @@ Returns:
 
 <!-- UsageSnippet language="python" operationID="realtime_info_realtime_info_get" method="get" path="/realtime-info" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    res = sdk.realtime.realtime_info_realtime_info_get()
+    res = linebundle.realtime.get_info()
 
     # Handle response
     print(res)
@@ -55,11 +54,11 @@ with SDK(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## get_ws
+## connect
 
 Upgrades to WebSocket at this path (subprotocol: json).
 
@@ -67,19 +66,18 @@ Requires valid authenticated user & tenant context. Server sends single ACK then
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="get_/ws" method="get" path="/ws" -->
+<!-- UsageSnippet language="python" operationID="connectWebSocket" method="get" path="/ws" -->
 ```python
-from openapi import SDK, models
+from linebundle_sdk import Linebundle, models
 
 
-with SDK(
-    "https://api.example.com",
+with Linebundle(
     security=models.Security(
         oidc="<YOUR_API_KEY_HERE>",
     ),
-) as sdk:
+) as linebundle:
 
-    sdk.realtime.get_ws()
+    linebundle.realtime.connect()
 
     # Use the SDK ...
 
@@ -93,6 +91,6 @@ with SDK(
 
 ### Errors
 
-| Error Type             | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| errors.SDKDefaultError | 4XX, 5XX               | \*/\*                  |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

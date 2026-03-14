@@ -5,7 +5,7 @@ Task category
 ## Example Usage
 
 ```python
-from openapi.models import Category
+from linebundle_sdk.models import Category
 
 # Open enum: unrecognized values are captured as UnrecognizedStr
 value: Category = "trigger"

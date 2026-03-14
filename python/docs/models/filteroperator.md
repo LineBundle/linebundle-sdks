@@ -5,7 +5,7 @@ Supported filter operators for building query conditions.
 ## Example Usage
 
 ```python
-from openapi.models import FilterOperator
+from linebundle_sdk.models import FilterOperator
 value: FilterOperator = "eq"
 ```
 

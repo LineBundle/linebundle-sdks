@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetBookingsApiV1BookingGetRequest } from "openapi/models/operations";
+import { GetBookingsApiV1BookingGetRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: GetBookingsApiV1BookingGetRequest = {};
 ```

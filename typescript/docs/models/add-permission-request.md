@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AddPermissionRequest } from "openapi/models";
+import { AddPermissionRequest } from "@linebundle-sdk/ts/models";
 
 let value: AddPermissionRequest = {
   permissionCode: "<value>",

@@ -4,10 +4,10 @@
 
 ### Available Operations
 
-* [getEventLocationApiV1EventsEventIdLocationGet](#geteventlocationapiv1eventseventidlocationget) - Get Event Location
-* [updateEventLocationApiV1EventsEventIdLocationPut](#updateeventlocationapiv1eventseventidlocationput) - Update Event Location
+* [get](#get) - Get Event Location
+* [update](#update) - Update Event Location
 
-## getEventLocationApiV1EventsEventIdLocationGet
+## get
 
 Get the location details for an event.
 
@@ -15,17 +15,16 @@ Get the location details for an event.
 
 <!-- UsageSnippet language="typescript" operationID="get_event_location_api_v1_events__event_id__location_get" method="get" path="/api/v1/events/{event_id}/location" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventLocation.getEventLocationApiV1EventsEventIdLocationGet({
+  const result = await linebundle.eventLocation.get({
     eventId: 20391,
   });
 
@@ -40,27 +39,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventLocationGetEventLocationApiV1EventsEventIdLocationGet } from "openapi/funcs/event-location-get-event-location-api-v1-events-event-id-location-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventLocationGet } from "@linebundle-sdk/ts/funcs/event-location-get.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventLocationGetEventLocationApiV1EventsEventIdLocationGet(sdk, {
+  const res = await eventLocationGet(linebundle, {
     eventId: 20391,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventLocationGetEventLocationApiV1EventsEventIdLocationGet failed:", res.error);
+    console.log("eventLocationGet failed:", res.error);
   }
 }
 
@@ -82,12 +80,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## updateEventLocationApiV1EventsEventIdLocationPut
+## update
 
 Update the location details for an event.
 
@@ -95,17 +93,16 @@ Update the location details for an event.
 
 <!-- UsageSnippet language="typescript" operationID="update_event_location_api_v1_events__event_id__location_put" method="put" path="/api/v1/events/{event_id}/location" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.eventLocation.updateEventLocationApiV1EventsEventIdLocationPut({
+  const result = await linebundle.eventLocation.update({
     eventId: 563901,
     body: {},
   });
@@ -121,20 +118,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { eventLocationUpdateEventLocationApiV1EventsEventIdLocationPut } from "openapi/funcs/event-location-update-event-location-api-v1-events-event-id-location-put.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { eventLocationUpdate } from "@linebundle-sdk/ts/funcs/event-location-update.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventLocationUpdateEventLocationApiV1EventsEventIdLocationPut(sdk, {
+  const res = await eventLocationUpdate(linebundle, {
     eventId: 563901,
     body: {},
   });
@@ -142,7 +138,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("eventLocationUpdateEventLocationApiV1EventsEventIdLocationPut failed:", res.error);
+    console.log("eventLocationUpdate failed:", res.error);
   }
 }
 
@@ -164,7 +160,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

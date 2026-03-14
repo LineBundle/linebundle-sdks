@@ -5,7 +5,7 @@ Pydantic model for creating a new event attendee.
 ## Example Usage
 
 ```typescript
-import { EventAttendeeCreate } from "openapi/models";
+import { EventAttendeeCreate } from "@linebundle-sdk/ts/models";
 
 let value: EventAttendeeCreate = {
   contactId: "83469960-8d4d-4c9c-b98e-6d25f3a555ca",

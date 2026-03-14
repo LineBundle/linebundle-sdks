@@ -1,16 +1,15 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.handleOrgCreatedApiV1IntegrationOrgCreatedPost();
+  const result = await linebundle.user.getAssistant();
 
   console.log(result);
 }

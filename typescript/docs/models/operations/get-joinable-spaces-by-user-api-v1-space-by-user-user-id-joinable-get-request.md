@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetJoinableSpacesByUserApiV1SpaceByUserUserIdJoinableGetRequest } from "openapi/models/operations";
+import { GetJoinableSpacesByUserApiV1SpaceByUserUserIdJoinableGetRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: GetJoinableSpacesByUserApiV1SpaceByUserUserIdJoinableGetRequest = {
   userId: "<id>",

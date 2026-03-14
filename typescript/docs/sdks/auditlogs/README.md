@@ -4,10 +4,10 @@
 
 ### Available Operations
 
-* [listPermissionAuditLogsApiV1AuditLogsPermissionsGet](#listpermissionauditlogsapiv1auditlogspermissionsget) - List Permission Audit Logs
-* [getPermissionAuditStatsApiV1AuditLogsPermissionsStatsGet](#getpermissionauditstatsapiv1auditlogspermissionsstatsget) - Get Permission Audit Stats
+* [listPermissions](#listpermissions) - List Permission Audit Logs
+* [getPermissionStats](#getpermissionstats) - Get Permission Audit Stats
 
-## listPermissionAuditLogsApiV1AuditLogsPermissionsGet
+## listPermissions
 
 List permission audit logs with filtering and pagination.
 
@@ -30,17 +30,16 @@ The org_id filter is automatically applied based on the user's permissions.
 
 <!-- UsageSnippet language="typescript" operationID="list_permission_audit_logs_api_v1_audit_logs_permissions_get" method="get" path="/api/v1/audit-logs/permissions" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.auditLogs.listPermissionAuditLogsApiV1AuditLogsPermissionsGet({});
+  const result = await linebundle.auditLogs.listPermissions({});
 
   console.log(result);
 }
@@ -53,25 +52,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { auditLogsListPermissionAuditLogsApiV1AuditLogsPermissionsGet } from "openapi/funcs/audit-logs-list-permission-audit-logs-api-v1-audit-logs-permissions-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { auditLogsListPermissions } from "@linebundle-sdk/ts/funcs/audit-logs-list-permissions.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await auditLogsListPermissionAuditLogsApiV1AuditLogsPermissionsGet(sdk, {});
+  const res = await auditLogsListPermissions(linebundle, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("auditLogsListPermissionAuditLogsApiV1AuditLogsPermissionsGet failed:", res.error);
+    console.log("auditLogsListPermissions failed:", res.error);
   }
 }
 
@@ -93,12 +91,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getPermissionAuditStatsApiV1AuditLogsPermissionsStatsGet
+## getPermissionStats
 
 Get aggregate statistics for permission audit logs.
 
@@ -119,17 +117,16 @@ Requires PERMISSION_READ permission.
 
 <!-- UsageSnippet language="typescript" operationID="get_permission_audit_stats_api_v1_audit_logs_permissions_stats_get" method="get" path="/api/v1/audit-logs/permissions/stats" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.auditLogs.getPermissionAuditStatsApiV1AuditLogsPermissionsStatsGet();
+  const result = await linebundle.auditLogs.getPermissionStats();
 
   console.log(result);
 }
@@ -142,25 +139,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { auditLogsGetPermissionAuditStatsApiV1AuditLogsPermissionsStatsGet } from "openapi/funcs/audit-logs-get-permission-audit-stats-api-v1-audit-logs-permissions-stats-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { auditLogsGetPermissionStats } from "@linebundle-sdk/ts/funcs/audit-logs-get-permission-stats.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await auditLogsGetPermissionAuditStatsApiV1AuditLogsPermissionsStatsGet(sdk);
+  const res = await auditLogsGetPermissionStats(linebundle);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("auditLogsGetPermissionAuditStatsApiV1AuditLogsPermissionsStatsGet failed:", res.error);
+    console.log("auditLogsGetPermissionStats failed:", res.error);
   }
 }
 
@@ -182,7 +178,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

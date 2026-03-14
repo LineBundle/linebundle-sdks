@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UpdateEventLocationApiV1EventsEventIdLocationPutRequest } from "openapi/models/operations";
+import { UpdateEventLocationApiV1EventsEventIdLocationPutRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: UpdateEventLocationApiV1EventsEventIdLocationPutRequest = {
   eventId: 873511,

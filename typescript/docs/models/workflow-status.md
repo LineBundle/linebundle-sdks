@@ -5,7 +5,7 @@ Enum representing workflow execution status.
 ## Example Usage
 
 ```typescript
-import { WorkflowStatus } from "openapi/models";
+import { WorkflowStatus } from "@linebundle-sdk/ts/models";
 
 let value: WorkflowStatus = "running";
 

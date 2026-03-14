@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AvatarUploadResponse } from "openapi/models";
+import { AvatarUploadResponse } from "@linebundle-sdk/ts/models";
 
 let value: AvatarUploadResponse = {
   avatarUrl: "https://enraged-formamide.org",

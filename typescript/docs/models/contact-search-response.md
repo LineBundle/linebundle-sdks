@@ -5,7 +5,7 @@ Response model for contact search results.
 ## Example Usage
 
 ```typescript
-import { ContactSearchResponse } from "openapi/models";
+import { ContactSearchResponse } from "@linebundle-sdk/ts/models";
 
 let value: ContactSearchResponse = {
   contacts: [

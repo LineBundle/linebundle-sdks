@@ -5,7 +5,7 @@ Model for list of space events with event info.
 ## Example Usage
 
 ```typescript
-import { SpaceEventList } from "openapi/models";
+import { SpaceEventList } from "@linebundle-sdk/ts/models";
 
 let value: SpaceEventList = {
   total: 16155,

@@ -5,13 +5,13 @@
 import * as z from "zod/v4-mini";
 import * as types from "../../types/primitives.js";
 import * as models from "../index.js";
-import { SDKError } from "./sdk-error.js";
+import { LinebundleError } from "./linebundle-error.js";
 
 export type HTTPValidationErrorData = {
   detail?: Array<models.ValidationError> | undefined;
 };
 
-export class HTTPValidationError extends SDKError {
+export class HTTPValidationError extends LinebundleError {
   detail?: Array<models.ValidationError> | undefined;
 
   /** The original data that was passed to this error instance. */

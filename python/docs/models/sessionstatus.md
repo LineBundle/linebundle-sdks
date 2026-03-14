@@ -5,7 +5,7 @@ Enum representing AI agent session status.
 ## Example Usage
 
 ```python
-from openapi.models import SessionStatus
+from linebundle_sdk.models import SessionStatus
 
 # Open enum: unrecognized values are captured as UnrecognizedStr
 value: SessionStatus = "active"

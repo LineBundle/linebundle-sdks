@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { TransferSpaceRequest } from "openapi/models";
+import { TransferSpaceRequest } from "@linebundle-sdk/ts/models";
 
 let value: TransferSpaceRequest = {
   targetOrgId: "5b507844-b293-44cf-9e4b-3635817f400b",

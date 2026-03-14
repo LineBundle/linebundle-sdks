@@ -5,7 +5,7 @@ Request to create automation rule.
 ## Example Usage
 
 ```typescript
-import { CreateRuleRequest } from "openapi/models";
+import { CreateRuleRequest } from "@linebundle-sdk/ts/models";
 
 let value: CreateRuleRequest = {
   name: "<value>",

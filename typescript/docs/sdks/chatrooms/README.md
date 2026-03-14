@@ -4,16 +4,16 @@
 
 ### Available Operations
 
-* [createDirectRoomApiV1ChatRoomsDirectPost](#createdirectroomapiv1chatroomsdirectpost) - Create Direct Room
-* [createGroupRoomApiV1ChatRoomsGroupPost](#creategrouproomapiv1chatroomsgrouppost) - Create Group Room
-* [listUserRoomsApiV1ChatRoomsGet](#listuserroomsapiv1chatroomsget) - List User Rooms
-* [getRoomByIdApiV1ChatRoomsRoomIdGet](#getroombyidapiv1chatroomsroomidget) - Get Room By Id
-* [updateRoomApiV1ChatRoomsRoomIdPatch](#updateroomapiv1chatroomsroomidpatch) - Update Room
-* [listRoomMembersApiV1ChatRoomsRoomIdMembersGet](#listroommembersapiv1chatroomsroomidmembersget) - List Room Members
-* [addMemberToRoomApiV1ChatRoomsRoomIdMembersPost](#addmembertoroomapiv1chatroomsroomidmemberspost) - Add Member To Room
-* [removeMemberFromRoomApiV1ChatRoomsRoomIdMembersUserIdDelete](#removememberfromroomapiv1chatroomsroomidmembersuseriddelete) - Remove Member From Room
+* [createDirect](#createdirect) - Create Direct Room
+* [createGroup](#creategroup) - Create Group Room
+* [list](#list) - List User Rooms
+* [getById](#getbyid) - Get Room By Id
+* [update](#update) - Update Room
+* [listMembers](#listmembers) - List Room Members
+* [addMember](#addmember) - Add Member To Room
+* [removeMember](#removemember) - Remove Member From Room
 
-## createDirectRoomApiV1ChatRoomsDirectPost
+## createDirect
 
 Create Direct Room
 
@@ -21,17 +21,16 @@ Create Direct Room
 
 <!-- UsageSnippet language="typescript" operationID="create_direct_room_api_v1_chat_rooms_direct_post" method="post" path="/api/v1/chat/rooms/direct" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.chatRooms.createDirectRoomApiV1ChatRoomsDirectPost({
+  const result = await linebundle.chatRooms.createDirect({
     otherUserId: "476232a8-5b15-416e-ae52-b831d1dd9623",
   });
 
@@ -46,27 +45,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { chatRoomsCreateDirectRoomApiV1ChatRoomsDirectPost } from "openapi/funcs/chat-rooms-create-direct-room-api-v1-chat-rooms-direct-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { chatRoomsCreateDirect } from "@linebundle-sdk/ts/funcs/chat-rooms-create-direct.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await chatRoomsCreateDirectRoomApiV1ChatRoomsDirectPost(sdk, {
+  const res = await chatRoomsCreateDirect(linebundle, {
     otherUserId: "476232a8-5b15-416e-ae52-b831d1dd9623",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("chatRoomsCreateDirectRoomApiV1ChatRoomsDirectPost failed:", res.error);
+    console.log("chatRoomsCreateDirect failed:", res.error);
   }
 }
 
@@ -88,12 +86,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## createGroupRoomApiV1ChatRoomsGroupPost
+## createGroup
 
 Create Group Room
 
@@ -101,17 +99,16 @@ Create Group Room
 
 <!-- UsageSnippet language="typescript" operationID="create_group_room_api_v1_chat_rooms_group_post" method="post" path="/api/v1/chat/rooms/group" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.chatRooms.createGroupRoomApiV1ChatRoomsGroupPost({
+  const result = await linebundle.chatRooms.createGroup({
     name: "<value>",
   });
 
@@ -126,27 +123,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { chatRoomsCreateGroupRoomApiV1ChatRoomsGroupPost } from "openapi/funcs/chat-rooms-create-group-room-api-v1-chat-rooms-group-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { chatRoomsCreateGroup } from "@linebundle-sdk/ts/funcs/chat-rooms-create-group.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await chatRoomsCreateGroupRoomApiV1ChatRoomsGroupPost(sdk, {
+  const res = await chatRoomsCreateGroup(linebundle, {
     name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("chatRoomsCreateGroupRoomApiV1ChatRoomsGroupPost failed:", res.error);
+    console.log("chatRoomsCreateGroup failed:", res.error);
   }
 }
 
@@ -168,12 +164,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## listUserRoomsApiV1ChatRoomsGet
+## list
 
 List User Rooms
 
@@ -181,17 +177,16 @@ List User Rooms
 
 <!-- UsageSnippet language="typescript" operationID="list_user_rooms_api_v1_chat_rooms__get" method="get" path="/api/v1/chat/rooms/" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.chatRooms.listUserRoomsApiV1ChatRoomsGet({});
+  const result = await linebundle.chatRooms.list({});
 
   console.log(result);
 }
@@ -204,25 +199,24 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { chatRoomsListUserRoomsApiV1ChatRoomsGet } from "openapi/funcs/chat-rooms-list-user-rooms-api-v1-chat-rooms-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { chatRoomsList } from "@linebundle-sdk/ts/funcs/chat-rooms-list.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await chatRoomsListUserRoomsApiV1ChatRoomsGet(sdk, {});
+  const res = await chatRoomsList(linebundle, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("chatRoomsListUserRoomsApiV1ChatRoomsGet failed:", res.error);
+    console.log("chatRoomsList failed:", res.error);
   }
 }
 
@@ -244,12 +238,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getRoomByIdApiV1ChatRoomsRoomIdGet
+## getById
 
 Get Room By Id
 
@@ -257,17 +251,16 @@ Get Room By Id
 
 <!-- UsageSnippet language="typescript" operationID="get_room_by_id_api_v1_chat_rooms__room_id__get" method="get" path="/api/v1/chat/rooms/{room_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.chatRooms.getRoomByIdApiV1ChatRoomsRoomIdGet({
+  const result = await linebundle.chatRooms.getById({
     roomId: "ad8c71fe-b4a8-4ec7-a7dc-b702d41ab141",
   });
 
@@ -282,27 +275,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { chatRoomsGetRoomByIdApiV1ChatRoomsRoomIdGet } from "openapi/funcs/chat-rooms-get-room-by-id-api-v1-chat-rooms-room-id-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { chatRoomsGetById } from "@linebundle-sdk/ts/funcs/chat-rooms-get-by-id.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await chatRoomsGetRoomByIdApiV1ChatRoomsRoomIdGet(sdk, {
+  const res = await chatRoomsGetById(linebundle, {
     roomId: "ad8c71fe-b4a8-4ec7-a7dc-b702d41ab141",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("chatRoomsGetRoomByIdApiV1ChatRoomsRoomIdGet failed:", res.error);
+    console.log("chatRoomsGetById failed:", res.error);
   }
 }
 
@@ -324,12 +316,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## updateRoomApiV1ChatRoomsRoomIdPatch
+## update
 
 Update Room
 
@@ -337,17 +329,16 @@ Update Room
 
 <!-- UsageSnippet language="typescript" operationID="update_room_api_v1_chat_rooms__room_id__patch" method="patch" path="/api/v1/chat/rooms/{room_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.chatRooms.updateRoomApiV1ChatRoomsRoomIdPatch({
+  const result = await linebundle.chatRooms.update({
     roomId: "1b3fb3c3-92f9-4a63-999d-a20a466eed99",
     body: {},
   });
@@ -363,20 +354,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { chatRoomsUpdateRoomApiV1ChatRoomsRoomIdPatch } from "openapi/funcs/chat-rooms-update-room-api-v1-chat-rooms-room-id-patch.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { chatRoomsUpdate } from "@linebundle-sdk/ts/funcs/chat-rooms-update.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await chatRoomsUpdateRoomApiV1ChatRoomsRoomIdPatch(sdk, {
+  const res = await chatRoomsUpdate(linebundle, {
     roomId: "1b3fb3c3-92f9-4a63-999d-a20a466eed99",
     body: {},
   });
@@ -384,7 +374,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("chatRoomsUpdateRoomApiV1ChatRoomsRoomIdPatch failed:", res.error);
+    console.log("chatRoomsUpdate failed:", res.error);
   }
 }
 
@@ -406,12 +396,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## listRoomMembersApiV1ChatRoomsRoomIdMembersGet
+## listMembers
 
 List Room Members
 
@@ -419,17 +409,16 @@ List Room Members
 
 <!-- UsageSnippet language="typescript" operationID="list_room_members_api_v1_chat_rooms__room_id__members_get" method="get" path="/api/v1/chat/rooms/{room_id}/members" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.chatRooms.listRoomMembersApiV1ChatRoomsRoomIdMembersGet({
+  const result = await linebundle.chatRooms.listMembers({
     roomId: "6926012f-3dc0-4e0d-b35c-f21a3ad078d6",
   });
 
@@ -444,27 +433,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { chatRoomsListRoomMembersApiV1ChatRoomsRoomIdMembersGet } from "openapi/funcs/chat-rooms-list-room-members-api-v1-chat-rooms-room-id-members-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { chatRoomsListMembers } from "@linebundle-sdk/ts/funcs/chat-rooms-list-members.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await chatRoomsListRoomMembersApiV1ChatRoomsRoomIdMembersGet(sdk, {
+  const res = await chatRoomsListMembers(linebundle, {
     roomId: "6926012f-3dc0-4e0d-b35c-f21a3ad078d6",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("chatRoomsListRoomMembersApiV1ChatRoomsRoomIdMembersGet failed:", res.error);
+    console.log("chatRoomsListMembers failed:", res.error);
   }
 }
 
@@ -486,12 +474,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## addMemberToRoomApiV1ChatRoomsRoomIdMembersPost
+## addMember
 
 Add Member To Room
 
@@ -499,17 +487,16 @@ Add Member To Room
 
 <!-- UsageSnippet language="typescript" operationID="add_member_to_room_api_v1_chat_rooms__room_id__members_post" method="post" path="/api/v1/chat/rooms/{room_id}/members" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.chatRooms.addMemberToRoomApiV1ChatRoomsRoomIdMembersPost({
+  const result = await linebundle.chatRooms.addMember({
     roomId: "a8c3b244-2897-4ce9-8007-7ccc8aa374bb",
     body: {
       userId: "14f48096-50e2-4a14-ae8f-ce366dcc8d5b",
@@ -527,20 +514,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { chatRoomsAddMemberToRoomApiV1ChatRoomsRoomIdMembersPost } from "openapi/funcs/chat-rooms-add-member-to-room-api-v1-chat-rooms-room-id-members-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { chatRoomsAddMember } from "@linebundle-sdk/ts/funcs/chat-rooms-add-member.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await chatRoomsAddMemberToRoomApiV1ChatRoomsRoomIdMembersPost(sdk, {
+  const res = await chatRoomsAddMember(linebundle, {
     roomId: "a8c3b244-2897-4ce9-8007-7ccc8aa374bb",
     body: {
       userId: "14f48096-50e2-4a14-ae8f-ce366dcc8d5b",
@@ -550,7 +536,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("chatRoomsAddMemberToRoomApiV1ChatRoomsRoomIdMembersPost failed:", res.error);
+    console.log("chatRoomsAddMember failed:", res.error);
   }
 }
 
@@ -572,12 +558,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## removeMemberFromRoomApiV1ChatRoomsRoomIdMembersUserIdDelete
+## removeMember
 
 Remove Member From Room
 
@@ -585,17 +571,16 @@ Remove Member From Room
 
 <!-- UsageSnippet language="typescript" operationID="remove_member_from_room_api_v1_chat_rooms__room_id__members__user_id__delete" method="delete" path="/api/v1/chat/rooms/{room_id}/members/{user_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  await sdk.chatRooms.removeMemberFromRoomApiV1ChatRoomsRoomIdMembersUserIdDelete({
+  await linebundle.chatRooms.removeMember({
     roomId: "c98b5ec7-781a-452e-ab0b-5db40a5b8e12",
     userId: "246bb03f-d809-4124-bf1d-6127f8dfed4e",
   });
@@ -611,20 +596,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { chatRoomsRemoveMemberFromRoomApiV1ChatRoomsRoomIdMembersUserIdDelete } from "openapi/funcs/chat-rooms-remove-member-from-room-api-v1-chat-rooms-room-id-members-user-id-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { chatRoomsRemoveMember } from "@linebundle-sdk/ts/funcs/chat-rooms-remove-member.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await chatRoomsRemoveMemberFromRoomApiV1ChatRoomsRoomIdMembersUserIdDelete(sdk, {
+  const res = await chatRoomsRemoveMember(linebundle, {
     roomId: "c98b5ec7-781a-452e-ab0b-5db40a5b8e12",
     userId: "246bb03f-d809-4124-bf1d-6127f8dfed4e",
   });
@@ -632,7 +616,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("chatRoomsRemoveMemberFromRoomApiV1ChatRoomsRoomIdMembersUserIdDelete failed:", res.error);
+    console.log("chatRoomsRemoveMember failed:", res.error);
   }
 }
 
@@ -654,7 +638,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

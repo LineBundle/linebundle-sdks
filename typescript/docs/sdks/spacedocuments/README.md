@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [addDocumentToSpaceApiV1SpacesSpaceIdDocumentsDocumentIdPost](#adddocumenttospaceapiv1spacesspaceiddocumentsdocumentidpost) - Add Document To Space
-* [removeDocumentFromSpaceApiV1SpacesSpaceIdDocumentsDocumentIdDelete](#removedocumentfromspaceapiv1spacesspaceiddocumentsdocumentiddelete) - Remove Document From Space
-* [getSpaceDocumentsApiV1SpacesSpaceIdDocumentsGet](#getspacedocumentsapiv1spacesspaceiddocumentsget) - Get Space Documents
+* [add](#add) - Add Document To Space
+* [remove](#remove) - Remove Document From Space
+* [get](#get) - Get Space Documents
 
-## addDocumentToSpaceApiV1SpacesSpaceIdDocumentsDocumentIdPost
+## add
 
 Associate a document with a space.
 
@@ -16,17 +16,16 @@ Associate a document with a space.
 
 <!-- UsageSnippet language="typescript" operationID="add_document_to_space_api_v1_spaces__space_id__documents__document_id__post" method="post" path="/api/v1/spaces/{space_id}/documents/{document_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceDocuments.addDocumentToSpaceApiV1SpacesSpaceIdDocumentsDocumentIdPost({
+  const result = await linebundle.spaceDocuments.add({
     spaceId: 668035,
     documentId: "17eee19e-b841-4532-bbb7-0fede4ca3594",
   });
@@ -42,20 +41,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceDocumentsAddDocumentToSpaceApiV1SpacesSpaceIdDocumentsDocumentIdPost } from "openapi/funcs/space-documents-add-document-to-space-api-v1-spaces-space-id-documents-document-id-post.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceDocumentsAdd } from "@linebundle-sdk/ts/funcs/space-documents-add.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceDocumentsAddDocumentToSpaceApiV1SpacesSpaceIdDocumentsDocumentIdPost(sdk, {
+  const res = await spaceDocumentsAdd(linebundle, {
     spaceId: 668035,
     documentId: "17eee19e-b841-4532-bbb7-0fede4ca3594",
   });
@@ -63,7 +61,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceDocumentsAddDocumentToSpaceApiV1SpacesSpaceIdDocumentsDocumentIdPost failed:", res.error);
+    console.log("spaceDocumentsAdd failed:", res.error);
   }
 }
 
@@ -85,12 +83,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## removeDocumentFromSpaceApiV1SpacesSpaceIdDocumentsDocumentIdDelete
+## remove
 
 Remove a document from a space.
 
@@ -98,17 +96,16 @@ Remove a document from a space.
 
 <!-- UsageSnippet language="typescript" operationID="remove_document_from_space_api_v1_spaces__space_id__documents__document_id__delete" method="delete" path="/api/v1/spaces/{space_id}/documents/{document_id}" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  await sdk.spaceDocuments.removeDocumentFromSpaceApiV1SpacesSpaceIdDocumentsDocumentIdDelete({
+  await linebundle.spaceDocuments.remove({
     spaceId: 791779,
     documentId: "f547f5de-d55e-4d0e-8476-b1ad08752270",
   });
@@ -124,20 +121,19 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceDocumentsRemoveDocumentFromSpaceApiV1SpacesSpaceIdDocumentsDocumentIdDelete } from "openapi/funcs/space-documents-remove-document-from-space-api-v1-spaces-space-id-documents-document-id-delete.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceDocumentsRemove } from "@linebundle-sdk/ts/funcs/space-documents-remove.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceDocumentsRemoveDocumentFromSpaceApiV1SpacesSpaceIdDocumentsDocumentIdDelete(sdk, {
+  const res = await spaceDocumentsRemove(linebundle, {
     spaceId: 791779,
     documentId: "f547f5de-d55e-4d0e-8476-b1ad08752270",
   });
@@ -145,7 +141,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("spaceDocumentsRemoveDocumentFromSpaceApiV1SpacesSpaceIdDocumentsDocumentIdDelete failed:", res.error);
+    console.log("spaceDocumentsRemove failed:", res.error);
   }
 }
 
@@ -167,12 +163,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |
 
-## getSpaceDocumentsApiV1SpacesSpaceIdDocumentsGet
+## get
 
 Get all documents for a space.
 
@@ -180,17 +176,16 @@ Get all documents for a space.
 
 <!-- UsageSnippet language="typescript" operationID="get_space_documents_api_v1_spaces__space_id__documents_get" method="get" path="/api/v1/spaces/{space_id}/documents" -->
 ```typescript
-import { SDK } from "openapi";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.spaceDocuments.getSpaceDocumentsApiV1SpacesSpaceIdDocumentsGet({
+  const result = await linebundle.spaceDocuments.get({
     spaceId: 912986,
   });
 
@@ -205,27 +200,26 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { spaceDocumentsGetSpaceDocumentsApiV1SpacesSpaceIdDocumentsGet } from "openapi/funcs/space-documents-get-space-documents-api-v1-spaces-space-id-documents-get.js";
+import { LinebundleCore } from "@linebundle-sdk/ts/core.js";
+import { spaceDocumentsGet } from "@linebundle-sdk/ts/funcs/space-documents-get.js";
 
-// Use `SDKCore` for best tree-shaking performance.
+// Use `LinebundleCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore({
-  serverURL: "https://api.example.com",
+const linebundle = new LinebundleCore({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await spaceDocumentsGetSpaceDocumentsApiV1SpacesSpaceIdDocumentsGet(sdk, {
+  const res = await spaceDocumentsGet(linebundle, {
     spaceId: 912986,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("spaceDocumentsGetSpaceDocumentsApiV1SpacesSpaceIdDocumentsGet failed:", res.error);
+    console.log("spaceDocumentsGet failed:", res.error);
   }
 }
 
@@ -247,7 +241,7 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.HTTPValidationError    | 422                           | application/json              |
+| errors.LinebundleDefaultError | 4XX, 5XX                      | \*/\*                         |

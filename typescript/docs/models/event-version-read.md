@@ -5,7 +5,7 @@ Published event version response.
 ## Example Usage
 
 ```typescript
-import { EventVersionRead } from "openapi/models";
+import { EventVersionRead } from "@linebundle-sdk/ts/models";
 
 let value: EventVersionRead = {
   id: 165974,

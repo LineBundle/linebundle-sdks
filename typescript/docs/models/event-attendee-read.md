@@ -5,7 +5,7 @@ Pydantic model for reading event attendee data.
 ## Example Usage
 
 ```typescript
-import { EventAttendeeRead } from "openapi/models";
+import { EventAttendeeRead } from "@linebundle-sdk/ts/models";
 
 let value: EventAttendeeRead = {
   id: 783333,

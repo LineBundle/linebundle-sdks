@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListRulesApiV1AutomationRulesGetRequest } from "openapi/models/operations";
+import { ListRulesApiV1AutomationRulesGetRequest } from "@linebundle-sdk/ts/models/operations";
 
 let value: ListRulesApiV1AutomationRulesGetRequest = {};
 ```

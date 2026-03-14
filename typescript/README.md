@@ -1,8 +1,8 @@
-# LineBundle TypeScript SDK
+# @linebundle-sdk/ts
 
-Developer-friendly & type-safe TypeScript SDK for the LineBundle API.
+Developer-friendly & type-safe Typescript SDK specifically catered to leverage *@linebundle-sdk/ts* API.
 
-[![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=openapi&utm_campaign=typescript)
+[![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=@linebundle-sdk/ts&utm_campaign=typescript)
 [![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://opensource.org/licenses/MIT)
 
 
@@ -28,7 +28,7 @@ After the ACK the server may push events (client messages are currently ignored)
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [openapi](#openapi)
+* [@linebundle-sdk/ts](#linebundle-sdkts)
   * [Realtime WebSocket](#realtime-websocket)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
@@ -39,6 +39,7 @@ After the ACK the server may push events (client messages are currently ignored)
   * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
   * [Debugging](#debugging)
 * [Development](#development)
@@ -94,17 +95,16 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { SDK } from "@linebundle-sdk/ts";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.handleOrgCreatedApiV1IntegrationOrgCreatedPost();
+  const result = await linebundle.user.getAssistant();
 
   console.log(result);
 }
@@ -128,39 +128,16 @@ This SDK supports the following security schemes globally:
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
-import { SDK } from "@linebundle-sdk/ts";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.handleOrgCreatedApiV1IntegrationOrgCreatedPost();
-
-  console.log(result);
-}
-
-run();
-
-```
-
-### Per-Operation Security Schemes
-
-Some operations in this SDK require the security scheme to be specified at the request level. For example:
-```typescript
-import { SDK } from "@linebundle-sdk/ts";
-
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
-});
-
-async function run() {
-  const result = await sdk.user.getUserListApiV1UserGet({
-    permissionDependency: "<YOUR_BEARER_TOKEN_HERE>",
-  }, {});
+  const result = await linebundle.user.getAssistant();
 
   console.log(result);
 }
@@ -192,247 +169,228 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`aiAgentCancelWorkflowApiV1AiWorkflowsExecutionIdCancelPost`](docs/sdks/aiagent/README.md#cancelworkflowapiv1aiworkflowsexecutionidcancelpost) - Cancel a running workflow
-- [`aiAgentCreateSessionApiV1AiSessionsPost`](docs/sdks/aiagent/README.md#createsessionapiv1aisessionspost) - Create a new AI agent session
-- [`aiAgentDeleteSessionApiV1AiSessionsSessionIdDelete`](docs/sdks/aiagent/README.md#deletesessionapiv1aisessionssessioniddelete) - Delete AI agent session
-- [`aiAgentGetOrgCostsApiV1AiCostsGet`](docs/sdks/aiagent/README.md#getorgcostsapiv1aicostsget) - Get organization-wide cost summary
-- [`aiAgentGetSessionApiV1AiSessionsSessionIdGet`](docs/sdks/aiagent/README.md#getsessionapiv1aisessionssessionidget) - Get AI agent session details
-- [`aiAgentGetSessionCostsApiV1AiSessionsSessionIdCostsGet`](docs/sdks/aiagent/README.md#getsessioncostsapiv1aisessionssessionidcostsget) - Get session cost breakdown
-- [`aiAgentGetWorkflowExecutionApiV1AiWorkflowsExecutionIdGet`](docs/sdks/aiagent/README.md#getworkflowexecutionapiv1aiworkflowsexecutionidget) - Get workflow execution details
-- [`aiAgentListSessionsApiV1AiSessionsGet`](docs/sdks/aiagent/README.md#listsessionsapiv1aisessionsget) - List AI agent sessions
-- [`aiAgentListWorkflowExecutionsApiV1AiWorkflowsGet`](docs/sdks/aiagent/README.md#listworkflowexecutionsapiv1aiworkflowsget) - List workflow executions
-- [`aiAgentSendMessageApiV1AiSessionsSessionIdMessagesPost`](docs/sdks/aiagent/README.md#sendmessageapiv1aisessionssessionidmessagespost) - Send a message to an AI agent session
-- [`aiAgentStartWorkflowApiV1AiWorkflowsPost`](docs/sdks/aiagent/README.md#startworkflowapiv1aiworkflowspost) - Start a multi-agent workflow
-- [`aiAgentStartWorkflowAsyncApiV1AiWorkflowsAsyncPost`](docs/sdks/aiagent/README.md#startworkflowasyncapiv1aiworkflowsasyncpost) - Start a multi-agent workflow (async)
-- [`analyticGetAnalyticTotalsApiV1AnalyticCountsGet`](docs/sdks/analytic/README.md#getanalytictotalsapiv1analyticcountsget) - Get Analytic Totals
-- [`analyticGetDashboardAnalyticsApiV1AnalyticDashboardGet`](docs/sdks/analytic/README.md#getdashboardanalyticsapiv1analyticdashboardget) - Get Dashboard Analytics
-- [`auditLogsGetPermissionAuditStatsApiV1AuditLogsPermissionsStatsGet`](docs/sdks/auditlogs/README.md#getpermissionauditstatsapiv1auditlogspermissionsstatsget) - Get Permission Audit Stats
-- [`auditLogsListPermissionAuditLogsApiV1AuditLogsPermissionsGet`](docs/sdks/auditlogs/README.md#listpermissionauditlogsapiv1auditlogspermissionsget) - List Permission Audit Logs
-- [`authContextGetAuthContextApiV1AuthContextGet`](docs/sdks/authcontext/README.md#getauthcontextapiv1authcontextget) - Get Auth Context
-- [`automationRulesAutomationHealthCheckApiV1AutomationHealthGet`](docs/sdks/automationrules/README.md#automationhealthcheckapiv1automationhealthget) - Automation Health Check
-- [`automationRulesAutomationHealthCheckApiV1AutomationHealthGet`](docs/sdks/health/README.md#automationhealthcheckapiv1automationhealthget) - Automation Health Check
-- [`automationRulesCreateRuleApiV1AutomationRulesPost`](docs/sdks/automationrules/README.md#createruleapiv1automationrulespost) - Create Rule
-- [`automationRulesCronHealthCheckApiV1AutomationApiV1AutomationCronHealthGet`](docs/sdks/automationcron/README.md#cronhealthcheckapiv1automationapiv1automationcronhealthget) - Cron Health Check
-- [`automationRulesCronHealthCheckApiV1AutomationApiV1AutomationCronHealthGet`](docs/sdks/automationrules/README.md#cronhealthcheckapiv1automationapiv1automationcronhealthget) - Cron Health Check
-- [`automationRulesDeleteRuleApiV1AutomationRulesRuleIdDelete`](docs/sdks/automationrules/README.md#deleteruleapiv1automationrulesruleiddelete) - Delete Rule
-- [`automationRulesExecuteRuleApiV1AutomationRulesRuleIdExecutePost`](docs/sdks/automationrules/README.md#executeruleapiv1automationrulesruleidexecutepost) - Execute Rule
-- [`automationRulesGetActionsApiV1AutomationMetadataActionsGet`](docs/sdks/automationmetadata/README.md#getactionsapiv1automationmetadataactionsget) - Get action metadata
-- [`automationRulesGetActionsApiV1AutomationMetadataActionsGet`](docs/sdks/automationrules/README.md#getactionsapiv1automationmetadataactionsget) - Get action metadata
-- [`automationRulesGetAllMetadataApiV1AutomationMetadataGet`](docs/sdks/automationmetadata/README.md#getallmetadataapiv1automationmetadataget) - Get all metadata
-- [`automationRulesGetAllMetadataApiV1AutomationMetadataGet`](docs/sdks/automationrules/README.md#getallmetadataapiv1automationmetadataget) - Get all metadata
-- [`automationRulesGetAllTasksApiV1AutomationMetadataTasksGet`](docs/sdks/automationmetadata/README.md#getalltasksapiv1automationmetadatatasksget) - Get all task metadata
-- [`automationRulesGetAllTasksApiV1AutomationMetadataTasksGet`](docs/sdks/automationrules/README.md#getalltasksapiv1automationmetadatatasksget) - Get all task metadata
-- [`automationRulesGetConditionsApiV1AutomationMetadataConditionsGet`](docs/sdks/automationmetadata/README.md#getconditionsapiv1automationmetadataconditionsget) - Get condition metadata
-- [`automationRulesGetConditionsApiV1AutomationMetadataConditionsGet`](docs/sdks/automationrules/README.md#getconditionsapiv1automationmetadataconditionsget) - Get condition metadata
-- [`automationRulesGetRuleApiV1AutomationRulesRuleIdGet`](docs/sdks/automationrules/README.md#getruleapiv1automationrulesruleidget) - Get Rule
-- [`automationRulesGetRuleExecutionsApiV1AutomationRulesRuleIdExecutionsGet`](docs/sdks/automationrules/README.md#getruleexecutionsapiv1automationrulesruleidexecutionsget) - Get Rule Executions
-- [`automationRulesGetTaskMetadataApiV1AutomationMetadataTasksTaskTypeGet`](docs/sdks/automationmetadata/README.md#gettaskmetadataapiv1automationmetadatataskstasktypeget) - Get task metadata
-- [`automationRulesGetTaskMetadataApiV1AutomationMetadataTasksTaskTypeGet`](docs/sdks/automationrules/README.md#gettaskmetadataapiv1automationmetadatataskstasktypeget) - Get task metadata
-- [`automationRulesGetTriggersApiV1AutomationMetadataTriggersGet`](docs/sdks/automationmetadata/README.md#gettriggersapiv1automationmetadatatriggersget) - Get trigger metadata
-- [`automationRulesGetTriggersApiV1AutomationMetadataTriggersGet`](docs/sdks/automationrules/README.md#gettriggersapiv1automationmetadatatriggersget) - Get trigger metadata
-- [`automationRulesListRulesApiV1AutomationRulesGet`](docs/sdks/automationrules/README.md#listrulesapiv1automationrulesget) - List Rules
-- [`automationRulesPatchRuleApiV1AutomationRulesRuleIdPatch`](docs/sdks/automationrules/README.md#patchruleapiv1automationrulesruleidpatch) - Patch Rule
-- [`automationRulesTriggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPost`](docs/sdks/automationcron/README.md#triggerscheduledautomationapiv1automationapiv1automationcrontriggerscheduledpost) - Trigger Scheduled Automation
-- [`automationRulesTriggerScheduledAutomationApiV1AutomationApiV1AutomationCronTriggerScheduledPost`](docs/sdks/automationrules/README.md#triggerscheduledautomationapiv1automationapiv1automationcrontriggerscheduledpost) - Trigger Scheduled Automation
-- [`automationRulesUpdateRuleApiV1AutomationRulesRuleIdPut`](docs/sdks/automationrules/README.md#updateruleapiv1automationrulesruleidput) - Update Rule
-- [`bookingCheckAvailabilityApiV1BookingCheckAvailabilityPost`](docs/sdks/booking/README.md#checkavailabilityapiv1bookingcheckavailabilitypost) - Check Availability
-- [`bookingCreateBookingApiV1BookingPost`](docs/sdks/booking/README.md#createbookingapiv1bookingpost) - Create Booking
-- [`bookingDeleteBookingApiV1BookingBookingIdDelete`](docs/sdks/booking/README.md#deletebookingapiv1bookingbookingiddelete) - Delete Booking
-- [`bookingGetBookingByIdApiV1BookingBookingIdGet`](docs/sdks/booking/README.md#getbookingbyidapiv1bookingbookingidget) - Get Booking By Id
-- [`bookingGetBookingsApiV1BookingGet`](docs/sdks/booking/README.md#getbookingsapiv1bookingget) - Get Bookings
-- [`bookingGetPlaceScheduleApiV1BookingPlacesPlaceIdScheduleGet`](docs/sdks/booking/README.md#getplacescheduleapiv1bookingplacesplaceidscheduleget) - Get Place Schedule
-- [`bookingUpdateBookingApiV1BookingBookingIdPut`](docs/sdks/booking/README.md#updatebookingapiv1bookingbookingidput) - Update Booking
-- [`chatMessagesDeleteMessageApiV1ChatMessagesMessageIdDelete`](docs/sdks/chatmessages/README.md#deletemessageapiv1chatmessagesmessageiddelete) - Delete Message
-- [`chatMessagesGetMessageCountApiV1ChatRoomIdMessagesCountGet`](docs/sdks/chatmessages/README.md#getmessagecountapiv1chatroomidmessagescountget) - Get Message Count
-- [`chatMessagesGetUnreadCountApiV1ChatRoomIdUnreadCountGet`](docs/sdks/chatmessages/README.md#getunreadcountapiv1chatroomidunreadcountget) - Get Unread Count
-- [`chatMessagesListMessagesApiV1ChatRoomIdMessagesGet`](docs/sdks/chatmessages/README.md#listmessagesapiv1chatroomidmessagesget) - List Messages
-- [`chatMessagesMarkMessagesAsReadApiV1ChatRoomIdReadPatch`](docs/sdks/chatmessages/README.md#markmessagesasreadapiv1chatroomidreadpatch) - Mark Messages As Read
-- [`chatMessagesSendMessageApiV1ChatRoomIdMessagesPost`](docs/sdks/chatmessages/README.md#sendmessageapiv1chatroomidmessagespost) - Send Message
-- [`chatRoomsAddMemberToRoomApiV1ChatRoomsRoomIdMembersPost`](docs/sdks/chatrooms/README.md#addmembertoroomapiv1chatroomsroomidmemberspost) - Add Member To Room
-- [`chatRoomsCreateDirectRoomApiV1ChatRoomsDirectPost`](docs/sdks/chatrooms/README.md#createdirectroomapiv1chatroomsdirectpost) - Create Direct Room
-- [`chatRoomsCreateGroupRoomApiV1ChatRoomsGroupPost`](docs/sdks/chatrooms/README.md#creategrouproomapiv1chatroomsgrouppost) - Create Group Room
-- [`chatRoomsGetRoomByIdApiV1ChatRoomsRoomIdGet`](docs/sdks/chatrooms/README.md#getroombyidapiv1chatroomsroomidget) - Get Room By Id
-- [`chatRoomsListRoomMembersApiV1ChatRoomsRoomIdMembersGet`](docs/sdks/chatrooms/README.md#listroommembersapiv1chatroomsroomidmembersget) - List Room Members
-- [`chatRoomsListUserRoomsApiV1ChatRoomsGet`](docs/sdks/chatrooms/README.md#listuserroomsapiv1chatroomsget) - List User Rooms
-- [`chatRoomsRemoveMemberFromRoomApiV1ChatRoomsRoomIdMembersUserIdDelete`](docs/sdks/chatrooms/README.md#removememberfromroomapiv1chatroomsroomidmembersuseriddelete) - Remove Member From Room
-- [`chatRoomsUpdateRoomApiV1ChatRoomsRoomIdPatch`](docs/sdks/chatrooms/README.md#updateroomapiv1chatroomsroomidpatch) - Update Room
-- [`contactsCreateContactApiV1ContactsPost`](docs/sdks/contacts/README.md#createcontactapiv1contactspost) - Create Contact
-- [`contactsDeleteContactApiV1ContactsContactIdDelete`](docs/sdks/contacts/README.md#deletecontactapiv1contactscontactiddelete) - Delete Contact
-- [`contactsGetContactApiV1ContactsContactIdGet`](docs/sdks/contacts/README.md#getcontactapiv1contactscontactidget) - Get Contact
-- [`contactsListContactsApiV1ContactsGet`](docs/sdks/contacts/README.md#listcontactsapiv1contactsget) - List Contacts
-- [`contactsSearchContactsApiV1ContactsSearchGet`](docs/sdks/contacts/README.md#searchcontactsapiv1contactssearchget) - Search Contacts
-- [`contactsToggleFavoriteApiV1ContactsContactIdFavoritePatch`](docs/sdks/contacts/README.md#togglefavoriteapiv1contactscontactidfavoritepatch) - Toggle Favorite
-- [`contactsUpdateContactApiV1ContactsContactIdPut`](docs/sdks/contacts/README.md#updatecontactapiv1contactscontactidput) - Update Contact
-- [`customRolesAddPermissionEndpointApiV1ApiV1RolesRoleIdPermissionsPost`](docs/sdks/customroles/README.md#addpermissionendpointapiv1apiv1rolesroleidpermissionspost) - Add Permission Endpoint
-- [`customRolesAssignRoleToUserEndpointApiV1ApiV1RolesUsersUserIdRolesPost`](docs/sdks/customroles/README.md#assignroletouserendpointapiv1apiv1rolesusersuseridrolespost) - Assign Role To User Endpoint
-- [`customRolesCreateRoleEndpointApiV1ApiV1RolesPost`](docs/sdks/customroles/README.md#createroleendpointapiv1apiv1rolespost) - Create Role Endpoint
-- [`customRolesDeleteRoleEndpointApiV1ApiV1RolesRoleIdDelete`](docs/sdks/customroles/README.md#deleteroleendpointapiv1apiv1rolesroleiddelete) - Delete Role Endpoint
-- [`customRolesGetMyPermissionsEndpointApiV1ApiV1RolesMePermissionsGet`](docs/sdks/customroles/README.md#getmypermissionsendpointapiv1apiv1rolesmepermissionsget) - Get My Permissions Endpoint
-- [`customRolesGetRoleEndpointApiV1ApiV1RolesRoleIdGet`](docs/sdks/customroles/README.md#getroleendpointapiv1apiv1rolesroleidget) - Get Role Endpoint
-- [`customRolesListRolesEndpointApiV1ApiV1RolesGet`](docs/sdks/customroles/README.md#listrolesendpointapiv1apiv1rolesget) - List Roles Endpoint
-- [`customRolesRemovePermissionEndpointApiV1ApiV1RolesRoleIdPermissionsPermissionCodeDelete`](docs/sdks/customroles/README.md#removepermissionendpointapiv1apiv1rolesroleidpermissionspermissioncodedelete) - Remove Permission Endpoint
-- [`customRolesRemoveRoleFromUserEndpointApiV1ApiV1RolesUsersUserIdRolesRoleIdDelete`](docs/sdks/customroles/README.md#removerolefromuserendpointapiv1apiv1rolesusersuseridrolesroleiddelete) - Remove Role From User Endpoint
-- [`customRolesSetPermissionsEndpointApiV1ApiV1RolesRoleIdPermissionsPut`](docs/sdks/customroles/README.md#setpermissionsendpointapiv1apiv1rolesroleidpermissionsput) - Set Permissions Endpoint
-- [`customRolesUpdateRoleEndpointApiV1ApiV1RolesRoleIdPut`](docs/sdks/customroles/README.md#updateroleendpointapiv1apiv1rolesroleidput) - Update Role Endpoint
-- [`eventArchiveEventApiV1EventEventIdArchivePatch`](docs/sdks/event/README.md#archiveeventapiv1eventeventidarchivepatch) - Archive Event
-- [`eventAttendeesAddEventAttendeeApiV1EventsEventIdAttendeesPost`](docs/sdks/eventattendees/README.md#addeventattendeeapiv1eventseventidattendeespost) - Add Event Attendee
-- [`eventAttendeesAddEventAttendeesBulkApiV1EventsEventIdAttendeesBulkPost`](docs/sdks/eventattendees/README.md#addeventattendeesbulkapiv1eventseventidattendeesbulkpost) - Add Event Attendees Bulk
-- [`eventAttendeesCheckInAttendeeApiV1EventsEventIdAttendeesAttendeeIdCheckInPost`](docs/sdks/eventattendees/README.md#checkinattendeeapiv1eventseventidattendeesattendeeidcheckinpost) - Check In Attendee
-- [`eventAttendeesGetEventAttendeesApiV1EventsEventIdAttendeesGet`](docs/sdks/eventattendees/README.md#geteventattendeesapiv1eventseventidattendeesget) - Get Event Attendees
-- [`eventAttendeesRemoveEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdDelete`](docs/sdks/eventattendees/README.md#removeeventattendeeapiv1eventseventidattendeesattendeeiddelete) - Remove Event Attendee
-- [`eventAttendeesRemoveEventAttendeesBulkApiV1EventsEventIdAttendeesBulkDelete`](docs/sdks/eventattendees/README.md#removeeventattendeesbulkapiv1eventseventidattendeesbulkdelete) - Remove Event Attendees Bulk
-- [`eventAttendeesUpdateAttendeesStatusBulkApiV1EventsEventIdAttendeesBulkStatusPatch`](docs/sdks/eventattendees/README.md#updateattendeesstatusbulkapiv1eventseventidattendeesbulkstatuspatch) - Update Attendees Status Bulk
-- [`eventAttendeesUpdateEventAttendeeApiV1EventsEventIdAttendeesAttendeeIdPut`](docs/sdks/eventattendees/README.md#updateeventattendeeapiv1eventseventidattendeesattendeeidput) - Update Event Attendee
-- [`eventCompareEventVersionsApiV1EventEventIdVersionsCompareGet`](docs/sdks/event/README.md#compareeventversionsapiv1eventeventidversionscompareget) - Compare Event Versions
-- [`eventCreateEventApiV1EventPost`](docs/sdks/event/README.md#createeventapiv1eventpost) - Create Event
-- [`eventDeleteEventApiV1EventEventIdDelete`](docs/sdks/event/README.md#deleteeventapiv1eventeventiddelete) - Delete Event
-- [`eventDocumentsAddDocumentToEventApiV1EventsEventIdDocumentsDocumentIdPost`](docs/sdks/eventdocuments/README.md#adddocumenttoeventapiv1eventseventiddocumentsdocumentidpost) - Add Document To Event
-- [`eventDocumentsGetEventDocumentsApiV1EventsEventIdDocumentsGet`](docs/sdks/eventdocuments/README.md#geteventdocumentsapiv1eventseventiddocumentsget) - Get Event Documents
-- [`eventDocumentsRemoveDocumentFromEventApiV1EventsEventIdDocumentsDocumentIdDelete`](docs/sdks/eventdocuments/README.md#removedocumentfromeventapiv1eventseventiddocumentsdocumentiddelete) - Remove Document From Event
-- [`eventFilterEventsAdvancedApiV1EventFilterPost`](docs/sdks/event/README.md#filtereventsadvancedapiv1eventfilterpost) - Filter Events Advanced
-- [`eventGetCalendarEventsApiV1EventCalendarGet`](docs/sdks/event/README.md#getcalendareventsapiv1eventcalendarget) - Get Calendar Events
-- [`eventGetEventByIdApiV1EventEventIdGet`](docs/sdks/event/README.md#geteventbyidapiv1eventeventidget) - Get Event By Id
-- [`eventGetEventListApiV1EventGet`](docs/sdks/event/README.md#geteventlistapiv1eventget) - Get Event List
-- [`eventGetEventsBySpaceApiV1EventSpaceSpaceIdGet`](docs/sdks/event/README.md#geteventsbyspaceapiv1eventspacespaceidget) - Get Events By Space
-- [`eventGetEventSettingsApiV1EventEventIdSettingsGet`](docs/sdks/event/README.md#geteventsettingsapiv1eventeventidsettingsget) - Get Event Settings
-- [`eventGetEventVersionApiV1EventEventIdVersionsTransactionIdGet`](docs/sdks/event/README.md#geteventversionapiv1eventeventidversionstransactionidget) - Get Event Version
-- [`eventGetLatestEventVersionApiV1EventEventIdVersionsLatestGet`](docs/sdks/event/README.md#getlatesteventversionapiv1eventeventidversionslatestget) - Get Latest Event Version
-- [`eventGetSectionContentApiV1EventEventIdSectionContentGet`](docs/sdks/event/README.md#getsectioncontentapiv1eventeventidsectioncontentget) - Get Section Content
-- [`eventGetSectionIdentificationApiV1EventEventIdSectionIdentificationGet`](docs/sdks/event/README.md#getsectionidentificationapiv1eventeventidsectionidentificationget) - Get Section Identification
-- [`eventGetSectionSettingsApiV1EventEventIdSectionSettingsGet`](docs/sdks/event/README.md#getsectionsettingsapiv1eventeventidsectionsettingsget) - Get Section Settings
-- [`eventGetSocialFeedApiV1EventSocialFeedGet`](docs/sdks/event/README.md#getsocialfeedapiv1eventsocialfeedget) - Get Social Feed
-- [`eventGetTimezoneInfoApiV1EventTimezonesGet`](docs/sdks/event/README.md#gettimezoneinfoapiv1eventtimezonesget) - Get Timezone Info
-- [`eventGetTimezoneInfoApiV1EventTimezonesGet`](docs/sdks/timezones/README.md#gettimezoneinfoapiv1eventtimezonesget) - Get Timezone Info
-- [`eventListEventVersionsApiV1EventEventIdVersionsGet`](docs/sdks/event/README.md#listeventversionsapiv1eventeventidversionsget) - List Event Versions
-- [`eventLocationGetEventLocationApiV1EventsEventIdLocationGet`](docs/sdks/eventlocation/README.md#geteventlocationapiv1eventseventidlocationget) - Get Event Location
-- [`eventLocationUpdateEventLocationApiV1EventsEventIdLocationPut`](docs/sdks/eventlocation/README.md#updateeventlocationapiv1eventseventidlocationput) - Update Event Location
-- [`eventPatchEventContentApiV1EventEventIdContentPatch`](docs/sdks/event/README.md#patcheventcontentapiv1eventeventidcontentpatch) - Patch Event Content
-- [`eventPatchEventIdentificationApiV1EventEventIdIdentificationPatch`](docs/sdks/event/README.md#patcheventidentificationapiv1eventeventididentificationpatch) - Patch Event Identification
-- [`eventPatchEventSettingsApiV1EventEventIdSettingsPatch`](docs/sdks/event/README.md#patcheventsettingsapiv1eventeventidsettingspatch) - Patch Event Settings
-- [`eventPublishEventApiV1EventEventIdPublishPatch`](docs/sdks/event/README.md#publisheventapiv1eventeventidpublishpatch) - Publish Event
-- [`eventPublishEventVersionApiV1EventEventIdVersionsPublishPost`](docs/sdks/event/README.md#publisheventversionapiv1eventeventidversionspublishpost) - Publish Event Version
-- [`eventPublishEventWithNotificationsApiV1EventEventIdPublishWithNotificationsPost`](docs/sdks/event/README.md#publisheventwithnotificationsapiv1eventeventidpublishwithnotificationspost) - Publish Event With Notifications
-- [`eventRollbackEventVersionApiV1EventEventIdVersionsRollbackPost`](docs/sdks/event/README.md#rollbackeventversionapiv1eventeventidversionsrollbackpost) - Rollback Event to Version
-- [`eventTimelineCreateMilestoneApiV1EventEventIdTimelineMilestonesPost`](docs/sdks/eventtimeline/README.md#createmilestoneapiv1eventeventidtimelinemilestonespost) - Create and link milestone
-- [`eventTimelineGetPublishedTimelineApiV1EventEventIdTimelinePublishedGet`](docs/sdks/eventtimeline/README.md#getpublishedtimelineapiv1eventeventidtimelinepublishedget) - Get published event timeline
-- [`eventTimelineGetTimelineApiV1EventEventIdTimelineGet`](docs/sdks/eventtimeline/README.md#gettimelineapiv1eventeventidtimelineget) - Get event timeline
-- [`eventTimelineLinkMilestoneApiV1EventEventIdTimelineLinkPost`](docs/sdks/eventtimeline/README.md#linkmilestoneapiv1eventeventidtimelinelinkpost) - Link existing event
-- [`eventTimelineUnlinkMilestoneApiV1EventEventIdTimelineMilestoneEventIdDelete`](docs/sdks/eventtimeline/README.md#unlinkmilestoneapiv1eventeventidtimelinemilestoneeventiddelete) - Unlink milestone
-- [`eventTransferEventApiV1EventEventIdTransferPost`](docs/sdks/event/README.md#transfereventapiv1eventeventidtransferpost) - Transfer Event
-- [`eventUnpublishEventVersionApiV1EventEventIdVersionsUnpublishPost`](docs/sdks/event/README.md#unpublisheventversionapiv1eventeventidversionsunpublishpost) - Unpublish Event (Mark as Draft)
-- [`eventUpdateCoverApiV1EventEventIdCoverPatch`](docs/sdks/event/README.md#updatecoverapiv1eventeventidcoverpatch) - Update Cover
-- [`eventUpdateEventApiV1EventEventIdPut`](docs/sdks/event/README.md#updateeventapiv1eventeventidput) - Update Event
-- [`eventValidateTimezoneApiV1EventTimezonesValidateGet`](docs/sdks/event/README.md#validatetimezoneapiv1eventtimezonesvalidateget) - Validate Timezone
-- [`eventValidateTimezoneApiV1EventTimezonesValidateGet`](docs/sdks/timezones/README.md#validatetimezoneapiv1eventtimezonesvalidateget) - Validate Timezone
-- [`getFeatureFlagsConfigFeaturesGet`](docs/sdks/sdk/README.md#getfeatureflagsconfigfeaturesget) - Get Feature Flags
-- [`getLatestPublishedVersionApiV1PublicSpaceSpaceIdVersionsLatestGet`](docs/sdks/sdk/README.md#getlatestpublishedversionapiv1publicspacespaceidversionslatestget) - Get Latest Published Version
-- [`handleOrgCreatedApiV1IntegrationOrgCreatedPost`](docs/sdks/sdk/README.md#handleorgcreatedapiv1integrationorgcreatedpost) - Webhook from Zitadel for organization creation
-- [`handleOrgRemovedApiV1IntegrationOrgRemovedPost`](docs/sdks/sdk/README.md#handleorgremovedapiv1integrationorgremovedpost) - Webhook from Zitadel for organization removal
-- [`handleUserRemovedApiV1IntegrationUserRemovedPost`](docs/sdks/sdk/README.md#handleuserremovedapiv1integrationuserremovedpost) - Webhook from Zitadel for user removal
-- [`healthCheckHealthGet`](docs/sdks/sdk/README.md#healthcheckhealthget) - Health Check
-- [`metricsMetricsGet`](docs/sdks/sdk/README.md#metricsmetricsget) - Metrics
-- [`notificationHealthCheckHealthNotificationsGet`](docs/sdks/sdk/README.md#notificationhealthcheckhealthnotificationsget) - Notification Health Check
-- [`organizationsArchiveOrganizationEndpointApiV1OrganizationsOrgIdDelete`](docs/sdks/organizations/README.md#archiveorganizationendpointapiv1organizationsorgiddelete) - Archive Organization Endpoint
-- [`organizationsCreateInviteEndpointApiV1OrganizationsOrgIdInvitesPost`](docs/sdks/organizations/README.md#createinviteendpointapiv1organizationsorgidinvitespost) - Create Invite Endpoint
-- [`organizationsCreateOrganizationEndpointApiV1OrganizationsPost`](docs/sdks/organizations/README.md#createorganizationendpointapiv1organizationspost) - Create Organization Endpoint
-- [`organizationsDeleteInviteEndpointApiV1OrganizationsOrgIdInvitesInviteIdDelete`](docs/sdks/organizations/README.md#deleteinviteendpointapiv1organizationsorgidinvitesinviteiddelete) - Delete Invite Endpoint
-- [`organizationsGetCurrentOrganizationEndpointApiV1OrganizationsMeGet`](docs/sdks/organizations/README.md#getcurrentorganizationendpointapiv1organizationsmeget) - Get Current Organization Endpoint
-- [`organizationsGetOrganizationEndpointApiV1OrganizationsOrgIdGet`](docs/sdks/organizations/README.md#getorganizationendpointapiv1organizationsorgidget) - Get Organization Endpoint
-- [`organizationsGetOrganizationInvitesEndpointApiV1OrganizationsOrgIdInvitesGet`](docs/sdks/organizations/README.md#getorganizationinvitesendpointapiv1organizationsorgidinvitesget) - Get Organization Invites Endpoint
-- [`organizationsListOrganizationsEndpointApiV1OrganizationsGet`](docs/sdks/organizations/README.md#listorganizationsendpointapiv1organizationsget) - List Organizations Endpoint
-- [`organizationsUpdateOrganizationEndpointApiV1OrganizationsOrgIdPut`](docs/sdks/organizations/README.md#updateorganizationendpointapiv1organizationsorgidput) - Update Organization Endpoint
-- [`permissionsGetPermissionEndpointApiV1ApiV1PermissionsPermissionCodeGet`](docs/sdks/permissions/README.md#getpermissionendpointapiv1apiv1permissionspermissioncodeget) - Get Permission Endpoint
-- [`permissionsListPermissionsEndpointApiV1ApiV1PermissionsGet`](docs/sdks/permissions/README.md#listpermissionsendpointapiv1apiv1permissionsget) - List Permissions Endpoint
-- [`placeArchivePlaceApiV1PlacePlaceIdArchivePatch`](docs/sdks/place/README.md#archiveplaceapiv1placeplaceidarchivepatch) - Archive Place
-- [`placeCreatePlaceApiV1PlacePost`](docs/sdks/place/README.md#createplaceapiv1placepost) - Create Place
-- [`placeDeletePlaceApiV1PlacePlaceIdDelete`](docs/sdks/place/README.md#deleteplaceapiv1placeplaceiddelete) - Delete Place
-- [`placeGetPlaceByIdApiV1PlacePlaceIdGet`](docs/sdks/place/README.md#getplacebyidapiv1placeplaceidget) - Get Place By Id
-- [`placeGetPlaceListApiV1PlaceGet`](docs/sdks/place/README.md#getplacelistapiv1placeget) - Get Place List
-- [`placePublishPlaceApiV1PlacePlaceIdPublishPatch`](docs/sdks/place/README.md#publishplaceapiv1placeplaceidpublishpatch) - Publish Place
-- [`placeUpdatePlaceApiV1PlacePlaceIdPut`](docs/sdks/place/README.md#updateplaceapiv1placeplaceidput) - Update Place
-- [`publicEventsGetLatestPublicEventVersionApiV1PublicEventEventIdVersionsLatestGet`](docs/sdks/publicevents/README.md#getlatestpubliceventversionapiv1publiceventeventidversionslatestget) - Get Latest Event Version (Public Access)
-- [`realtimeGetWs`](docs/sdks/realtime/README.md#getws) - Establish realtime WebSocket connection (upgrade)
-- [`realtimeRealtimeInfoRealtimeInfoGet`](docs/sdks/realtime/README.md#realtimeinforealtimeinfoget) - Realtime WebSocket protocol info
-- [`spaceAddSpaceMemberApiV1SpaceSpaceIdMembersPost`](docs/sdks/space/README.md#addspacememberapiv1spacespaceidmemberspost) - Add Space Member
-- [`spaceArchiveSpaceApiV1SpaceSpaceIdArchivePatch`](docs/sdks/space/README.md#archivespaceapiv1spacespaceidarchivepatch) - Archive Space
-- [`spaceAssignPermissionToSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdPermissionsPost`](docs/sdks/space/README.md#assignpermissiontospaceroleapiv1spacespacesspaceidrolesroleidpermissionspost) - Assign Permission To Space Role
-- [`spaceAssignPermissionToSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdPermissionsPost`](docs/sdks/spaceroles/README.md#assignpermissiontospaceroleapiv1spacespacesspaceidrolesroleidpermissionspost) - Assign Permission To Space Role
-- [`spaceAssignUserToSpaceRoleApiV1SpaceSpacesSpaceIdMembersUserIdRolesPost`](docs/sdks/space/README.md#assignusertospaceroleapiv1spacespacesspaceidmembersuseridrolespost) - Assign User To Space Role
-- [`spaceAssignUserToSpaceRoleApiV1SpaceSpacesSpaceIdMembersUserIdRolesPost`](docs/sdks/spacememberroles/README.md#assignusertospaceroleapiv1spacespacesspaceidmembersuseridrolespost) - Assign User To Space Role
-- [`spaceBulkUpdateSpaceParentApiV1SpaceBulkParentPatch`](docs/sdks/space/README.md#bulkupdatespaceparentapiv1spacebulkparentpatch) - Bulk Update Space Parent
-- [`spaceCompareSpaceVersionsApiV1SpaceSpaceIdVersionsCompareGet`](docs/sdks/space/README.md#comparespaceversionsapiv1spacespaceidversionscompareget) - Compare space versions
-- [`spaceContactsAddContactToSpaceApiV1SpacesSpaceIdContactsPost`](docs/sdks/spacecontacts/README.md#addcontacttospaceapiv1spacesspaceidcontactspost) - Add Contact To Space
-- [`spaceContactsBulkAddContactsToSpaceApiV1SpacesSpaceIdContactsBulkPost`](docs/sdks/spacecontacts/README.md#bulkaddcontactstospaceapiv1spacesspaceidcontactsbulkpost) - Bulk Add Contacts To Space
-- [`spaceContactsBulkRemoveContactsFromSpaceApiV1SpacesSpaceIdContactsBulkDelete`](docs/sdks/spacecontacts/README.md#bulkremovecontactsfromspaceapiv1spacesspaceidcontactsbulkdelete) - Bulk Remove Contacts From Space
-- [`spaceContactsCountSpaceContactsApiV1SpacesSpaceIdContactsCountGet`](docs/sdks/spacecontacts/README.md#countspacecontactsapiv1spacesspaceidcontactscountget) - Count Space Contacts
-- [`spaceContactsGetContactSpacesApiV1ContactsContactIdSpacesGet`](docs/sdks/spacecontacts/README.md#getcontactspacesapiv1contactscontactidspacesget) - Get Contact Spaces
-- [`spaceContactsGetSpaceContactApiV1SpaceContactsSpaceContactIdGet`](docs/sdks/spacecontacts/README.md#getspacecontactapiv1spacecontactsspacecontactidget) - Get Space Contact
-- [`spaceContactsGetSpaceContactsApiV1SpacesSpaceIdContactsGet`](docs/sdks/spacecontacts/README.md#getspacecontactsapiv1spacesspaceidcontactsget) - Get Space Contacts
-- [`spaceContactsRemoveContactFromSpaceApiV1SpaceContactsSpaceContactIdDelete`](docs/sdks/spacecontacts/README.md#removecontactfromspaceapiv1spacecontactsspacecontactiddelete) - Remove Contact From Space
-- [`spaceCreateSpaceApiV1SpacePost`](docs/sdks/space/README.md#createspaceapiv1spacepost) - Create Space
-- [`spaceCreateSpaceRoleApiV1SpaceSpacesSpaceIdRolesPost`](docs/sdks/space/README.md#createspaceroleapiv1spacespacesspaceidrolespost) - Create Space Role
-- [`spaceCreateSpaceRoleApiV1SpaceSpacesSpaceIdRolesPost`](docs/sdks/spaceroles/README.md#createspaceroleapiv1spacespacesspaceidrolespost) - Create Space Role
-- [`spaceCreateSpaceWithParentApiV1SpaceWithParentPost`](docs/sdks/space/README.md#createspacewithparentapiv1spacewithparentpost) - Create Space With Parent
-- [`spaceDeleteSpaceApiV1SpaceSpaceIdDelete`](docs/sdks/space/README.md#deletespaceapiv1spacespaceiddelete) - Delete Space
-- [`spaceDeleteSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdDelete`](docs/sdks/space/README.md#deletespaceroleapiv1spacespacesspaceidrolesroleiddelete) - Delete Space Role
-- [`spaceDeleteSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdDelete`](docs/sdks/spaceroles/README.md#deletespaceroleapiv1spacespacesspaceidrolesroleiddelete) - Delete Space Role
-- [`spaceDetachSpaceFromParentApiV1SpaceSpaceIdParentDelete`](docs/sdks/space/README.md#detachspacefromparentapiv1spacespaceidparentdelete) - Detach Space From Parent
-- [`spaceDocumentsAddDocumentToSpaceApiV1SpacesSpaceIdDocumentsDocumentIdPost`](docs/sdks/spacedocuments/README.md#adddocumenttospaceapiv1spacesspaceiddocumentsdocumentidpost) - Add Document To Space
-- [`spaceDocumentsGetSpaceDocumentsApiV1SpacesSpaceIdDocumentsGet`](docs/sdks/spacedocuments/README.md#getspacedocumentsapiv1spacesspaceiddocumentsget) - Get Space Documents
-- [`spaceDocumentsRemoveDocumentFromSpaceApiV1SpacesSpaceIdDocumentsDocumentIdDelete`](docs/sdks/spacedocuments/README.md#removedocumentfromspaceapiv1spacesspaceiddocumentsdocumentiddelete) - Remove Document From Space
-- [`spaceEventsAddEventToSpaceApiV1SpacesSpaceIdEventsPost`](docs/sdks/spaceevents/README.md#addeventtospaceapiv1spacesspaceideventspost) - Add Event To Space
-- [`spaceEventsBulkAddEventsToSpaceApiV1SpacesSpaceIdEventsBulkPost`](docs/sdks/spaceevents/README.md#bulkaddeventstospaceapiv1spacesspaceideventsbulkpost) - Bulk Add Events To Space
-- [`spaceEventsBulkRemoveEventsFromSpaceApiV1SpacesSpaceIdEventsBulkDelete`](docs/sdks/spaceevents/README.md#bulkremoveeventsfromspaceapiv1spacesspaceideventsbulkdelete) - Bulk Remove Events From Space
-- [`spaceEventsCountSpaceEventsApiV1SpacesSpaceIdEventsCountGet`](docs/sdks/spaceevents/README.md#countspaceeventsapiv1spacesspaceideventscountget) - Count Space Events
-- [`spaceEventsGetEventSpacesApiV1EventsEventIdSpacesGet`](docs/sdks/spaceevents/README.md#geteventspacesapiv1eventseventidspacesget) - Get Event Spaces
-- [`spaceEventsGetSpaceEventApiV1SpaceEventsSpaceEventIdGet`](docs/sdks/spaceevents/README.md#getspaceeventapiv1spaceeventsspaceeventidget) - Get Space Event
-- [`spaceEventsGetSpaceEventsApiV1SpacesSpaceIdEventsGet`](docs/sdks/spaceevents/README.md#getspaceeventsapiv1spacesspaceideventsget) - Get Space Events
-- [`spaceEventsRemoveEventFromSpaceApiV1SpaceEventsSpaceEventIdDelete`](docs/sdks/spaceevents/README.md#removeeventfromspaceapiv1spaceeventsspaceeventiddelete) - Remove Event From Space
-- [`spaceGetJoinableSpacesByUserApiV1SpaceByUserUserIdJoinableGet`](docs/sdks/space/README.md#getjoinablespacesbyuserapiv1spacebyuseruseridjoinableget) - Get Joinable Spaces By User
-- [`spaceGetLatestSpaceVersionApiV1SpaceSpaceIdVersionsLatestGet`](docs/sdks/space/README.md#getlatestspaceversionapiv1spacespaceidversionslatestget) - Get latest published space version
-- [`spaceGetSpaceByIdApiV1SpaceSpaceIdGet`](docs/sdks/space/README.md#getspacebyidapiv1spacespaceidget) - Get Space By Id
-- [`spaceGetSpaceChildrenApiV1SpaceSpaceIdChildrenGet`](docs/sdks/space/README.md#getspacechildrenapiv1spacespaceidchildrenget) - Get Space Children
-- [`spaceGetSpaceHierarchyApiV1SpaceSpaceIdHierarchyGet`](docs/sdks/space/README.md#getspacehierarchyapiv1spacespaceidhierarchyget) - Get Space Hierarchy
-- [`spaceGetSpaceListApiV1SpaceGet`](docs/sdks/space/README.md#getspacelistapiv1spaceget) - Get Space List
-- [`spaceGetSpaceMembersApiV1SpaceSpaceIdMembersGet`](docs/sdks/space/README.md#getspacemembersapiv1spacespaceidmembersget) - Get Space Members
-- [`spaceGetSpaceParentApiV1SpaceSpaceIdParentGet`](docs/sdks/space/README.md#getspaceparentapiv1spacespaceidparentget) - Get Space Parent
-- [`spaceGetSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdGet`](docs/sdks/space/README.md#getspaceroleapiv1spacespacesspaceidrolesroleidget) - Get Space Role
-- [`spaceGetSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdGet`](docs/sdks/spaceroles/README.md#getspaceroleapiv1spacespacesspaceidrolesroleidget) - Get Space Role
-- [`spaceGetSpaceVersionApiV1SpaceSpaceIdVersionsVersionNumberGet`](docs/sdks/space/README.md#getspaceversionapiv1spacespaceidversionsversionnumberget) - Get specific space version
-- [`spaceGetUserSpaceRolesApiV1SpaceSpacesSpaceIdMembersUserIdRolesGet`](docs/sdks/space/README.md#getuserspacerolesapiv1spacespacesspaceidmembersuseridrolesget) - Get User Space Roles
-- [`spaceGetUserSpaceRolesApiV1SpaceSpacesSpaceIdMembersUserIdRolesGet`](docs/sdks/spacememberroles/README.md#getuserspacerolesapiv1spacespacesspaceidmembersuseridrolesget) - Get User Space Roles
-- [`spaceJoinSpaceApiV1SpaceSpaceIdJoinPost`](docs/sdks/space/README.md#joinspaceapiv1spacespaceidjoinpost) - Join Space
-- [`spaceListSpaceRolesApiV1SpaceSpacesSpaceIdRolesGet`](docs/sdks/space/README.md#listspacerolesapiv1spacespacesspaceidrolesget) - List Space Roles
-- [`spaceListSpaceRolesApiV1SpaceSpacesSpaceIdRolesGet`](docs/sdks/spaceroles/README.md#listspacerolesapiv1spacespacesspaceidrolesget) - List Space Roles
-- [`spaceListSpaceVersionsApiV1SpaceSpaceIdVersionsGet`](docs/sdks/space/README.md#listspaceversionsapiv1spacespaceidversionsget) - List space versions
-- [`spacePublishSpaceApiV1SpaceSpaceIdPublishPatch`](docs/sdks/space/README.md#publishspaceapiv1spacespaceidpublishpatch) - Publish Space
-- [`spacePublishSpaceApiV1SpaceSpaceIdPublishPost`](docs/sdks/space/README.md#publishspaceapiv1spacespaceidpublishpost) - Publish space
-- [`spaceRemovePermissionFromSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdPermissionsPermissionIdDelete`](docs/sdks/space/README.md#removepermissionfromspaceroleapiv1spacespacesspaceidrolesroleidpermissionspermissioniddelete) - Remove Permission From Space Role
-- [`spaceRemovePermissionFromSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdPermissionsPermissionIdDelete`](docs/sdks/spaceroles/README.md#removepermissionfromspaceroleapiv1spacespacesspaceidrolesroleidpermissionspermissioniddelete) - Remove Permission From Space Role
-- [`spaceRemoveSpaceMemberApiV1SpaceSpaceIdMembersUserIdDelete`](docs/sdks/space/README.md#removespacememberapiv1spacespaceidmembersuseriddelete) - Remove Space Member
-- [`spaceRemoveUserFromSpaceRoleApiV1SpaceSpacesSpaceIdMembersUserIdRolesSpaceRoleIdDelete`](docs/sdks/space/README.md#removeuserfromspaceroleapiv1spacespacesspaceidmembersuseridrolesspaceroleiddelete) - Remove User From Space Role
-- [`spaceRemoveUserFromSpaceRoleApiV1SpaceSpacesSpaceIdMembersUserIdRolesSpaceRoleIdDelete`](docs/sdks/spacememberroles/README.md#removeuserfromspaceroleapiv1spacespacesspaceidmembersuseridrolesspaceroleiddelete) - Remove User From Space Role
-- [`spaceRollbackSpaceApiV1SpaceSpaceIdRollbackPost`](docs/sdks/space/README.md#rollbackspaceapiv1spacespaceidrollbackpost) - Rollback space to version
-- [`spaceTestAuthApiV1SpaceTestAuthGet`](docs/sdks/space/README.md#testauthapiv1spacetestauthget) - Test Auth
-- [`spaceTransferSpaceApiV1SpaceSpaceIdTransferPost`](docs/sdks/space/README.md#transferspaceapiv1spacespaceidtransferpost) - Transfer Space
-- [`spaceUnpublishSpaceApiV1SpaceSpaceIdUnpublishPost`](docs/sdks/space/README.md#unpublishspaceapiv1spacespaceidunpublishpost) - Unpublish space
-- [`spaceUpdateSpaceApiV1SpaceSpaceIdPut`](docs/sdks/space/README.md#updatespaceapiv1spacespaceidput) - Update Space
-- [`spaceUpdateSpaceMemberRoleApiV1SpaceSpaceIdMembersUserIdPatch`](docs/sdks/space/README.md#updatespacememberroleapiv1spacespaceidmembersuseridpatch) - Update Space Member Role
-- [`spaceUpdateSpaceParentApiV1SpaceSpaceIdParentPatch`](docs/sdks/space/README.md#updatespaceparentapiv1spacespaceidparentpatch) - Update Space Parent
-- [`spaceUpdateSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdPut`](docs/sdks/space/README.md#updatespaceroleapiv1spacespacesspaceidrolesroleidput) - Update Space Role
-- [`spaceUpdateSpaceRoleApiV1SpaceSpacesSpaceIdRolesRoleIdPut`](docs/sdks/spaceroles/README.md#updatespaceroleapiv1spacespacesspaceidrolesroleidput) - Update Space Role
-- [`triggerSentryErrorSentryDebugGet`](docs/sdks/sdk/README.md#triggersentryerrorsentrydebugget) - Trigger Sentry Error
-- [`userCreateAssistantApiV1UserAssistantPost`](docs/sdks/user/README.md#createassistantapiv1userassistantpost) - Create Assistant
-- [`userDeleteAvatarApiV1UserMeAvatarDelete`](docs/sdks/user/README.md#deleteavatarapiv1usermeavatardelete) - Delete Avatar
-- [`userGetAssistantApiV1UserAssistantGet`](docs/sdks/user/README.md#getassistantapiv1userassistantget) - Get Assistant
-- [`userGetAvatarApiV1UserMeAvatarGet`](docs/sdks/user/README.md#getavatarapiv1usermeavatarget) - Get Avatar
-- [`userGetCurrentUserProfileApiV1UserMeGet`](docs/sdks/user/README.md#getcurrentuserprofileapiv1usermeget) - Get Current User Profile
-- [`userGetUserAvatarApiV1UserAvatarUserIdGet`](docs/sdks/user/README.md#getuseravatarapiv1useravataruseridget) - Get User Avatar
-- [`userGetUserListApiV1UserGet`](docs/sdks/user/README.md#getuserlistapiv1userget) - Get User List
-- [`userGetUserProfileByIdApiV1UserUserIdGet`](docs/sdks/user/README.md#getuserprofilebyidapiv1useruseridget) - Get User Profile By Id
-- [`userSearchUsersApiV1UserSearchGet`](docs/sdks/user/README.md#searchusersapiv1usersearchget) - Search Users
-- [`userUpdateProfileApiV1UserMePut`](docs/sdks/user/README.md#updateprofileapiv1usermeput) - Update Profile
-- [`userUploadAvatarApiV1UserMeAvatarPost`](docs/sdks/user/README.md#uploadavatarapiv1usermeavatarpost) - Upload Avatar
+- [`aiAgentCancelWorkflow`](docs/sdks/aiagent/README.md#cancelworkflow) - Cancel a running workflow
+- [`aiAgentCreateSession`](docs/sdks/aiagent/README.md#createsession) - Create a new AI agent session
+- [`aiAgentGetSession`](docs/sdks/aiagent/README.md#getsession) - Get AI agent session details
+- [`aiAgentGetSessionCosts`](docs/sdks/aiagent/README.md#getsessioncosts) - Get session cost breakdown
+- [`aiAgentListSessions`](docs/sdks/aiagent/README.md#listsessions) - List AI agent sessions
+- [`aiAgentListWorkflows`](docs/sdks/aiagent/README.md#listworkflows) - List workflow executions
+- [`aiAgentSendMessage`](docs/sdks/aiagent/README.md#sendmessage) - Send a message to an AI agent session
+- [`aiAgentsGetOrgCosts`](docs/sdks/aiagents/README.md#getorgcosts) - Get organization-wide cost summary
+- [`aiAgentStartWorkflow`](docs/sdks/aiagent/README.md#startworkflow) - Start a multi-agent workflow
+- [`aiAgentStartWorkflowAsync`](docs/sdks/aiagent/README.md#startworkflowasync) - Start a multi-agent workflow (async)
+- [`aiDeleteSession`](docs/sdks/ai/README.md#deletesession) - Delete AI agent session
+- [`aiWorkflowsGetExecutionDetails`](docs/sdks/aiworkflows/README.md#getexecutiondetails) - Get workflow execution details
+- [`analyticGetDashboard`](docs/sdks/analytic/README.md#getdashboard) - Get Dashboard Analytics
+- [`analyticGetTotals`](docs/sdks/analytic/README.md#gettotals) - Get Analytic Totals
+- [`auditLogsGetPermissionStats`](docs/sdks/auditlogs/README.md#getpermissionstats) - Get Permission Audit Stats
+- [`auditLogsListPermissions`](docs/sdks/auditlogs/README.md#listpermissions) - List Permission Audit Logs
+- [`authContextsGet`](docs/sdks/authcontexts/README.md#get) - Get Auth Context
+- [`automationCronHealthCheck`](docs/sdks/automationcron/README.md#healthcheck) - Cron Health Check
+- [`automationCronTriggerScheduled`](docs/sdks/automationcron/README.md#triggerscheduled) - Trigger Scheduled Automation
+- [`automationMetadataGetActions`](docs/sdks/automationmetadata/README.md#getactions) - Get action metadata
+- [`automationMetadataGetTask`](docs/sdks/automationmetadata/README.md#gettask) - Get task metadata
+- [`automationMetadataGetTasks`](docs/sdks/automationmetadata/README.md#gettasks) - Get all task metadata
+- [`automationMetadataGetTriggers`](docs/sdks/automationmetadata/README.md#gettriggers) - Get trigger metadata
+- [`automationRulesCreate`](docs/sdks/automationrules/README.md#create) - Create Rule
+- [`automationRulesDelete`](docs/sdks/automationrules/README.md#delete) - Delete Rule
+- [`automationRulesExecute`](docs/sdks/automationrules/README.md#execute) - Execute Rule
+- [`automationRulesGet`](docs/sdks/automationrules/README.md#get) - Get Rule
+- [`automationRulesGetConditions`](docs/sdks/automationrules/README.md#getconditions) - Get condition metadata
+- [`automationRulesGetExecutions`](docs/sdks/automationrules/README.md#getexecutions) - Get Rule Executions
+- [`automationRulesGetMetadata`](docs/sdks/automationrules/README.md#getmetadata) - Get all metadata
+- [`automationRulesList`](docs/sdks/automationrules/README.md#list) - List Rules
+- [`automationRulesPatch`](docs/sdks/automationrules/README.md#patch) - Patch Rule
+- [`automationRulesUpdate`](docs/sdks/automationrules/README.md#update) - Update Rule
+- [`bookingCreate`](docs/sdks/booking/README.md#create) - Create Booking
+- [`bookingsCheckAvailability`](docs/sdks/bookings/README.md#checkavailability) - Check Availability
+- [`bookingsDelete`](docs/sdks/bookings/README.md#delete) - Delete Booking
+- [`bookingsGetById`](docs/sdks/bookings/README.md#getbyid) - Get Booking By Id
+- [`bookingsGetPlaceSchedule`](docs/sdks/bookings/README.md#getplaceschedule) - Get Place Schedule
+- [`bookingsList`](docs/sdks/bookings/README.md#list) - Get Bookings
+- [`bookingsUpdate`](docs/sdks/bookings/README.md#update) - Update Booking
+- [`chatMessagesDelete`](docs/sdks/chatmessages/README.md#delete) - Delete Message
+- [`chatMessagesGetCount`](docs/sdks/chatmessages/README.md#getcount) - Get Message Count
+- [`chatMessagesGetUnreadCount`](docs/sdks/chatmessages/README.md#getunreadcount) - Get Unread Count
+- [`chatMessagesList`](docs/sdks/chatmessages/README.md#list) - List Messages
+- [`chatMessagesMarkRead`](docs/sdks/chatmessages/README.md#markread) - Mark Messages As Read
+- [`chatMessagesSend`](docs/sdks/chatmessages/README.md#send) - Send Message
+- [`chatRoomsAddMember`](docs/sdks/chatrooms/README.md#addmember) - Add Member To Room
+- [`chatRoomsCreateDirect`](docs/sdks/chatrooms/README.md#createdirect) - Create Direct Room
+- [`chatRoomsCreateGroup`](docs/sdks/chatrooms/README.md#creategroup) - Create Group Room
+- [`chatRoomsGetById`](docs/sdks/chatrooms/README.md#getbyid) - Get Room By Id
+- [`chatRoomsList`](docs/sdks/chatrooms/README.md#list) - List User Rooms
+- [`chatRoomsListMembers`](docs/sdks/chatrooms/README.md#listmembers) - List Room Members
+- [`chatRoomsRemoveMember`](docs/sdks/chatrooms/README.md#removemember) - Remove Member From Room
+- [`chatRoomsUpdate`](docs/sdks/chatrooms/README.md#update) - Update Room
+- [`contactsCreate`](docs/sdks/contacts/README.md#create) - Create Contact
+- [`contactsDelete`](docs/sdks/contacts/README.md#delete) - Delete Contact
+- [`contactsGet`](docs/sdks/contacts/README.md#get) - Get Contact
+- [`contactsList`](docs/sdks/contacts/README.md#list) - List Contacts
+- [`contactsSearch`](docs/sdks/contacts/README.md#search) - Search Contacts
+- [`contactsToggleFavorite`](docs/sdks/contacts/README.md#togglefavorite) - Toggle Favorite
+- [`contactsUpdate`](docs/sdks/contacts/README.md#update) - Update Contact
+- [`customRolesAddPermission`](docs/sdks/customroles/README.md#addpermission) - Add Permission Endpoint
+- [`customRolesAssignToUser`](docs/sdks/customroles/README.md#assigntouser) - Assign Role To User Endpoint
+- [`customRolesCreate`](docs/sdks/customroles/README.md#create) - Create Role Endpoint
+- [`customRolesGet`](docs/sdks/customroles/README.md#get) - Get Role Endpoint
+- [`customRolesGetMyPermissions`](docs/sdks/customroles/README.md#getmypermissions) - Get My Permissions Endpoint
+- [`customRolesList`](docs/sdks/customroles/README.md#list) - List Roles Endpoint
+- [`customRolesRemovePermission`](docs/sdks/customroles/README.md#removepermission) - Remove Permission Endpoint
+- [`customRolesRemoveUserRole`](docs/sdks/customroles/README.md#removeuserrole) - Remove Role From User Endpoint
+- [`customRolesSetPermissions`](docs/sdks/customroles/README.md#setpermissions) - Set Permissions Endpoint
+- [`customRolesUpdate`](docs/sdks/customroles/README.md#update) - Update Role Endpoint
+- [`eventAttendeesAdd`](docs/sdks/eventattendees/README.md#add) - Add Event Attendee
+- [`eventAttendeesAddBulk`](docs/sdks/eventattendees/README.md#addbulk) - Add Event Attendees Bulk
+- [`eventAttendeesCheckIn`](docs/sdks/eventattendees/README.md#checkin) - Check In Attendee
+- [`eventAttendeesGet`](docs/sdks/eventattendees/README.md#get) - Get Event Attendees
+- [`eventAttendeesRemove`](docs/sdks/eventattendees/README.md#remove) - Remove Event Attendee
+- [`eventAttendeesRemoveBulk`](docs/sdks/eventattendees/README.md#removebulk) - Remove Event Attendees Bulk
+- [`eventAttendeesUpdate`](docs/sdks/eventattendees/README.md#update) - Update Event Attendee
+- [`eventAttendeesUpdateBulkStatus`](docs/sdks/eventattendees/README.md#updatebulkstatus) - Update Attendees Status Bulk
+- [`eventCompareVersions`](docs/sdks/event/README.md#compareversions) - Compare Event Versions
+- [`eventDocumentsAddDocument`](docs/sdks/eventdocuments/README.md#adddocument) - Add Document To Event
+- [`eventDocumentsGetDocuments`](docs/sdks/eventdocuments/README.md#getdocuments) - Get Event Documents
+- [`eventDocumentsRemove`](docs/sdks/eventdocuments/README.md#remove) - Remove Document From Event
+- [`eventGet`](docs/sdks/event/README.md#get) - Get Event By Id
+- [`eventGetLatestVersion`](docs/sdks/event/README.md#getlatestversion) - Get Latest Event Version
+- [`eventGetSectionSettings`](docs/sdks/event/README.md#getsectionsettings) - Get Section Settings
+- [`eventGetVersion`](docs/sdks/event/README.md#getversion) - Get Event Version
+- [`eventLocationGet`](docs/sdks/eventlocation/README.md#get) - Get Event Location
+- [`eventLocationUpdate`](docs/sdks/eventlocation/README.md#update) - Update Event Location
+- [`eventsArchive`](docs/sdks/events/README.md#archive) - Archive Event
+- [`eventsCreate`](docs/sdks/events/README.md#create) - Create Event
+- [`eventsDelete`](docs/sdks/events/README.md#delete) - Delete Event
+- [`eventsFilterAdvanced`](docs/sdks/events/README.md#filteradvanced) - Filter Events Advanced
+- [`eventsGetSectionContent`](docs/sdks/events/README.md#getsectioncontent) - Get Section Content
+- [`eventsGetSectionIdentification`](docs/sdks/events/README.md#getsectionidentification) - Get Section Identification
+- [`eventsGetSettings`](docs/sdks/events/README.md#getsettings) - Get Event Settings
+- [`eventsGetSocialFeed`](docs/sdks/events/README.md#getsocialfeed) - Get Social Feed
+- [`eventsGetTimezones`](docs/sdks/events/README.md#gettimezones) - Get Timezone Info
+- [`eventsList`](docs/sdks/events/README.md#list) - Get Event List
+- [`eventsListBySpace`](docs/sdks/events/README.md#listbyspace) - Get Events By Space
+- [`eventsListCalendar`](docs/sdks/events/README.md#listcalendar) - Get Calendar Events
+- [`eventsListVersions`](docs/sdks/events/README.md#listversions) - List Event Versions
+- [`eventsPatchContent`](docs/sdks/events/README.md#patchcontent) - Patch Event Content
+- [`eventsPatchIdentification`](docs/sdks/events/README.md#patchidentification) - Patch Event Identification
+- [`eventsPatchSettings`](docs/sdks/events/README.md#patchsettings) - Patch Event Settings
+- [`eventsPublish`](docs/sdks/events/README.md#publish) - Publish Event
+- [`eventsPublishVersion`](docs/sdks/events/README.md#publishversion) - Publish Event Version
+- [`eventsPublishWithNotifications`](docs/sdks/events/README.md#publishwithnotifications) - Publish Event With Notifications
+- [`eventsRollbackVersion`](docs/sdks/events/README.md#rollbackversion) - Rollback Event to Version
+- [`eventsTransfer`](docs/sdks/events/README.md#transfer) - Transfer Event
+- [`eventsUpdateCover`](docs/sdks/events/README.md#updatecover) - Update Cover
+- [`eventTimelineCreateMilestone`](docs/sdks/eventtimeline/README.md#createmilestone) - Create and link milestone
+- [`eventTimelineGet`](docs/sdks/eventtimeline/README.md#get) - Get event timeline
+- [`eventTimelineGetPublished`](docs/sdks/eventtimeline/README.md#getpublished) - Get published event timeline
+- [`eventTimelineLinkMilestone`](docs/sdks/eventtimeline/README.md#linkmilestone) - Link existing event
+- [`eventTimelineUnlink`](docs/sdks/eventtimeline/README.md#unlink) - Unlink milestone
+- [`eventTimezonesValidate`](docs/sdks/eventtimezones/README.md#validate) - Validate Timezone
+- [`eventUnpublishVersion`](docs/sdks/event/README.md#unpublishversion) - Unpublish Event (Mark as Draft)
+- [`eventUpdate`](docs/sdks/event/README.md#update) - Update Event
+- [`featuresGet`](docs/sdks/features/README.md#get) - Get Feature Flags
+- [`healthCheck`](docs/sdks/health/README.md#check) - Health Check
+- [`healthCheckAutomation`](docs/sdks/health/README.md#checkautomation) - Automation Health Check
+- [`healthNotificationsCheck`](docs/sdks/healthnotifications/README.md#check) - Notification Health Check
+- [`integrationHandleOrgRemoved`](docs/sdks/integration/README.md#handleorgremoved) - Webhook from Zitadel for organization removal
+- [`integrationsHandleOrgCreated`](docs/sdks/integrations/README.md#handleorgcreated) - Webhook from Zitadel for organization creation
+- [`integrationUserHandleRemoved`](docs/sdks/integrationuser/README.md#handleremoved) - Webhook from Zitadel for user removal
+- [`metricsGet`](docs/sdks/metrics/README.md#get) - Metrics
+- [`organizationsArchive`](docs/sdks/organizations/README.md#archive) - Archive Organization Endpoint
+- [`organizationsCreate`](docs/sdks/organizations/README.md#create) - Create Organization Endpoint
+- [`organizationsCreateInvite`](docs/sdks/organizations/README.md#createinvite) - Create Invite Endpoint
+- [`organizationsDeleteInvite`](docs/sdks/organizations/README.md#deleteinvite) - Delete Invite Endpoint
+- [`organizationsGetById`](docs/sdks/organizations/README.md#getbyid) - Get Organization Endpoint
+- [`organizationsGetCurrent`](docs/sdks/organizations/README.md#getcurrent) - Get Current Organization Endpoint
+- [`organizationsGetInvites`](docs/sdks/organizations/README.md#getinvites) - Get Organization Invites Endpoint
+- [`organizationsList`](docs/sdks/organizations/README.md#list) - List Organizations Endpoint
+- [`organizationsUpdate`](docs/sdks/organizations/README.md#update) - Update Organization Endpoint
+- [`permissionsGet`](docs/sdks/permissions/README.md#get) - Get Permission Endpoint
+- [`permissionsList`](docs/sdks/permissions/README.md#list) - List Permissions Endpoint
+- [`placeArchive`](docs/sdks/place/README.md#archive) - Archive Place
+- [`placePublish`](docs/sdks/place/README.md#publish) - Publish Place
+- [`placesCreate`](docs/sdks/places/README.md#create) - Create Place
+- [`placesDelete`](docs/sdks/places/README.md#delete) - Delete Place
+- [`placesGet`](docs/sdks/places/README.md#get) - Get Place By Id
+- [`placesList`](docs/sdks/places/README.md#list) - Get Place List
+- [`placesUpdate`](docs/sdks/places/README.md#update) - Update Place
+- [`publicEventsGetLatestVersion`](docs/sdks/publicevents/README.md#getlatestversion) - Get Latest Event Version (Public Access)
+- [`publicSpacesGetLatestVersion`](docs/sdks/publicspaces/README.md#getlatestversion) - Get Latest Published Version
+- [`realtimeConnect`](docs/sdks/realtime/README.md#connect) - Establish realtime WebSocket connection (upgrade)
+- [`realtimeGetInfo`](docs/sdks/realtime/README.md#getinfo) - Realtime WebSocket protocol info
+- [`rolesDelete`](docs/sdks/roles/README.md#delete) - Delete Role Endpoint
+- [`sentryTriggerError`](docs/sdks/sentry/README.md#triggererror) - Trigger Sentry Error
+- [`spaceArchive`](docs/sdks/space/README.md#archive) - Archive Space
+- [`spaceAssignUserToRole`](docs/sdks/space/README.md#assignusertorole) - Assign User To Space Role
+- [`spaceAssignUserToRole`](docs/sdks/spacememberroles/README.md#assignusertorole) - Assign User To Space Role
+- [`spaceBulkUpdateParent`](docs/sdks/space/README.md#bulkupdateparent) - Bulk Update Space Parent
+- [`spaceContactsAdd`](docs/sdks/spacecontacts/README.md#add) - Add Contact To Space
+- [`spaceContactsAddBulk`](docs/sdks/spacecontacts/README.md#addbulk) - Bulk Add Contacts To Space
+- [`spaceContactsBulkDelete`](docs/sdks/spacecontacts/README.md#bulkdelete) - Bulk Remove Contacts From Space
+- [`spaceContactsCount`](docs/sdks/spacecontacts/README.md#count) - Count Space Contacts
+- [`spaceContactsGet`](docs/sdks/spacecontacts/README.md#get) - Get Space Contact
+- [`spaceContactsGetContactsBySpace`](docs/sdks/spacecontacts/README.md#getcontactsbyspace) - Get Space Contacts
+- [`spaceContactsGetSpacesByContact`](docs/sdks/spacecontacts/README.md#getspacesbycontact) - Get Contact Spaces
+- [`spaceContactsRemove`](docs/sdks/spacecontacts/README.md#remove) - Remove Contact From Space
+- [`spaceDocumentsAdd`](docs/sdks/spacedocuments/README.md#add) - Add Document To Space
+- [`spaceDocumentsGet`](docs/sdks/spacedocuments/README.md#get) - Get Space Documents
+- [`spaceDocumentsRemove`](docs/sdks/spacedocuments/README.md#remove) - Remove Document From Space
+- [`spaceEventsAdd`](docs/sdks/spaceevents/README.md#add) - Add Event To Space
+- [`spaceEventsBulkAdd`](docs/sdks/spaceevents/README.md#bulkadd) - Bulk Add Events To Space
+- [`spaceEventsBulkRemove`](docs/sdks/spaceevents/README.md#bulkremove) - Bulk Remove Events From Space
+- [`spaceEventsCount`](docs/sdks/spaceevents/README.md#count) - Count Space Events
+- [`spaceEventsGet`](docs/sdks/spaceevents/README.md#get) - Get Space Events
+- [`spaceEventsGetById`](docs/sdks/spaceevents/README.md#getbyid) - Get Space Event
+- [`spaceEventsGetEventSpaces`](docs/sdks/spaceevents/README.md#geteventspaces) - Get Event Spaces
+- [`spaceEventsRemoveEvent`](docs/sdks/spaceevents/README.md#removeevent) - Remove Event From Space
+- [`spaceGetLatestVersion`](docs/sdks/space/README.md#getlatestversion) - Get latest published space version
+- [`spaceGetUserRoles`](docs/sdks/space/README.md#getuserroles) - Get User Space Roles
+- [`spaceGetUserRoles`](docs/sdks/spacememberroles/README.md#getuserroles) - Get User Space Roles
+- [`spacePublish`](docs/sdks/space/README.md#publish) - Publish Space
+- [`spaceRolesAssignPermission`](docs/sdks/spaceroles/README.md#assignpermission) - Assign Permission To Space Role
+- [`spaceRolesCreate`](docs/sdks/spaceroles/README.md#create) - Create Space Role
+- [`spaceRolesDelete`](docs/sdks/spaceroles/README.md#delete) - Delete Space Role
+- [`spaceRolesGet`](docs/sdks/spaceroles/README.md#get) - Get Space Role
+- [`spaceRolesListRoles`](docs/sdks/spaceroles/README.md#listroles) - List Space Roles
+- [`spaceRolesRemovePermission`](docs/sdks/spaceroles/README.md#removepermission) - Remove Permission From Space Role
+- [`spaceRolesUpdateRole`](docs/sdks/spaceroles/README.md#updaterole) - Update Space Role
+- [`spacesAddMember`](docs/sdks/spaces/README.md#addmember) - Add Space Member
+- [`spacesCompareVersions`](docs/sdks/spaces/README.md#compareversions) - Compare space versions
+- [`spacesCreateSpace`](docs/sdks/spaces/README.md#createspace) - Create Space
+- [`spacesCreateWithParent`](docs/sdks/spaces/README.md#createwithparent) - Create Space With Parent
+- [`spacesDeleteById`](docs/sdks/spaces/README.md#deletebyid) - Delete Space
+- [`spacesDetachParent`](docs/sdks/spaces/README.md#detachparent) - Detach Space From Parent
+- [`spacesGetById`](docs/sdks/spaces/README.md#getbyid) - Get Space By Id
+- [`spacesGetHierarchy`](docs/sdks/spaces/README.md#gethierarchy) - Get Space Hierarchy
+- [`spacesGetJoinableByUser`](docs/sdks/spaces/README.md#getjoinablebyuser) - Get Joinable Spaces By User
+- [`spacesGetMembers`](docs/sdks/spaces/README.md#getmembers) - Get Space Members
+- [`spacesGetParent`](docs/sdks/spaces/README.md#getparent) - Get Space Parent
+- [`spacesGetVersion`](docs/sdks/spaces/README.md#getversion) - Get specific space version
+- [`spacesJoin`](docs/sdks/spaces/README.md#join) - Join Space
+- [`spacesList`](docs/sdks/spaces/README.md#list) - Get Space List
+- [`spacesListChildren`](docs/sdks/spaces/README.md#listchildren) - Get Space Children
+- [`spacesListVersions`](docs/sdks/spaces/README.md#listversions) - List space versions
+- [`spacesPublishVersion`](docs/sdks/spaces/README.md#publishversion) - Publish space
+- [`spacesRemoveMember`](docs/sdks/spaces/README.md#removemember) - Remove Space Member
+- [`spacesRemoveUserFromRole`](docs/sdks/spaces/README.md#removeuserfromrole) - Remove User From Space Role
+- [`spacesRollback`](docs/sdks/spaces/README.md#rollback) - Rollback space to version
+- [`spacesUnpublish`](docs/sdks/spaces/README.md#unpublish) - Unpublish space
+- [`spacesUpdateParent`](docs/sdks/spaces/README.md#updateparent) - Update Space Parent
+- [`spaceTestAuth`](docs/sdks/space/README.md#testauth) - Test Auth
+- [`spaceTransfer`](docs/sdks/space/README.md#transfer) - Transfer Space
+- [`spaceUpdate`](docs/sdks/space/README.md#update) - Update Space
+- [`spaceUpdateMemberRole`](docs/sdks/space/README.md#updatememberrole) - Update Space Member Role
+- [`userCreateAssistant`](docs/sdks/user/README.md#createassistant) - Create Assistant
+- [`userGetAssistant`](docs/sdks/user/README.md#getassistant) - Get Assistant
+- [`userGetProfile`](docs/sdks/user/README.md#getprofile) - Get User Profile By Id
+- [`userList`](docs/sdks/user/README.md#list) - Get User List
+- [`usersDeleteAvatar`](docs/sdks/users/README.md#deleteavatar) - Delete Avatar
+- [`usersGetAvatar`](docs/sdks/users/README.md#getavatar) - Get Avatar
+- [`usersGetAvatarById`](docs/sdks/users/README.md#getavatarbyid) - Get User Avatar
+- [`usersGetCurrentProfile`](docs/sdks/users/README.md#getcurrentprofile) - Get Current User Profile
+- [`usersSearch`](docs/sdks/users/README.md#search) - Search Users
+- [`userUpdateProfile`](docs/sdks/user/README.md#updateprofile) - Update Profile
+- [`userUploadAvatar`](docs/sdks/user/README.md#uploadavatar) - Upload Avatar
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -452,18 +410,17 @@ Certain SDK methods accept files as part of a multi-part request. It is possible
 > - **Node.js v18:** A file stream can be created using the `fileFrom` helper from [`fetch-blob/from.js`](https://www.npmjs.com/package/fetch-blob).
 
 ```typescript
+import { Linebundle } from "@linebundle-sdk/ts";
 import { openAsBlob } from "node:fs";
-import { SDK } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.user.uploadAvatarApiV1UserMeAvatarPost({
+  const result = await linebundle.user.uploadAvatar({
     file: await openAsBlob("example.file"),
   });
 
@@ -482,17 +439,16 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
-import { SDK } from "@linebundle-sdk/ts";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   security: {
     oidc: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.handleOrgCreatedApiV1IntegrationOrgCreatedPost({
+  const result = await linebundle.user.getAssistant({
     retries: {
       strategy: "backoff",
       backoff: {
@@ -514,10 +470,9 @@ run();
 
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
-import { SDK } from "@linebundle-sdk/ts";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
+const linebundle = new Linebundle({
   retryConfig: {
     strategy: "backoff",
     backoff: {
@@ -534,7 +489,7 @@ const sdk = new SDK({
 });
 
 async function run() {
-  const result = await sdk.handleOrgCreatedApiV1IntegrationOrgCreatedPost();
+  const result = await linebundle.user.getAssistant();
 
   console.log(result);
 }
@@ -547,7 +502,7 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-[`SDKError`](./src/models/errors/sdk-error.ts) is the base class for all HTTP error responses. It has the following properties:
+[`LinebundleError`](./src/models/errors/linebundle-error.ts) is the base class for all HTTP error responses. It has the following properties:
 
 | Property            | Type       | Description                                                                             |
 | ------------------- | ---------- | --------------------------------------------------------------------------------------- |
@@ -560,27 +515,19 @@ run();
 
 ### Example
 ```typescript
-import { SDK } from "@linebundle-sdk/ts";
+import { Linebundle } from "@linebundle-sdk/ts";
 import * as errors from "@linebundle-sdk/ts/models/errors";
 
-const sdk = new SDK({
-  serverURL: "https://api.example.com",
-  security: {
-    oidc: "<YOUR_API_KEY_HERE>",
-  },
-});
+const linebundle = new Linebundle();
 
 async function run() {
   try {
-    const result = await sdk
-      .getLatestPublishedVersionApiV1PublicSpaceSpaceIdVersionsLatestGet({
-        spaceId: 745559,
-      });
+    const result = await linebundle.user.list({});
 
     console.log(result);
   } catch (error) {
     // The base class for HTTP error responses
-    if (error instanceof errors.SDKError) {
+    if (error instanceof errors.LinebundleError) {
       console.log(error.message);
       console.log(error.statusCode);
       console.log(error.body);
@@ -599,10 +546,11 @@ run();
 ```
 
 ### Error Classes
-**Primary error:**
-* [`SDKError`](./src/models/errors/sdk-error.ts): The base class for HTTP error responses.
+**Primary errors:**
+* [`LinebundleError`](./src/models/errors/linebundle-error.ts): The base class for HTTP error responses.
+  * [`HTTPValidationError`](./src/models/errors/http-validation-error.ts): Validation Error. Status code `422`. *
 
-<details><summary>Less common errors (7)</summary>
+<details><summary>Less common errors (6)</summary>
 
 <br />
 
@@ -614,14 +562,40 @@ run();
 * [`UnexpectedClientError`](./src/models/errors/http-client-errors.ts): Unrecognised or unexpected error.
 
 
-**Inherit from [`SDKError`](./src/models/errors/sdk-error.ts)**:
-* [`HTTPValidationError`](./src/models/errors/http-validation-error.ts): Validation Error. Status code `422`. Applicable to 192 of 241 methods.*
+**Inherit from [`LinebundleError`](./src/models/errors/linebundle-error.ts)**:
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
 
 \* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
+
+<!-- Start Server Selection [server] -->
+## Server Selection
+
+### Override Server URL Per-Client
+
+The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
+```typescript
+import { Linebundle } from "@linebundle-sdk/ts";
+
+const linebundle = new Linebundle({
+  serverURL: "https://api.linebundle.com",
+  security: {
+    oidc: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const result = await linebundle.user.getAssistant();
+
+  console.log(result);
+}
+
+run();
+
+```
+<!-- End Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client
@@ -642,7 +616,7 @@ The following example shows how to:
 - use the `"requestError"` hook to log errors
 
 ```typescript
-import { SDK } from "@linebundle-sdk/ts";
+import { Linebundle } from "@linebundle-sdk/ts";
 import { ProxyAgent } from "undici";
 import { HTTPClient } from "@linebundle-sdk/ts/lib/http";
 
@@ -672,7 +646,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new SDK({ httpClient: httpClient });
+const sdk = new Linebundle({ httpClient: httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
@@ -687,9 +661,9 @@ You can pass a logger that matches `console`'s interface as an SDK option.
 > Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
 
 ```typescript
-import { SDK } from "@linebundle-sdk/ts";
+import { Linebundle } from "@linebundle-sdk/ts";
 
-const sdk = new SDK({ debugLogger: console });
+const sdk = new Linebundle({ debugLogger: console });
 ```
 <!-- End Debugging [debug] -->
 
@@ -708,4 +682,4 @@ looking for the latest version.
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=openapi&utm_campaign=typescript)
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=@linebundle-sdk/ts&utm_campaign=typescript)

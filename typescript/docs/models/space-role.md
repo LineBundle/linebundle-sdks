@@ -5,7 +5,7 @@ Space roles with hierarchical permissions
 ## Example Usage
 
 ```typescript
-import { SpaceRole } from "openapi/models";
+import { SpaceRole } from "@linebundle-sdk/ts/models";
 
 let value: SpaceRole = "space_admin";
 

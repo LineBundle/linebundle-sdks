@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ValidationError } from "openapi/models";
+import { ValidationError } from "@linebundle-sdk/ts/models";
 
 let value: ValidationError = {
   loc: [

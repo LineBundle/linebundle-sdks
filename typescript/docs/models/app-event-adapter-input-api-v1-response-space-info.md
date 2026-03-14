@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AppEventAdapterInputApiV1ResponseSpaceInfo } from "openapi/models";
+import { AppEventAdapterInputApiV1ResponseSpaceInfo } from "@linebundle-sdk/ts/models";
 
 let value: AppEventAdapterInputApiV1ResponseSpaceInfo = {
   id: 945973,

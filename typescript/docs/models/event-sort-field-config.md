@@ -5,7 +5,7 @@ Individual sort field configuration.
 ## Example Usage
 
 ```typescript
-import { EventSortFieldConfig } from "openapi/models";
+import { EventSortFieldConfig } from "@linebundle-sdk/ts/models";
 
 let value: EventSortFieldConfig = {
   field: "end_dt",

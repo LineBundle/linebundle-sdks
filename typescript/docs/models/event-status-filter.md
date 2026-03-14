@@ -5,7 +5,7 @@ Status-based filtering options for events.
 ## Example Usage
 
 ```typescript
-import { EventStatusFilter } from "openapi/models";
+import { EventStatusFilter } from "@linebundle-sdk/ts/models";
 
 let value: EventStatusFilter = {};
 ```

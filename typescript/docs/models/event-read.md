@@ -8,7 +8,7 @@ calculated fields like attendee counts and formatted timestamps.
 ## Example Usage
 
 ```typescript
-import { EventRead } from "openapi/models";
+import { EventRead } from "@linebundle-sdk/ts/models";
 
 let value: EventRead = {
   id: 973430,

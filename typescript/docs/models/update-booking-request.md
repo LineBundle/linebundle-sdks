@@ -5,7 +5,7 @@ Request schema for updating a booking
 ## Example Usage
 
 ```typescript
-import { UpdateBookingRequest } from "openapi/models";
+import { UpdateBookingRequest } from "@linebundle-sdk/ts/models";
 
 let value: UpdateBookingRequest = {
   title: "<value>",

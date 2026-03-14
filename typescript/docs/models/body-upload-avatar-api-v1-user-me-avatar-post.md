@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { BodyUploadAvatarApiV1UserMeAvatarPost } from "openapi/models";
+import { BodyUploadAvatarApiV1UserMeAvatarPost } from "@linebundle-sdk/ts/models";
 
 // No examples available for this model
 ```
