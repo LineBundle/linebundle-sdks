@@ -1,7 +1,7 @@
 {
   "name": "@linebundle-sdk/ts",
-  "version": "0.3.0",
-  "author": "Linebundle",
+  "version": "1.0.0-rc.1",
+  "author": "LineBundle",
   "type": "module",
   "main": "./esm/index.js",
   "exports": {
@@ -11,26 +11,6 @@
       "default": "./esm/index.js"
     },
     "./package.json": "./package.json",
-    "./types": {
-      "source": "./src/types/index.ts",
-      "types": "./esm/types/index.d.ts",
-      "default": "./esm/types/index.js"
-    },
-    "./models/errors": {
-      "source": "./src/models/errors/index.ts",
-      "types": "./esm/models/errors/index.d.ts",
-      "default": "./esm/models/errors/index.js"
-    },
-    "./models": {
-      "source": "./src/models/index.ts",
-      "types": "./esm/models/index.d.ts",
-      "default": "./esm/models/index.js"
-    },
-    "./models/operations": {
-      "source": "./src/models/operations/index.ts",
-      "types": "./esm/models/operations/index.d.ts",
-      "default": "./esm/models/operations/index.js"
-    },
     "./*.js": {
       "source": "./src/*.ts",
       "types": "./esm/*.d.ts",
@@ -44,17 +24,19 @@
   },
   "sideEffects": false,
   "scripts": {
-    "lint": "oxlint --max-warnings=0 --deny-warnings 'src/**/*.{ts,tsx}'",
-    "build": "tsgo",
+    "lint": "eslint --cache --max-warnings=0 src",
+    "build": "tsc",
     "prepublishOnly": "npm run build"
   },
-  "peerDependencies": {},
   "devDependencies": {
-    "@typescript/native-preview": "7.0.0-dev.20260302.1",
-    "oxlint": "^1.50.0",
-    "typescript": "~5.8.3"
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.26.0"
   },
   "dependencies": {
+    "@hey-api/client-fetch": "^0.13.1",
     "zod": "^3.25.65 || ^4.0.0"
   },
   "publishConfig": {
