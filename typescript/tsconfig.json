@@ -6,11 +6,8 @@
     // bundler resolution: no .js extension required in imports (correct for
     // SDK packages consumed via webpack / vite / Next.js).
     // Node16 requires explicit extensions which hey-api does not generate.
-    // rewriteRelativeImportExtensions (TS 5.7+) adds .js to output paths so
-    // the emitted ESM is valid for both Node.js native ESM and bundlers.
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "rewriteRelativeImportExtensions": true,
 
     "declaration": true,
     "declarationMap": true,
