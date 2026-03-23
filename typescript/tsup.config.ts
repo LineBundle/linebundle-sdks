@@ -3,10 +3,9 @@ import { defineConfig } from 'tsup';
 export default defineConfig({
   entry: { index: 'src/index.ts' },
   format: ['esm'],
-  // Keep peer deps external so their types stay as named references in
-  // the generated .d.ts — prevents duplicate-type conflicts when the
-  // consuming project also imports from @hey-api/client-fetch directly.
-  external: ['@hey-api/client-fetch', 'zod'],
+  // zod is used by the generated validation layer. Keep it external so the
+  // consumer's own zod installation is used — avoids bundling it twice.
+  external: ['zod'],
   dts: true,
   outDir: 'esm',
   clean: true,
