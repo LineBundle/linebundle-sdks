@@ -2,27 +2,13 @@
   "compilerOptions": {
     "target": "ES2020",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-
-    // bundler resolution: no .js extension required in imports (correct for
-    // SDK packages consumed via webpack / vite / Next.js).
-    // Node16 requires explicit extensions which hey-api does not generate.
     "module": "ESNext",
     "moduleResolution": "bundler",
-
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "esm",
-
-    // Base strictness — keep useful checks but relax flags that break
-    // hey-api generated code (exactOptionalPropertyTypes, noImplicitAny,
-    // noUnusedLocals/Parameters).
     "strict": true,
     "exactOptionalPropertyTypes": false,
     "noImplicitAny": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
