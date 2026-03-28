@@ -4,14 +4,13 @@
 
 | Method | HTTP | Path | Description |
 |--------|------|------|-------------|
-| `list` | GET | `/api/v1/permissions` | List Permissions Endpoint |
-| `get` | GET | `/api/v1/permissions/{permission_code}` | Get Permission Endpoint |
+| `list` | GET | `/api/v1/permissions` | List all available permission codes |
 
 ---
 
 ## `list`
 
-List Permissions Endpoint
+List all available permission codes
 
 **GET** `/api/v1/permissions`
 
@@ -22,30 +21,10 @@ List Permissions Endpoint
 
 **Returns:**
 
-**Response:** `Array<object>`
-
----
-
-## `get`
-
-Get Permission Endpoint
-
-**GET** `/api/v1/permissions/{permission_code}`
-
-**Signature:** `lb.permissions.get({ path: \{ permission_code \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `permission_code` | path | string | ✓ |  |
-
-
-**Returns:**
-
 | Field | Type | Description |
 |-------|------|-------------|
-| `code` | string | Permission code (e.g., 'events:create') |
-| `description` | string | null | Human-readable description |
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | All available permission codes |
+| `total` | integer | Total count |
 
 ---

@@ -4,20 +4,21 @@
 
 | Method | HTTP | Path | Description |
 |--------|------|------|-------------|
-| `list` | GET | `/api/v1/booking` | Get Bookings |
-| `getById` | GET | `/api/v1/booking/{booking_id}` | Get Booking By Id |
-| `update` | PUT | `/api/v1/booking/{booking_id}` | Update Booking |
-| `delete` | DELETE | `/api/v1/booking/{booking_id}` | Delete Booking |
-| `checkAvailability` | POST | `/api/v1/booking/check-availability` | Check Availability |
-| `getPlaceSchedule` | GET | `/api/v1/booking/places/{place_id}/schedule` | Get Place Schedule |
+| `list` | GET | `/api/v1/bookings` | List bookings |
+| `create` | POST | `/api/v1/bookings` | Create a booking |
+| `check-availability` | POST | `/api/v1/bookings/check-availability` | Check place availability for a time slot |
+| `place-schedule` | GET | `/api/v1/bookings/places/{place_id}/schedule` | Get all bookings for a place within a date range |
+| `delete` | DELETE | `/api/v1/bookings/{id}` | Delete a booking |
+| `get` | GET | `/api/v1/bookings/{id}` | Get a booking by ID |
+| `update` | PUT | `/api/v1/bookings/{id}` | Update a booking |
 
 ---
 
 ## `list`
 
-Get Bookings
+List bookings
 
-**GET** `/api/v1/booking`
+**GET** `/api/v1/bookings`
 
 **Signature:** `lb.bookings.list({ query?: \{ user_id, place_id, start_date, end_date, limit, offset \} })`
 
@@ -25,153 +26,199 @@ Get Bookings
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `user_id` | query | string | null |  | Filter by user ID |
-| `place_id` | query | integer | null |  | Filter by place ID |
-| `start_date` | query | string (date-time) | null |  | Filter by start date |
-| `end_date` | query | string (date-time) | null |  | Filter by end date |
-| `limit` | query | integer |  | Number of bookings to return |
-| `offset` | query | integer |  | Number of bookings to skip |
+| `user_id` | query | string |  | Filter by user (profile UUID). Omit for all users. |
+| `place_id` | query | integer |  | Filter by place ID. 0 = all places. |
+| `start_date` | query | string |  | Filter: bookings starting on or after (RFC3339). Empty = no lower bound. |
+| `end_date` | query | string |  | Filter: bookings starting on or before (RFC3339). Empty = no upper bound. |
+| `limit` | query | integer |  | Max results |
+| `offset` | query | integer |  | Results offset |
 
 
 **Returns:**
 
-**Response:** `Array<object>`
+**Response:** `['array', 'null']`
 
 ---
 
-## `getById`
+## `create`
 
-Get Booking By Id
+Create a booking
 
-**GET** `/api/v1/booking/{booking_id}`
+**POST** `/api/v1/bookings`
 
-**Signature:** `lb.bookings.getById({ path: \{ booking_id \} })`
+**Signature:** `lb.bookings.create({ body: \{ ... \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `booking_id` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer | Booking ID |
-| `place_id` | integer | Place ID |
-| `user_id` | string (uuid) | User ID |
-| `title` | string | Booking title |
-| `description` | string | null | Booking description |
-| `start_dt` | string | Start datetime |
-| `end_dt` | string | End datetime |
-| `status` | string | Booking status |
-| `created_at` | string | Created datetime |
-| `updated_at` | string | Updated datetime |
-
----
-
-## `update`
-
-Update Booking
-
-**PUT** `/api/v1/booking/{booking_id}`
-
-**Signature:** `lb.bookings.update({ path: \{ booking_id \}, body: \{ ... \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `booking_id` | path | integer | ✓ |  |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `description` | body | string |  | Optional description |
+| `end_dt` | body | string | ✓ | End datetime (RFC3339) |
+| `place_id` | body | integer | ✓ | Place ID to book |
+| `start_dt` | body | string | ✓ | Start datetime (RFC3339) |
 | `title` | body | string | ✓ | Booking title |
-| `description` | body | string | null |  | Booking description |
-| `start_dt` | body | string (date-time) | ✓ | Start datetime |
-| `end_dt` | body | string (date-time) | ✓ | End datetime |
-| `status` | body | string |  | Booking status |
 
 
 **Returns:**
 
 | Field | Type | Description |
 |-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `description` | string | Optional description |
+| `end_dt` | string (date-time) | Reservation end (UTC) |
 | `id` | integer | Booking ID |
-| `place_id` | integer | Place ID |
-| `user_id` | string (uuid) | User ID |
+| `org_id` | string | Organization (tenant) ID |
+| `place_id` | integer | Place being reserved |
+| `start_dt` | string (date-time) | Reservation start (UTC) |
+| `status` | string | Status: confirmed, cancelled |
 | `title` | string | Booking title |
-| `description` | string | null | Booking description |
-| `start_dt` | string | Start datetime |
-| `end_dt` | string | End datetime |
-| `status` | string | Booking status |
-| `created_at` | string | Created datetime |
-| `updated_at` | string | Updated datetime |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `user_id` | string | Profile UUID of the booking owner |
+
+---
+
+## `check-availability`
+
+Check place availability for a time slot
+
+**POST** `/api/v1/bookings/check-availability`
+
+**Signature:** `lb.bookings.check-availability({ body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `end_dt` | body | string | ✓ | End datetime (RFC3339) |
+| `exclude_booking_id` | body | integer |  | Booking ID to exclude from conflict check (for updates) |
+| `place_id` | body | integer | ✓ | Place to check |
+| `start_dt` | body | string | ✓ | Start datetime (RFC3339) |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `available` | boolean | True if the place is free |
+| `end_dt` | string (date-time) |  |
+| `place_id` | integer |  |
+| `start_dt` | string (date-time) |  |
+
+---
+
+## `place-schedule`
+
+Get all bookings for a place within a date range
+
+**GET** `/api/v1/bookings/places/{place_id}/schedule`
+
+**Signature:** `lb.bookings.place-schedule({ path: \{ place_id \}, query?: \{ start_date, end_date \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `place_id` | path | integer | ✓ | Place ID |
+| `start_date` | query | string |  | Range start (RFC3339) |
+| `end_date` | query | string |  | Range end (RFC3339) |
+
+
+**Returns:**
+
+**Response:** `['array', 'null']`
 
 ---
 
 ## `delete`
 
-Delete Booking
+Delete a booking
 
-**DELETE** `/api/v1/booking/{booking_id}`
+**DELETE** `/api/v1/bookings/{id}`
 
-**Signature:** `lb.bookings.delete({ path: \{ booking_id \} })`
+**Signature:** `lb.bookings.delete({ path: \{ id \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `booking_id` | path | integer | ✓ |  |
+| `id` | path | integer | ✓ | Booking ID |
 
 ---
 
-## `checkAvailability`
+## `get`
 
-Check Availability
+Get a booking by ID
 
-**POST** `/api/v1/booking/check-availability`
+**GET** `/api/v1/bookings/{id}`
 
-**Signature:** `lb.bookings.checkAvailability({ body: \{ ... \} })`
+**Signature:** `lb.bookings.get({ path: \{ id \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `place_id` | body | integer | ✓ | Place ID to check |
-| `start_dt` | body | string (date-time) | ✓ | Start datetime |
-| `end_dt` | body | string (date-time) | ✓ | End datetime |
-| `exclude_booking_id` | body | integer | null |  | Booking ID to exclude from conflict check |
+| `id` | path | integer | ✓ | Booking ID |
 
 
 **Returns:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `available` | boolean | Whether the place is available |
-| `place_id` | integer | Place ID that was checked |
-| `start_dt` | string (date-time) | Start datetime checked |
-| `end_dt` | string (date-time) | End datetime checked |
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `description` | string | Optional description |
+| `end_dt` | string (date-time) | Reservation end (UTC) |
+| `id` | integer | Booking ID |
+| `org_id` | string | Organization (tenant) ID |
+| `place_id` | integer | Place being reserved |
+| `start_dt` | string (date-time) | Reservation start (UTC) |
+| `status` | string | Status: confirmed, cancelled |
+| `title` | string | Booking title |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `user_id` | string | Profile UUID of the booking owner |
 
 ---
 
-## `getPlaceSchedule`
+## `update`
 
-Get Place Schedule
+Update a booking
 
-**GET** `/api/v1/booking/places/{place_id}/schedule`
+**PUT** `/api/v1/bookings/{id}`
 
-**Signature:** `lb.bookings.getPlaceSchedule({ path: \{ place_id \}, query?: \{ start_date, end_date \} })`
+**Signature:** `lb.bookings.update({ path: \{ id \}, body: \{ ... \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `place_id` | path | integer | ✓ |  |
-| `start_date` | query | string (date-time) | ✓ | Start date for schedule |
-| `end_date` | query | string (date-time) | ✓ | End date for schedule |
+| `id` | path | integer | ✓ | Booking ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `description` | body | string |  | Description |
+| `end_dt` | body | string | ✓ | End datetime (RFC3339) |
+| `start_dt` | body | string | ✓ | Start datetime (RFC3339) |
+| `status` | body | string | ✓ | Status |
+| `title` | body | string | ✓ | Title |
 
 
 **Returns:**
 
-**Response:** `Array<object>`
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `description` | string | Optional description |
+| `end_dt` | string (date-time) | Reservation end (UTC) |
+| `id` | integer | Booking ID |
+| `org_id` | string | Organization (tenant) ID |
+| `place_id` | integer | Place being reserved |
+| `start_dt` | string (date-time) | Reservation start (UTC) |
+| `status` | string | Status: confirmed, cancelled |
+| `title` | string | Booking title |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `user_id` | string | Profile UUID of the booking owner |
 
 ---

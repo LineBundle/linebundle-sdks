@@ -4,675 +4,727 @@
 
 | Method | HTTP | Path | Description |
 |--------|------|------|-------------|
-| `list` | GET | `/api/v1/space/` | Get Space List |
-| `createSpace` | POST | `/api/v1/space/` | Create Space |
-| `getById` | GET | `/api/v1/space/{space_id}` | Get Space By Id |
-| `deleteById` | DELETE | `/api/v1/space/{space_id}` | Delete Space |
-| `createWithParent` | POST | `/api/v1/space/with-parent` | Create Space With Parent |
-| `publishVersion` | POST | `/api/v1/space/{space_id}/publish` | Publish space |
-| `getMembers` | GET | `/api/v1/space/{space_id}/members` | Get Space Members |
-| `addMember` | POST | `/api/v1/space/{space_id}/members` | Add Space Member |
-| `removeMember` | DELETE | `/api/v1/space/{space_id}/members/{user_id}` | Remove Space Member |
-| `getJoinableByUser` | GET | `/api/v1/space/by-user/{user_id}/joinable` | Get Joinable Spaces By User |
-| `join` | POST | `/api/v1/space/{space_id}/join` | Join Space |
-| `listChildren` | GET | `/api/v1/space/{space_id}/children` | Get Space Children |
-| `getParent` | GET | `/api/v1/space/{space_id}/parent` | Get Space Parent |
-| `updateParent` | PATCH | `/api/v1/space/{space_id}/parent` | Update Space Parent |
-| `detachParent` | DELETE | `/api/v1/space/{space_id}/parent` | Detach Space From Parent |
-| `getHierarchy` | GET | `/api/v1/space/{space_id}/hierarchy` | Get Space Hierarchy |
-| `unpublish` | POST | `/api/v1/space/{space_id}/unpublish` | Unpublish space |
-| `listVersions` | GET | `/api/v1/space/{space_id}/versions` | List space versions |
-| `getVersion` | GET | `/api/v1/space/{space_id}/versions/{version_number}` | Get specific space version |
-| `compareVersions` | GET | `/api/v1/space/{space_id}/versions/compare` | Compare space versions |
-| `rollback` | POST | `/api/v1/space/{space_id}/rollback` | Rollback space to version |
-| `removeUserFromRole` | DELETE | `/api/v1/space/spaces/{space_id}/members/{user_id}/roles/{space_role_id}` | Remove User From Space Role |
+| `list` | GET | `/api/v1/spaces` | List spaces |
+| `create` | POST | `/api/v1/spaces` | Create a space |
+| `managerPermissions` | GET | `/api/v1/spaces/manager-permissions` | List all assignable space manager permissions |
+| `delete` | DELETE | `/api/v1/spaces/{id}` | Delete a space |
+| `get` | GET | `/api/v1/spaces/{id}` | Get a space |
+| `update` | PUT | `/api/v1/spaces/{id}` | Update a space (draft only) |
+| `archive` | POST | `/api/v1/spaces/{id}/archive` | Archive a space |
+| `listContacts` | GET | `/api/v1/spaces/{id}/contacts` | List contacts in a space |
+| `addContact` | POST | `/api/v1/spaces/{id}/contacts` | Add a contact to a space |
+| `removeContact` | DELETE | `/api/v1/spaces/{id}/contacts/{contact_id}` | Remove a contact from a space |
+| `discard` | POST | `/api/v1/spaces/{id}/discard` | Discard draft, keep published version |
+| `getDraft` | GET | `/api/v1/spaces/{id}/draft` | Get draft version of a space |
+| `startEdit` | POST | `/api/v1/spaces/{id}/edit` | Start editing (creates draft clone) |
+| `listEvents` | GET | `/api/v1/spaces/{id}/events` | List events in a space |
+| `addEvent` | POST | `/api/v1/spaces/{id}/events` | Add an event to a space |
+| `removeEvent` | DELETE | `/api/v1/spaces/{id}/events/{event_id}` | Remove an event from a space |
+| `listManagers` | GET | `/api/v1/spaces/{id}/managers` | List managers for a space |
+| `addManager` | POST | `/api/v1/spaces/{id}/managers` | Add a manager to a space |
+| `removeManager` | DELETE | `/api/v1/spaces/{id}/managers/{user_id}` | Remove a manager from a space |
+| `getManager` | GET | `/api/v1/spaces/{id}/managers/{user_id}` | Get a single space manager |
+| `updateManager` | PUT | `/api/v1/spaces/{id}/managers/{user_id}` | Update a space manager's permissions |
+| `listMembers` | GET | `/api/v1/spaces/{id}/members` | List space members |
+| `addMember` | POST | `/api/v1/spaces/{id}/members` | Add a member to a space |
+| `removeMember` | DELETE | `/api/v1/spaces/{id}/members/{user_id}` | Remove a member from a space |
+| `publish` | POST | `/api/v1/spaces/{id}/publish` | Publish a space |
 
 ---
 
 ## `list`
 
-Get Space List
+List spaces
 
-**GET** `/api/v1/space/`
+**GET** `/api/v1/spaces`
 
-**Signature:** `lb.spaces.list({ query?: \{ limit, offset, prev, search \} })`
+**Signature:** `lb.spaces.list({ query?: \{ page, size, search, sort_by, sort_dir \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `limit` | query | integer |  | Limit |
-| `offset` | query | integer |  | Offset |
-| `prev` | query | integer |  | Prev ID |
-| `search` | query | string |  | Search term for title/description |
+| `page` | query | integer |  | Page number (1-based) |
+| `size` | query | integer |  | Items per page |
+| `search` | query | string |  | Search term |
+| `sort_by` | query | string |  | Field to sort by |
+| `sort_dir` | query | `"asc"` | `"desc"` |  | Sort direction |
 
 
 **Returns:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `items` | Array<object> | List of spaces |
-| `has_next` | boolean | Whether there are more items available |
-| `has_prev` | boolean | Whether there are previous items available |
-| `total_count` | integer | Total number of spaces matching the query |
-| `next_cursor` | integer | null | Cursor for next page (space ID) |
-| `prev_cursor` | integer | null | Cursor for previous page (space ID) |
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | List of results |
+| `page` | integer | Current page (1-based) |
+| `size` | integer | Page size |
+| `total` | integer | Total matching records |
 
 ---
 
-## `createSpace`
+## `create`
 
-Create Space
+Create a space
 
-**POST** `/api/v1/space/`
+**POST** `/api/v1/spaces`
 
-**Signature:** `lb.spaces.createSpace({ body: \{ ... \} })`
+**Signature:** `lb.spaces.create({ body: \{ ... \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `title` | body | string | ✓ | Title |
-| `description` | body | string | ✓ | Description |
-| `timezone` | body | string | ✓ | Timezone |
-| `visibility` | body | integer | ✓ | Visibility |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer | ID |
-| `title` | string | Title |
-| `description` | string | Description |
-| `timezone` | string | Timezone |
-| `visibility` | integer | null | Visibility |
-| `creator_id` | string | null | Creator ID |
-
----
-
-## `getById`
-
-Get Space By Id
-
-**GET** `/api/v1/space/{space_id}`
-
-**Signature:** `lb.spaces.getById({ path: \{ space_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer | ID |
-| `title` | string | Title |
-| `description` | string | Description |
-| `created_at` | string | Created At |
-| `updated_at` | string | Updated At |
-| `timezone` | string | Timezone |
-| `visibility` | integer | null | Visibility |
-| `creator_id` | string | null | Creator ID |
-| `org_id` | string | null | Organization ID |
-| `parent_id` | integer | null |  |
-| `children` | Array<integer> |  |
-| `inheritance_settings` | object | null |  |
-| `member_count` | integer | Number of members in the space |
-| `event_count` | integer | Number of events in the space |
-| `is_member` | boolean | Whether the current user is a member of this space |
-| `user_role` | string | null | Current user's role in the space |
-
----
-
-## `deleteById`
-
-Delete Space
-
-**DELETE** `/api/v1/space/{space_id}`
-
-**Signature:** `lb.spaces.deleteById({ path: \{ space_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-**Response:** Successful Response
-
----
-
-## `createWithParent`
-
-Create Space With Parent
-
-**POST** `/api/v1/space/with-parent`
-
-**Signature:** `lb.spaces.createWithParent({ body: \{ ... \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `title` | body | string | ✓ | Space title |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
 | `description` | body | string |  | Space description |
-| `timezone` | body | string |  | Space timezone |
-| `visibility` | body | integer |  | Space visibility level |
-| `parent_id` | body | integer | null |  | Parent space ID for sub-spaces |
-| `inheritance_settings` | body | object | null |  | Inheritance configuration for sub-spaces |
+| `parent_id` | body | integer |  | Parent space ID |
+| `position` | body | integer |  | Order within parent |
+| `timezone` | body | string |  | IANA timezone |
+| `title` | body | string | ✓ | Space title |
+| `visibility` | body | integer |  | Visibility: 10=public, 20=tenant, 40=members-only |
 
 
 **Returns:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `id` | integer | ID |
-| `title` | string | Title |
-| `description` | string | Description |
-| `timezone` | string | Timezone |
-| `visibility` | integer | null | Visibility |
-| `creator_id` | string | null | Creator ID |
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `creator_id` | string | Creator profile ID |
+| `description` | string | Space description |
+| `id` | integer | Space ID |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `org_id` | string | Organization ID (nil = personal space) |
+| `parent_id` | integer | Parent space ID |
+| `position` | integer | Order within parent |
+| `published_at` | string (date-time) | When last published |
+| `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `timezone` | string | IANA timezone |
+| `title` | string | Space title |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version counter, incremented on each publish |
+| `visibility` | integer | Visibility: 10=public, 20=tenant, 40=members-only |
 
 ---
 
-## `publishVersion`
+## `managerPermissions`
 
-Publish space
+List all assignable space manager permissions
 
-**POST** `/api/v1/space/{space_id}/publish`
+**GET** `/api/v1/spaces/manager-permissions`
 
-**Signature:** `lb.spaces.publishVersion({ path: \{ space_id \} })`
+**Signature:** `lb.spaces.managerPermissions()`
 
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
+*No parameters.*
 
 
 **Returns:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `id` | integer |  |
-| `space_id` | integer |  |
-| `version_number` | integer |  |
-| `status` | string |  |
-| `title` | string |  |
-| `description` | string | null |  |
-| `timezone` | string |  |
-| `visibility` | integer | null |  |
-| `event_creation_mode` | integer |  |
-| `suggestions_disabled` | boolean |  |
-| `notify_managers` | boolean |  |
-| `icon_metadata` | object | null |  |
-| `logo_metadata` | object | null |  |
-| `published_at` | string (date-time) |  |
-| `published_by` | string (uuid) | null |  |
-| `created_at` | string (date-time) |  |
-| `updated_at` | string (date-time) |  |
-| `members` | Array<object> |  |
-| `contacts` | Array<object> |  |
-| `documents` | Array<string> |  |
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `permissions` | ['array', 'null'] | All assignable space manager permissions |
 
 ---
 
-## `getMembers`
+## `delete`
 
-Get Space Members
+Delete a space
 
-**GET** `/api/v1/space/{space_id}/members`
+**DELETE** `/api/v1/spaces/{id}`
 
-**Signature:** `lb.spaces.getMembers({ path: \{ space_id \} })`
+**Signature:** `lb.spaces.delete({ path: \{ id \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
+| `id` | path | integer | ✓ | Space ID |
+
+---
+
+## `get`
+
+Get a space
+
+**GET** `/api/v1/spaces/{id}`
+
+**Signature:** `lb.spaces.get({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
 
 
 **Returns:**
 
-**Response:** `Array<object>`
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `creator_id` | string | Creator profile ID |
+| `description` | string | Space description |
+| `id` | integer | Space ID |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `org_id` | string | Organization ID (nil = personal space) |
+| `parent_id` | integer | Parent space ID |
+| `position` | integer | Order within parent |
+| `published_at` | string (date-time) | When last published |
+| `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `timezone` | string | IANA timezone |
+| `title` | string | Space title |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version counter, incremented on each publish |
+| `visibility` | integer | Visibility: 10=public, 20=tenant, 40=members-only |
+
+---
+
+## `update`
+
+Update a space (draft only)
+
+**PUT** `/api/v1/spaces/{id}`
+
+**Signature:** `lb.spaces.update({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `description` | body | string |  | Space description |
+| `position` | body | integer |  | Order within parent |
+| `timezone` | body | string |  | IANA timezone |
+| `title` | body | string | ✓ | Space title |
+| `visibility` | body | integer |  | Visibility level |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `creator_id` | string | Creator profile ID |
+| `description` | string | Space description |
+| `id` | integer | Space ID |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `org_id` | string | Organization ID (nil = personal space) |
+| `parent_id` | integer | Parent space ID |
+| `position` | integer | Order within parent |
+| `published_at` | string (date-time) | When last published |
+| `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `timezone` | string | IANA timezone |
+| `title` | string | Space title |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version counter, incremented on each publish |
+| `visibility` | integer | Visibility: 10=public, 20=tenant, 40=members-only |
+
+---
+
+## `archive`
+
+Archive a space
+
+**POST** `/api/v1/spaces/{id}/archive`
+
+**Signature:** `lb.spaces.archive({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+
+---
+
+## `listContacts`
+
+List contacts in a space
+
+**GET** `/api/v1/spaces/{id}/contacts`
+
+**Signature:** `lb.spaces.listContacts({ path: \{ id \}, query?: \{ page, size \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `page` | query | integer |  | Page number (1-based) |
+| `size` | query | integer |  | Items per page |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | List of results |
+| `page` | integer | Current page (1-based) |
+| `size` | integer | Page size |
+| `total` | integer | Total matching records |
+
+---
+
+## `addContact`
+
+Add a contact to a space
+
+**POST** `/api/v1/spaces/{id}/contacts`
+
+**Signature:** `lb.spaces.addContact({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `contact_id` | body | string | ✓ | Contact UUID to add to this space |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `contact_id` | string | Contact UUID |
+| `created_at` | string (date-time) | Created timestamp |
+| `id` | integer | Record ID |
+| `space_id` | integer | Space ID |
+| `updated_at` | string (date-time) | Updated timestamp |
+
+---
+
+## `removeContact`
+
+Remove a contact from a space
+
+**DELETE** `/api/v1/spaces/{id}/contacts/{contact_id}`
+
+**Signature:** `lb.spaces.removeContact({ path: \{ id, contact_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `contact_id` | path | string | ✓ | Contact UUID |
+
+---
+
+## `discard`
+
+Discard draft, keep published version
+
+**POST** `/api/v1/spaces/{id}/discard`
+
+**Signature:** `lb.spaces.discard({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+
+---
+
+## `getDraft`
+
+Get draft version of a space
+
+**GET** `/api/v1/spaces/{id}/draft`
+
+**Signature:** `lb.spaces.getDraft({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `creator_id` | string | Creator profile ID |
+| `description` | string | Space description |
+| `id` | integer | Space ID |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `org_id` | string | Organization ID (nil = personal space) |
+| `parent_id` | integer | Parent space ID |
+| `position` | integer | Order within parent |
+| `published_at` | string (date-time) | When last published |
+| `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `timezone` | string | IANA timezone |
+| `title` | string | Space title |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version counter, incremented on each publish |
+| `visibility` | integer | Visibility: 10=public, 20=tenant, 40=members-only |
+
+---
+
+## `startEdit`
+
+Start editing (creates draft clone)
+
+**POST** `/api/v1/spaces/{id}/edit`
+
+**Signature:** `lb.spaces.startEdit({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `creator_id` | string | Creator profile ID |
+| `description` | string | Space description |
+| `id` | integer | Space ID |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `org_id` | string | Organization ID (nil = personal space) |
+| `parent_id` | integer | Parent space ID |
+| `position` | integer | Order within parent |
+| `published_at` | string (date-time) | When last published |
+| `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `timezone` | string | IANA timezone |
+| `title` | string | Space title |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version counter, incremented on each publish |
+| `visibility` | integer | Visibility: 10=public, 20=tenant, 40=members-only |
+
+---
+
+## `listEvents`
+
+List events in a space
+
+**GET** `/api/v1/spaces/{id}/events`
+
+**Signature:** `lb.spaces.listEvents({ path: \{ id \}, query?: \{ page, size \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `page` | query | integer |  | Page number (1-based) |
+| `size` | query | integer |  | Items per page |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | List of results |
+| `page` | integer | Current page (1-based) |
+| `size` | integer | Page size |
+| `total` | integer | Total matching records |
+
+---
+
+## `addEvent`
+
+Add an event to a space
+
+**POST** `/api/v1/spaces/{id}/events`
+
+**Signature:** `lb.spaces.addEvent({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `event_id` | body | integer | ✓ | Event ID to add to this space |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `event_id` | integer | Event ID |
+| `id` | integer | Record ID |
+| `org_id` | string | Organization ID |
+| `space_id` | integer | Space ID |
+| `updated_at` | string (date-time) | Updated timestamp |
+
+---
+
+## `removeEvent`
+
+Remove an event from a space
+
+**DELETE** `/api/v1/spaces/{id}/events/{event_id}`
+
+**Signature:** `lb.spaces.removeEvent({ path: \{ id, event_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `event_id` | path | integer | ✓ | Event ID |
+
+---
+
+## `listManagers`
+
+List managers for a space
+
+**GET** `/api/v1/spaces/{id}/managers`
+
+**Signature:** `lb.spaces.listManagers({ path: \{ id \}, query?: \{ page, size \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `page` | query | integer |  | Page number (1-based) |
+| `size` | query | integer |  | Items per page |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | List of results |
+| `page` | integer | Current page (1-based) |
+| `size` | integer | Page size |
+| `total` | integer | Total matching records |
+
+---
+
+## `addManager`
+
+Add a manager to a space
+
+**POST** `/api/v1/spaces/{id}/managers`
+
+**Signature:** `lb.spaces.addManager({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant |
+| `user_id` | body | string | ✓ | Profile ID of the manager |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `id` | integer | Record ID |
+| `org_id` | string | Organization ID |
+| `permissions` | ['array', 'null'] | Assigned space manager permissions |
+| `space_id` | integer | Space ID |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `user_id` | string | Profile ID of the manager |
+
+---
+
+## `removeManager`
+
+Remove a manager from a space
+
+**DELETE** `/api/v1/spaces/{id}/managers/{user_id}`
+
+**Signature:** `lb.spaces.removeManager({ path: \{ id, user_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `user_id` | path | string | ✓ | Profile ID |
+
+---
+
+## `getManager`
+
+Get a single space manager
+
+**GET** `/api/v1/spaces/{id}/managers/{user_id}`
+
+**Signature:** `lb.spaces.getManager({ path: \{ id, user_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `user_id` | path | string | ✓ | Profile ID |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `id` | integer | Record ID |
+| `org_id` | string | Organization ID |
+| `permissions` | ['array', 'null'] | Assigned space manager permissions |
+| `space_id` | integer | Space ID |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `user_id` | string | Profile ID of the manager |
+
+---
+
+## `updateManager`
+
+Update a space manager's permissions
+
+**PUT** `/api/v1/spaces/{id}/managers/{user_id}`
+
+**Signature:** `lb.spaces.updateManager({ path: \{ id, user_id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `user_id` | path | string | ✓ | Profile ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `permissions` | body | ['array', 'null'] | ✓ | New set of permissions |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `id` | integer | Record ID |
+| `org_id` | string | Organization ID |
+| `permissions` | ['array', 'null'] | Assigned space manager permissions |
+| `space_id` | integer | Space ID |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `user_id` | string | Profile ID of the manager |
+
+---
+
+## `listMembers`
+
+List space members
+
+**GET** `/api/v1/spaces/{id}/members`
+
+**Signature:** `lb.spaces.listMembers({ path: \{ id \}, query?: \{ page, size \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `page` | query | integer |  | Page number (1-based) |
+| `size` | query | integer |  | Items per page |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | List of results |
+| `page` | integer | Current page (1-based) |
+| `size` | integer | Page size |
+| `total` | integer | Total matching records |
 
 ---
 
 ## `addMember`
 
-Add Space Member
+Add a member to a space
 
-**POST** `/api/v1/space/{space_id}/members`
+**POST** `/api/v1/spaces/{id}/members`
 
-**Signature:** `lb.spaces.addMember({ path: \{ space_id \}, body: \{ ... \} })`
+**Signature:** `lb.spaces.addMember({ path: \{ id \}, body: \{ ... \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-| `email` | body | string | ✓ | Email of the user to add |
-| `role` | body | `"space_owner"` | `"space_admin"` | `"space_member"` | `"space_viewer"` |  | Space roles with hierarchical permissions |
+| `id` | path | integer | ✓ | Space ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `role` | body | `"space_owner"` | `"space_admin"` | `"space_member"` | `"space_viewer"` | ✓ | Role |
+| `user_id` | body | string | ✓ | Profile ID of the user to add |
 
 
 **Returns:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `user_id` | string | User ID |
-| `email` | string | User's email |
-| `name` | string | null | User's display name |
-| `role` | `"space_owner"` | `"space_admin"` | `"space_member"` | `"space_viewer"` | Space roles with hierarchical permissions |
-| `joined_at` | string | When the user joined the space |
-| `avatar_url` | string | null | User's avatar URL |
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Joined timestamp |
+| `is_active` | boolean | Whether the membership is active |
+| `org_id` | string | Organization ID |
+| `role` | string | Role: space_owner, space_admin, space_member, space_viewer |
+| `space_id` | integer | Space ID |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `user_id` | string | Profile ID |
 
 ---
 
 ## `removeMember`
 
-Remove Space Member
+Remove a member from a space
 
-**DELETE** `/api/v1/space/{space_id}/members/{user_id}`
+**DELETE** `/api/v1/spaces/{id}/members/{user_id}`
 
-**Signature:** `lb.spaces.removeMember({ path: \{ space_id, user_id \} })`
+**Signature:** `lb.spaces.removeMember({ path: \{ id, user_id \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-| `user_id` | path | string | ✓ |  |
-
-
-**Returns:**
-
-**Response:** Successful Response
+| `id` | path | integer | ✓ | Space ID |
+| `user_id` | path | string | ✓ | Profile ID |
 
 ---
 
-## `getJoinableByUser`
+## `publish`
 
-Get Joinable Spaces By User
+Publish a space
 
-**GET** `/api/v1/space/by-user/{user_id}/joinable`
+**POST** `/api/v1/spaces/{id}/publish`
 
-**Signature:** `lb.spaces.getJoinableByUser({ path: \{ user_id \}, query?: \{ limit, prev, sort_by, sort_order \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `user_id` | path | string | ✓ |  |
-| `limit` | query | integer |  | Limit |
-| `prev` | query | integer |  | Prev ID |
-| `sort_by` | query | string |  | Sort by field |
-| `sort_order` | query | string |  | Sort order |
-
-
-**Returns:**
-
-**Response:** `Array<object>`
-
----
-
-## `join`
-
-Join Space
-
-**POST** `/api/v1/space/{space_id}/join`
-
-**Signature:** `lb.spaces.join({ path: \{ space_id \} })`
+**Signature:** `lb.spaces.publish({ path: \{ id \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `user_id` | string | User ID |
-| `email` | string | User's email |
-| `name` | string | null | User's display name |
-| `role` | `"space_owner"` | `"space_admin"` | `"space_member"` | `"space_viewer"` | Space roles with hierarchical permissions |
-| `joined_at` | string | When the user joined the space |
-| `avatar_url` | string | null | User's avatar URL |
-
----
-
-## `listChildren`
-
-Get Space Children
-
-**GET** `/api/v1/space/{space_id}/children`
-
-**Signature:** `lb.spaces.listChildren({ path: \{ space_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-**Response:** `Array<object>`
-
----
-
-## `getParent`
-
-Get Space Parent
-
-**GET** `/api/v1/space/{space_id}/parent`
-
-**Signature:** `lb.spaces.getParent({ path: \{ space_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer | ID |
-| `title` | string | Title |
-| `description` | string | Description |
-| `created_at` | string | Created At |
-| `updated_at` | string | Updated At |
-| `timezone` | string | Timezone |
-| `visibility` | integer | null | Visibility |
-| `creator_id` | string | null | Creator ID |
-| `org_id` | string | null | Organization ID |
-| `parent_id` | integer | null |  |
-| `children` | Array<integer> |  |
-| `inheritance_settings` | object | null |  |
-| `member_count` | integer | Number of members in the space |
-| `event_count` | integer | Number of events in the space |
-| `is_member` | boolean | Whether the current user is a member of this space |
-| `user_role` | string | null | Current user's role in the space |
-
----
-
-## `updateParent`
-
-Update Space Parent
-
-**PATCH** `/api/v1/space/{space_id}/parent`
-
-**Signature:** `lb.spaces.updateParent({ path: \{ space_id \}, body: \{ ... \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-| `parent_id` | body | integer | null |  | New parent ID or null to remove parent |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer |  |
-| `title` | string |  |
-| `description` | string |  |
-| `timezone` | string |  |
-| `visibility` | integer | null |  |
-| `creator_id` | string | null |  |
-| `parent_id` | integer | null |  |
-| `children` | Array<integer> |  |
-| `inheritance_settings` | object | null |  |
-
----
-
-## `detachParent`
-
-Detach Space From Parent
-
-**DELETE** `/api/v1/space/{space_id}/parent`
-
-**Signature:** `lb.spaces.detachParent({ path: \{ space_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer | ID |
-| `title` | string | Title |
-| `description` | string | Description |
-| `created_at` | string | Created At |
-| `updated_at` | string | Updated At |
-| `timezone` | string | Timezone |
-| `visibility` | integer | null | Visibility |
-| `creator_id` | string | null | Creator ID |
-| `org_id` | string | null | Organization ID |
-| `parent_id` | integer | null |  |
-| `children` | Array<integer> |  |
-| `inheritance_settings` | object | null |  |
-| `member_count` | integer | Number of members in the space |
-| `event_count` | integer | Number of events in the space |
-| `is_member` | boolean | Whether the current user is a member of this space |
-| `user_role` | string | null | Current user's role in the space |
-
----
-
-## `getHierarchy`
-
-Get Space Hierarchy
-
-**GET** `/api/v1/space/{space_id}/hierarchy`
-
-**Signature:** `lb.spaces.getHierarchy({ path: \{ space_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer |  |
-| `title` | string |  |
-| `description` | string |  |
-| `parent_id` | integer | null |  |
-| `children` | Array<object> |  |
-| `level` | integer |  |
-| `is_inherited` | boolean |  |
-
----
-
-## `unpublish`
-
-Unpublish space
-
-**POST** `/api/v1/space/{space_id}/unpublish`
-
-**Signature:** `lb.spaces.unpublish({ path: \{ space_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-
----
-
-## `listVersions`
-
-List space versions
-
-**GET** `/api/v1/space/{space_id}/versions`
-
-**Signature:** `lb.spaces.listVersions({ path: \{ space_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `versions` | Array<object> |  |
-| `total` | integer |  |
-
----
-
-## `getVersion`
-
-Get specific space version
-
-**GET** `/api/v1/space/{space_id}/versions/{version_number}`
-
-**Signature:** `lb.spaces.getVersion({ path: \{ space_id, version_number \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-| `version_number` | path | integer | ✓ |  |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer |  |
-| `space_id` | integer |  |
-| `version_number` | integer |  |
-| `status` | string |  |
-| `title` | string |  |
-| `description` | string | null |  |
-| `timezone` | string |  |
-| `visibility` | integer | null |  |
-| `event_creation_mode` | integer |  |
-| `suggestions_disabled` | boolean |  |
-| `notify_managers` | boolean |  |
-| `icon_metadata` | object | null |  |
-| `logo_metadata` | object | null |  |
-| `published_at` | string (date-time) |  |
-| `published_by` | string (uuid) | null |  |
-| `created_at` | string (date-time) |  |
-| `updated_at` | string (date-time) |  |
-| `members` | Array<object> |  |
-| `contacts` | Array<object> |  |
-| `documents` | Array<string> |  |
-
----
-
-## `compareVersions`
-
-Compare space versions
-
-**GET** `/api/v1/space/{space_id}/versions/compare`
-
-**Signature:** `lb.spaces.compareVersions({ path: \{ space_id \}, query?: \{ version_a, version_b \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-| `version_a` | query | integer | ✓ | First version to compare |
-| `version_b` | query | integer | ✓ | Second version to compare |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `space_id` | integer |  |
-| `version_a` | integer |  |
-| `version_b` | integer |  |
-| `differences` | object | Dictionary of field changes and relationship changes |
-
----
-
-## `rollback`
-
-Rollback space to version
-
-**POST** `/api/v1/space/{space_id}/rollback`
-
-**Signature:** `lb.spaces.rollback({ path: \{ space_id \}, body: \{ ... \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-| `version_number` | body | integer | ✓ | Version number to rollback to |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer | ID |
-| `title` | string | Title |
-| `description` | string | Description |
-| `created_at` | string | Created At |
-| `updated_at` | string | Updated At |
-| `timezone` | string | Timezone |
-| `visibility` | integer | null | Visibility |
-| `creator_id` | string | null | Creator ID |
-| `org_id` | string | null | Organization ID |
-| `parent_id` | integer | null |  |
-| `children` | Array<integer> |  |
-| `inheritance_settings` | object | null |  |
-| `member_count` | integer | Number of members in the space |
-| `event_count` | integer | Number of events in the space |
-| `is_member` | boolean | Whether the current user is a member of this space |
-| `user_role` | string | null | Current user's role in the space |
-
----
-
-## `removeUserFromRole`
-
-Remove User From Space Role
-
-**DELETE** `/api/v1/space/spaces/{space_id}/members/{user_id}/roles/{space_role_id}`
-
-**Signature:** `lb.spaces.removeUserFromRole({ path: \{ space_id, user_id, space_role_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `space_id` | path | integer | ✓ |  |
-| `user_id` | path | string (uuid) | ✓ |  |
-| `space_role_id` | path | string (uuid) | ✓ |  |
+| `id` | path | integer | ✓ | Space ID |
 
 ---
