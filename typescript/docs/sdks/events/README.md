@@ -6,16 +6,26 @@
 |--------|------|------|-------------|
 | `list` | GET | `/api/v1/events` | List events |
 | `create` | POST | `/api/v1/events` | Create an event |
+| `calendar` | GET | `/api/v1/events/calendar` | List events overlapping a date range (calendar view) |
 | `managerPermissions` | GET | `/api/v1/events/manager-permissions` | List all assignable event manager permissions |
 | `delete` | DELETE | `/api/v1/events/{id}` | Delete an event |
 | `get` | GET | `/api/v1/events/{id}` | Get an event |
+| `patch` | PATCH | `/api/v1/events/{id}` | Partial-update an event (merge-patch) |
 | `update` | PUT | `/api/v1/events/{id}` | Update an event (draft only) |
 | `archive` | POST | `/api/v1/events/{id}/archive` | Archive an event |
 | `listAttendees` | GET | `/api/v1/events/{id}/attendees` | List event attendees |
 | `addAttendee` | POST | `/api/v1/events/{id}/attendees` | Add an attendee to an event |
+| `bulkRemoveAttendees` | DELETE | `/api/v1/events/{id}/attendees/bulk` | Bulk remove attendees from an event |
+| `bulkAddAttendees` | POST | `/api/v1/events/{id}/attendees/bulk` | Bulk add attendees to an event |
+| `bulkUpdateAttendeeStatus` | PATCH | `/api/v1/events/{id}/attendees/bulk/status` | Bulk update attendee statuses |
 | `removeAttendee` | DELETE | `/api/v1/events/{id}/attendees/{contact_id}` | Remove an attendee from an event |
 | `updateAttendeeStatus` | PATCH | `/api/v1/events/{id}/attendees/{contact_id}` | Update attendee status |
+| `checkInAttendee` | POST | `/api/v1/events/{id}/attendees/{contact_id}/check-in` | Check in an attendee |
+| `uploadCover` | PUT | `/api/v1/events/{id}/cover` | Upload event cover image (multipart/form-data, field: file) |
 | `discard` | POST | `/api/v1/events/{id}/discard` | Discard draft, keep published version |
+| `listDocuments` | GET | `/api/v1/events/{id}/documents` | List documents linked to an event |
+| `removeDocument` | DELETE | `/api/v1/events/{id}/documents/{document_id}` | Unlink a document from an event |
+| `addDocument` | POST | `/api/v1/events/{id}/documents/{document_id}` | Link a document to an event |
 | `getDraft` | GET | `/api/v1/events/{id}/draft` | Get draft version of an event |
 | `startEdit` | POST | `/api/v1/events/{id}/edit` | Start editing (creates draft clone) |
 | `listManagers` | GET | `/api/v1/events/{id}/managers` | List managers for an event |
@@ -119,9 +129,35 @@ Create an event
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `updated_at` | string (date-time) | Updated timestamp |
-| `url_shortcut` | string | Vanity URL slug |
 | `version` | integer | Version counter, incremented on each publish |
 | `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+
+---
+
+## `calendar`
+
+List events overlapping a date range (calendar view)
+
+**GET** `/api/v1/events/calendar`
+
+**Signature:** `lb.events.calendar({ query?: \{ start_date, end_date, sort_by, sort_order \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `start_date` | query | string | ✓ | Range start date (YYYY-MM-DD) |
+| `end_date` | query | string | ✓ | Range end date (YYYY-MM-DD, inclusive) |
+| `sort_by` | query | string |  | Field to sort by (start_dt, title) |
+| `sort_order` | query | `"asc"` | `"desc"` |  | Sort direction |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | Events overlapping the requested date range |
 
 ---
 
@@ -203,7 +239,65 @@ Get an event
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `updated_at` | string (date-time) | Updated timestamp |
-| `url_shortcut` | string | Vanity URL slug |
+| `version` | integer | Version counter, incremented on each publish |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+
+---
+
+## `patch`
+
+Partial-update an event (merge-patch)
+
+**PATCH** `/api/v1/events/{id}`
+
+**Signature:** `lb.events.patch({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `address` | body | string |  | New venue address |
+| `description` | body | string |  | New description |
+| `end_dt` | body | string (date-time) |  | New end datetime (UTC) |
+| `keywords` | body | ['array', 'null'] |  | Replace keyword list (omit to keep existing) |
+| `latitude` | body | number |  | New venue latitude |
+| `longitude` | body | number |  | New venue longitude |
+| `metadata` | body | object |  | Merge into event metadata (omit to keep existing) |
+| `start_dt` | body | string (date-time) |  | New start datetime (UTC) |
+| `timezone` | body | string |  | New IANA timezone |
+| `title` | body | string |  | New title |
+| `visibility` | body | integer |  | New visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `address` | string | Venue address |
+| `created_at` | string (date-time) | Created timestamp |
+| `created_dt` | string (date-time) | Business creation date |
+| `creator_id` | string | Creator profile ID |
+| `description` | string | Event description |
+| `end_dt` | string (date-time) | End datetime (UTC) |
+| `id` | integer | Event ID |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `is_locked` | boolean | Locked from editing |
+| `keywords` | ['array', 'null'] | Search keywords |
+| `latitude` | number | Venue latitude |
+| `longitude` | number | Venue longitude |
+| `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `org_id` | string | Organization ID |
+| `parent_event_id` | integer | Parent event ID (milestones) |
+| `published_at` | string (date-time) | When last published |
+| `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `start_dt` | string (date-time) | Start datetime (UTC) |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `timezone` | string | IANA timezone |
+| `title` | string | Event title |
+| `updated_at` | string (date-time) | Updated timestamp |
 | `version` | integer | Version counter, incremented on each publish |
 | `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
 
@@ -263,7 +357,6 @@ Update an event (draft only)
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `updated_at` | string (date-time) | Updated timestamp |
-| `url_shortcut` | string | Vanity URL slug |
 | `version` | integer | Version counter, incremented on each publish |
 | `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
 
@@ -353,6 +446,63 @@ Add an attendee to an event
 
 ---
 
+## `bulkRemoveAttendees`
+
+Bulk remove attendees from an event
+
+**DELETE** `/api/v1/events/{id}/attendees/bulk`
+
+**Signature:** `lb.events.bulkRemoveAttendees({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ |  |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `contact_ids` | body | ['array', 'null'] | ✓ | List of contact UUIDs |
+| `status` | body | `"invited"` | `"confirmed"` | `"declined"` | `"tentative"` | `"checked_in"` |  | Attendance status |
+
+---
+
+## `bulkAddAttendees`
+
+Bulk add attendees to an event
+
+**POST** `/api/v1/events/{id}/attendees/bulk`
+
+**Signature:** `lb.events.bulkAddAttendees({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ |  |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `contact_ids` | body | ['array', 'null'] | ✓ | List of contact UUIDs |
+| `status` | body | `"invited"` | `"confirmed"` | `"declined"` | `"tentative"` | `"checked_in"` |  | Attendance status |
+
+---
+
+## `bulkUpdateAttendeeStatus`
+
+Bulk update attendee statuses
+
+**PATCH** `/api/v1/events/{id}/attendees/bulk/status`
+
+**Signature:** `lb.events.bulkUpdateAttendeeStatus({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ |  |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `contact_ids` | body | ['array', 'null'] | ✓ | List of contact UUIDs |
+| `status` | body | `"invited"` | `"confirmed"` | `"declined"` | `"tentative"` | `"checked_in"` | ✓ | New status |
+
+---
+
 ## `removeAttendee`
 
 Remove an attendee from an event
@@ -408,6 +558,72 @@ Update attendee status
 
 ---
 
+## `checkInAttendee`
+
+Check in an attendee
+
+**POST** `/api/v1/events/{id}/attendees/{contact_id}/check-in`
+
+**Signature:** `lb.events.checkInAttendee({ path: \{ id, contact_id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ |  |
+| `contact_id` | path | string | ✓ |  |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+
+---
+
+## `uploadCover`
+
+Upload event cover image (multipart/form-data, field: file)
+
+**PUT** `/api/v1/events/{id}/cover`
+
+**Signature:** `lb.events.uploadCover({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `Content-Type` | header | string |  |  |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `address` | string | Venue address |
+| `created_at` | string (date-time) | Created timestamp |
+| `created_dt` | string (date-time) | Business creation date |
+| `creator_id` | string | Creator profile ID |
+| `description` | string | Event description |
+| `end_dt` | string (date-time) | End datetime (UTC) |
+| `id` | integer | Event ID |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `is_locked` | boolean | Locked from editing |
+| `keywords` | ['array', 'null'] | Search keywords |
+| `latitude` | number | Venue latitude |
+| `longitude` | number | Venue longitude |
+| `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `org_id` | string | Organization ID |
+| `parent_event_id` | integer | Parent event ID (milestones) |
+| `published_at` | string (date-time) | When last published |
+| `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `start_dt` | string (date-time) | Start datetime (UTC) |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `timezone` | string | IANA timezone |
+| `title` | string | Event title |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version counter, incremented on each publish |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+
+---
+
 ## `discard`
 
 Discard draft, keep published version
@@ -421,6 +637,67 @@ Discard draft, keep published version
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Event ID |
+
+---
+
+## `listDocuments`
+
+List documents linked to an event
+
+**GET** `/api/v1/events/{id}/documents`
+
+**Signature:** `lb.events.listDocuments({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ |  |
+
+
+**Returns:**
+
+**Response:** `['array', 'null']`
+
+---
+
+## `removeDocument`
+
+Unlink a document from an event
+
+**DELETE** `/api/v1/events/{id}/documents/{document_id}`
+
+**Signature:** `lb.events.removeDocument({ path: \{ id, document_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ |  |
+| `document_id` | path | string | ✓ |  |
+
+---
+
+## `addDocument`
+
+Link a document to an event
+
+**POST** `/api/v1/events/{id}/documents/{document_id}`
+
+**Signature:** `lb.events.addDocument({ path: \{ id, document_id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ |  |
+| `document_id` | path | string | ✓ |  |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+
+
+**Returns:**
+
+**Response:** Created
 
 ---
 
@@ -466,7 +743,6 @@ Get draft version of an event
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `updated_at` | string (date-time) | Updated timestamp |
-| `url_shortcut` | string | Vanity URL slug |
 | `version` | integer | Version counter, incremented on each publish |
 | `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
 
@@ -514,7 +790,6 @@ Start editing (creates draft clone)
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `updated_at` | string (date-time) | Updated timestamp |
-| `url_shortcut` | string | Vanity URL slug |
 | `version` | integer | Version counter, incremented on each publish |
 | `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
 
@@ -563,7 +838,11 @@ Add a manager to an event
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Event ID |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `channels` | body | ['array', 'null'] |  | Override delivery channels (email/push/sms); service defaults apply if omitted |
+| `message` | body | string |  | Custom message; omit to use the service default |
+| `notify` | body | boolean |  | Send a notification to affected parties (default: false) |
 | `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant |
+| `priority` | body | string |  | Notification priority: normal (default) or high |
 | `user_id` | body | string | ✓ | Profile ID of the manager |
 
 
@@ -779,13 +1058,18 @@ Publish an event
 
 **POST** `/api/v1/events/{id}/publish`
 
-**Signature:** `lb.events.publish({ path: \{ id \} })`
+**Signature:** `lb.events.publish({ path: \{ id \}, body: \{ ... \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `channels` | body | ['array', 'null'] |  | Override delivery channels (email/push/sms); service defaults apply if omitted |
+| `message` | body | string |  | Custom message; omit to use the service default |
+| `notify` | body | boolean |  | Send a notification to affected parties (default: false) |
+| `priority` | body | string |  | Notification priority: normal (default) or high |
 
 ---
 

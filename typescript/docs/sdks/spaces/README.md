@@ -9,6 +9,7 @@
 | `managerPermissions` | GET | `/api/v1/spaces/manager-permissions` | List all assignable space manager permissions |
 | `delete` | DELETE | `/api/v1/spaces/{id}` | Delete a space |
 | `get` | GET | `/api/v1/spaces/{id}` | Get a space |
+| `patch` | PATCH | `/api/v1/spaces/{id}` | Partially update a space (draft only, merge-patch) |
 | `update` | PUT | `/api/v1/spaces/{id}` | Update a space (draft only) |
 | `archive` | POST | `/api/v1/spaces/{id}/archive` | Archive a space |
 | `listContacts` | GET | `/api/v1/spaces/{id}/contacts` | List contacts in a space |
@@ -157,6 +158,51 @@ Get a space
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Space ID |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `creator_id` | string | Creator profile ID |
+| `description` | string | Space description |
+| `id` | integer | Space ID |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `org_id` | string | Organization ID (nil = personal space) |
+| `parent_id` | integer | Parent space ID |
+| `position` | integer | Order within parent |
+| `published_at` | string (date-time) | When last published |
+| `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `timezone` | string | IANA timezone |
+| `title` | string | Space title |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version counter, incremented on each publish |
+| `visibility` | integer | Visibility: 10=public, 20=tenant, 40=members-only |
+
+---
+
+## `patch`
+
+Partially update a space (draft only, merge-patch)
+
+**PATCH** `/api/v1/spaces/{id}`
+
+**Signature:** `lb.spaces.patch({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `description` | body | string |  | New description |
+| `position` | body | integer |  | New order within parent |
+| `timezone` | body | string |  | New IANA timezone |
+| `title` | body | string |  | New title |
+| `visibility` | body | integer |  | New visibility: 10=public, 20=tenant, 40=members-only |
 
 
 **Returns:**
@@ -534,7 +580,11 @@ Add a manager to a space
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Space ID |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `channels` | body | ['array', 'null'] |  | Override delivery channels (email/push/sms); service defaults apply if omitted |
+| `message` | body | string |  | Custom message; omit to use the service default |
+| `notify` | body | boolean |  | Send a notification to affected parties (default: false) |
 | `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant |
+| `priority` | body | string |  | Notification priority: normal (default) or high |
 | `user_id` | body | string | ✓ | Profile ID of the manager |
 
 
@@ -719,12 +769,17 @@ Publish a space
 
 **POST** `/api/v1/spaces/{id}/publish`
 
-**Signature:** `lb.spaces.publish({ path: \{ id \} })`
+**Signature:** `lb.spaces.publish({ path: \{ id \}, body: \{ ... \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Space ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `channels` | body | ['array', 'null'] |  | Override delivery channels (email/push/sms); service defaults apply if omitted |
+| `message` | body | string |  | Custom message; omit to use the service default |
+| `notify` | body | boolean |  | Send a notification to affected parties (default: false) |
+| `priority` | body | string |  | Notification priority: normal (default) or high |
 
 ---

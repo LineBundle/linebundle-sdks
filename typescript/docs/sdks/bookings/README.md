@@ -69,7 +69,7 @@ Create a booking
 | `description` | string | Optional description |
 | `end_dt` | string (date-time) | Reservation end (UTC) |
 | `id` | integer | Booking ID |
-| `org_id` | string | Organization (tenant) ID |
+| `org_id` | string | Organization (tenant) ID; nil = personal context |
 | `place_id` | integer | Place being reserved |
 | `start_dt` | string (date-time) | Reservation start (UTC) |
 | `status` | string | Status: confirmed, cancelled |
@@ -173,7 +173,7 @@ Get a booking by ID
 | `description` | string | Optional description |
 | `end_dt` | string (date-time) | Reservation end (UTC) |
 | `id` | integer | Booking ID |
-| `org_id` | string | Organization (tenant) ID |
+| `org_id` | string | Organization (tenant) ID; nil = personal context |
 | `place_id` | integer | Place being reserved |
 | `start_dt` | string (date-time) | Reservation start (UTC) |
 | `status` | string | Status: confirmed, cancelled |
@@ -213,7 +213,7 @@ Update a booking
 | `description` | string | Optional description |
 | `end_dt` | string (date-time) | Reservation end (UTC) |
 | `id` | integer | Booking ID |
-| `org_id` | string | Organization (tenant) ID |
+| `org_id` | string | Organization (tenant) ID; nil = personal context |
 | `place_id` | integer | Place being reserved |
 | `start_dt` | string (date-time) | Reservation start (UTC) |
 | `status` | string | Status: confirmed, cancelled |
