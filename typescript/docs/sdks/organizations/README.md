@@ -60,11 +60,11 @@ Create an organization
 | `allow_public_visibility` | boolean | Allow public resource visibility |
 | `created_at` | string (date-time) | Created timestamp |
 | `deleted_at` | string (date-time) | Soft-deleted timestamp |
+| `external_org_id` | string | Identity-provider organization ID |
 | `id` | string | Organization ID |
 | `name` | string | Organization name |
 | `plan` | string | Subscription plan |
 | `updated_at` | string (date-time) | Updated timestamp |
-| `zitadel_org_id` | string | Zitadel organization ID |
 
 ---
 
@@ -107,11 +107,11 @@ Get an organization
 | `allow_public_visibility` | boolean | Allow public resource visibility |
 | `created_at` | string (date-time) | Created timestamp |
 | `deleted_at` | string (date-time) | Soft-deleted timestamp |
+| `external_org_id` | string | Identity-provider organization ID |
 | `id` | string | Organization ID |
 | `name` | string | Organization name |
 | `plan` | string | Subscription plan |
 | `updated_at` | string (date-time) | Updated timestamp |
-| `zitadel_org_id` | string | Zitadel organization ID |
 
 ---
 
@@ -141,11 +141,11 @@ Update an organization
 | `allow_public_visibility` | boolean | Allow public resource visibility |
 | `created_at` | string (date-time) | Created timestamp |
 | `deleted_at` | string (date-time) | Soft-deleted timestamp |
+| `external_org_id` | string | Identity-provider organization ID |
 | `id` | string | Organization ID |
 | `name` | string | Organization name |
 | `plan` | string | Subscription plan |
 | `updated_at` | string (date-time) | Updated timestamp |
-| `zitadel_org_id` | string | Zitadel organization ID |
 
 ---
 
