@@ -1,6 +1,6 @@
 {
   "name": "@linebundle-sdk/ts",
-  "version": "0.1.39",
+  "version": "0.1.40",
   "author": "LineBundle",
   "type": "module",
   "main": "./esm/index.js",
