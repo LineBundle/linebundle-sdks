@@ -8,10 +8,13 @@
 | `create` | POST | `/api/v1/events` | Create an event |
 | `calendar` | GET | `/api/v1/events/calendar` | List events overlapping a date range (calendar view) |
 | `managerPermissions` | GET | `/api/v1/events/manager-permissions` | List all assignable event manager permissions |
+| `acceptManagerInvite` | POST | `/api/v1/events/managers/accept` | Accept an event manager invite via token |
+| `listPendingManagerInvites` | GET | `/api/v1/events/managers/pending` | List pending event manager invites for the current user |
+| `createWithSeries` | POST | `/api/v1/events/with-series` | Create an event and optionally a recurring series in one atomic call |
 | `delete` | DELETE | `/api/v1/events/{id}` | Delete an event |
 | `get` | GET | `/api/v1/events/{id}` | Get an event |
 | `patch` | PATCH | `/api/v1/events/{id}` | Partial-update an event (merge-patch) |
-| `update` | PUT | `/api/v1/events/{id}` | Update an event (draft only) |
+| `update` | PUT | `/api/v1/events/{id}` | Update an event |
 | `archive` | POST | `/api/v1/events/{id}/archive` | Archive an event |
 | `listAttendees` | GET | `/api/v1/events/{id}/attendees` | List event attendees |
 | `addAttendee` | POST | `/api/v1/events/{id}/attendees` | Add an attendee to an event |
@@ -21,6 +24,14 @@
 | `removeAttendee` | DELETE | `/api/v1/events/{id}/attendees/{contact_id}` | Remove an attendee from an event |
 | `updateAttendeeStatus` | PATCH | `/api/v1/events/{id}/attendees/{contact_id}` | Update attendee status |
 | `checkInAttendee` | POST | `/api/v1/events/{id}/attendees/{contact_id}/check-in` | Check in an attendee |
+| `listAutomations` | GET | `/api/v1/events/{id}/automations` | List automations attached to an event |
+| `createAutomation` | POST | `/api/v1/events/{id}/automations` | Create an automation attached to an event |
+| `automationTemplates` | GET | `/api/v1/events/{id}/automations/templates` | List event automation templates |
+| `deleteAutomation` | DELETE | `/api/v1/events/{id}/automations/{rule_id}` | Delete an event automation |
+| `getAutomation` | GET | `/api/v1/events/{id}/automations/{rule_id}` | Get an event automation |
+| `updateAutomation` | PUT | `/api/v1/events/{id}/automations/{rule_id}` | Update an event automation |
+| `executeAutomation` | POST | `/api/v1/events/{id}/automations/{rule_id}/execute` | Run an event automation now |
+| `listAutomationExecutions` | GET | `/api/v1/events/{id}/automations/{rule_id}/executions` | List execution history for an event automation |
 | `uploadCover` | PUT | `/api/v1/events/{id}/cover` | Upload event cover image (multipart/form-data, field: file) |
 | `discard` | POST | `/api/v1/events/{id}/discard` | Discard draft, keep published version |
 | `listDocuments` | GET | `/api/v1/events/{id}/documents` | List documents linked to an event |
@@ -28,16 +39,28 @@
 | `addDocument` | POST | `/api/v1/events/{id}/documents/{document_id}` | Link a document to an event |
 | `getDraft` | GET | `/api/v1/events/{id}/draft` | Get draft version of an event |
 | `startEdit` | POST | `/api/v1/events/{id}/edit` | Start editing (creates draft clone) |
+| `listLinks` | GET | `/api/v1/events/{id}/links` | List cross-reference links for this event |
+| `addLink` | POST | `/api/v1/events/{id}/links` | Link another event as a cross-reference |
+| `removeLink` | DELETE | `/api/v1/events/{id}/links/{target_id}` | Remove a cross-reference link |
 | `listManagers` | GET | `/api/v1/events/{id}/managers` | List managers for an event |
 | `addManager` | POST | `/api/v1/events/{id}/managers` | Add a manager to an event |
+| `inviteManager` | POST | `/api/v1/events/{id}/managers/invite` | Invite a manager to an event by email |
 | `removeManager` | DELETE | `/api/v1/events/{id}/managers/{user_id}` | Remove a manager from an event |
 | `getManager` | GET | `/api/v1/events/{id}/managers/{user_id}` | Get a single event manager |
 | `updateManager` | PUT | `/api/v1/events/{id}/managers/{user_id}` | Update an event manager's permissions |
 | `listMilestones` | GET | `/api/v1/events/{id}/milestones` | List milestones for an event |
 | `addMilestone` | POST | `/api/v1/events/{id}/milestones` | Add a milestone event to a base event |
 | `removeMilestone` | DELETE | `/api/v1/events/{id}/milestones/{milestone_event_id}` | Remove a milestone from an event |
+| `patchMilestoneLifecycle` | PATCH | `/api/v1/events/{id}/milestones/{milestone_event_id}` | Update milestone lifecycle status or reset to automatic mode |
 | `updateMilestone` | PUT | `/api/v1/events/{id}/milestones/{milestone_event_id}` | Update milestone sequence |
 | `publish` | POST | `/api/v1/events/{id}/publish` | Publish an event |
+| `deleteSeries` | DELETE | `/api/v1/events/{id}/series` | Remove from series (scope: this | future | all) |
+| `getSeries` | GET | `/api/v1/events/{id}/series` | Get series rule and all occurrences for a recurring event |
+| `patchSeries` | PATCH | `/api/v1/events/{id}/series` | Update series fields. Cascades to occurrences without overrides. |
+| `createSeries` | POST | `/api/v1/events/{id}/series` | Convert an event into the anchor of a new recurring series |
+| `inviteSeriesManager` | POST | `/api/v1/events/{id}/series/manager` | Invite series manager |
+| `listOccurrences` | GET | `/api/v1/events/{id}/series/occurrences` | List occurrences of the series this event belongs to (paginated) |
+| `publishSeries` | POST | `/api/v1/events/{id}/series/publish` | Publish series |
 | `listSpaces` | GET | `/api/v1/events/{id}/spaces` | List spaces this event belongs to |
 | `addSpace` | POST | `/api/v1/events/{id}/spaces` | Add event to a space |
 | `removeSpace` | DELETE | `/api/v1/events/{id}/spaces/{space_id}` | Remove event from a space |
@@ -99,7 +122,7 @@ Create an event
 | `start_dt` | body | string (date-time) |  | Start datetime (UTC) |
 | `timezone` | body | string |  | IANA timezone |
 | `title` | body | string | ✓ | Event title |
-| `visibility` | body | integer |  | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+| `visibility` | body | integer |  | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
 
 
 **Returns:**
@@ -112,6 +135,7 @@ Create an event
 | `created_dt` | string (date-time) | Business creation date |
 | `creator_id` | string | Creator profile ID |
 | `description` | string | Event description |
+| `description_override` | string | Local description override |
 | `end_dt` | string (date-time) | End datetime (UTC) |
 | `id` | integer | Event ID |
 | `is_deleted` | boolean | Soft-deleted flag |
@@ -120,17 +144,22 @@ Create an event
 | `latitude` | number | Venue latitude |
 | `longitude` | number | Venue longitude |
 | `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `series_id` | integer | Series ID; set when this event is part of a recurring series |
+| `series_index` | integer | Position within the series (0 = anchor occurrence) |
+| `series_title` | string | Canonical title from the series master row |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
+| `title_override` | string | Local title override (takes precedence over series title) |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `version` | integer | Version counter, incremented on each publish |
-| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
 
 ---
 
@@ -158,6 +187,7 @@ List events overlapping a date range (calendar view)
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
 | `items` | ['array', 'null'] | Events overlapping the requested date range |
+| `next_cursor` | ['string', 'null'] | Always null — calendar results are not paginated |
 
 ---
 
@@ -178,6 +208,103 @@ List all assignable event manager permissions
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
 | `permissions` | ['array', 'null'] | All assignable event manager permissions |
+
+---
+
+## `acceptManagerInvite`
+
+Accept an event manager invite via token
+
+**POST** `/api/v1/events/managers/accept`
+
+**Signature:** `lb.events.acceptManagerInvite({ body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `token` | body | string | ✓ | Invite token from the email link |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `accepted_at` | string (date-time) | When the invite was accepted |
+| `created_at` | string (date-time) | Created timestamp |
+| `event_id` | integer | Event ID (when managing a specific occurrence) |
+| `expires_at` | string (date-time) | When the pending invite expires (7 days from invite) |
+| `id` | integer | Record ID |
+| `invite_token` | string | Opaque token embedded in the invite email link |
+| `invited_at` | string (date-time) | When the invite was (last) sent |
+| `invited_by` | string | Profile ID of the user who sent the invite |
+| `invited_email` | string | Email address the invite was sent to |
+| `org_id` | string | Organization ID |
+| `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `series_id` | integer | Series ID (when managing all occurrences in a series) |
+| `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `user_id` | string | Profile ID of the manager |
+
+---
+
+## `listPendingManagerInvites`
+
+List pending event manager invites for the current user
+
+**GET** `/api/v1/events/managers/pending`
+
+**Signature:** `lb.events.listPendingManagerInvites()`
+
+*No parameters.*
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | List of pending event manager invitations |
+
+---
+
+## `createWithSeries`
+
+Create an event and optionally a recurring series in one atomic call
+
+**POST** `/api/v1/events/with-series`
+
+**Signature:** `lb.events.createWithSeries({ body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `address` | body | string |  | Venue address |
+| `description` | body | string |  | Event description |
+| `end_dt` | body | string (date-time) |  | End datetime (UTC) |
+| `keywords` | body | ['array', 'null'] |  | Search keywords |
+| `latitude` | body | number |  | Venue latitude |
+| `longitude` | body | number |  | Venue longitude |
+| `metadata` | body | object |  | Flexible metadata |
+| `parent_event_id` | body | integer |  | Parent event ID |
+| `series` | body | object |  |  |
+| `start_dt` | body | string (date-time) |  | Start datetime (UTC) |
+| `timezone` | body | string |  | IANA timezone |
+| `title` | body | string | ✓ | Event title |
+| `visibility` | body | integer |  | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `event` | object |  |
+| `occurrences` | ['array', 'null'] | All series occurrences including the anchor (only present when series was created) |
 
 ---
 
@@ -222,6 +349,7 @@ Get an event
 | `created_dt` | string (date-time) | Business creation date |
 | `creator_id` | string | Creator profile ID |
 | `description` | string | Event description |
+| `description_override` | string | Local description override |
 | `end_dt` | string (date-time) | End datetime (UTC) |
 | `id` | integer | Event ID |
 | `is_deleted` | boolean | Soft-deleted flag |
@@ -230,17 +358,22 @@ Get an event
 | `latitude` | number | Venue latitude |
 | `longitude` | number | Venue longitude |
 | `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `series_id` | integer | Series ID; set when this event is part of a recurring series |
+| `series_index` | integer | Position within the series (0 = anchor occurrence) |
+| `series_title` | string | Canonical title from the series master row |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
+| `title_override` | string | Local title override (takes precedence over series title) |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `version` | integer | Version counter, incremented on each publish |
-| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
 
 ---
 
@@ -250,13 +383,14 @@ Partial-update an event (merge-patch)
 
 **PATCH** `/api/v1/events/{id}`
 
-**Signature:** `lb.events.patch({ path: \{ id \}, body: \{ ... \} })`
+**Signature:** `lb.events.patch({ path: \{ id \}, query?: \{ scope \}, body: \{ ... \} })`
 
 **Parameters:**
 
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Event ID |
+| `scope` | query | `"this"` | `"future"` | `"all"` |  | Series edit scope |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
 | `address` | body | string |  | New venue address |
 | `description` | body | string |  | New description |
@@ -268,7 +402,7 @@ Partial-update an event (merge-patch)
 | `start_dt` | body | string (date-time) |  | New start datetime (UTC) |
 | `timezone` | body | string |  | New IANA timezone |
 | `title` | body | string |  | New title |
-| `visibility` | body | integer |  | New visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+| `visibility` | body | integer |  | New visibility: 10=private, 20=members-only, 30=organization, 40=public |
 
 
 **Returns:**
@@ -281,6 +415,7 @@ Partial-update an event (merge-patch)
 | `created_dt` | string (date-time) | Business creation date |
 | `creator_id` | string | Creator profile ID |
 | `description` | string | Event description |
+| `description_override` | string | Local description override |
 | `end_dt` | string (date-time) | End datetime (UTC) |
 | `id` | integer | Event ID |
 | `is_deleted` | boolean | Soft-deleted flag |
@@ -289,23 +424,28 @@ Partial-update an event (merge-patch)
 | `latitude` | number | Venue latitude |
 | `longitude` | number | Venue longitude |
 | `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `series_id` | integer | Series ID; set when this event is part of a recurring series |
+| `series_index` | integer | Position within the series (0 = anchor occurrence) |
+| `series_title` | string | Canonical title from the series master row |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
+| `title_override` | string | Local title override (takes precedence over series title) |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `version` | integer | Version counter, incremented on each publish |
-| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
 
 ---
 
 ## `update`
 
-Update an event (draft only)
+Update an event
 
 **PUT** `/api/v1/events/{id}`
 
@@ -340,6 +480,7 @@ Update an event (draft only)
 | `created_dt` | string (date-time) | Business creation date |
 | `creator_id` | string | Creator profile ID |
 | `description` | string | Event description |
+| `description_override` | string | Local description override |
 | `end_dt` | string (date-time) | End datetime (UTC) |
 | `id` | integer | Event ID |
 | `is_deleted` | boolean | Soft-deleted flag |
@@ -348,17 +489,22 @@ Update an event (draft only)
 | `latitude` | number | Venue latitude |
 | `longitude` | number | Venue longitude |
 | `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `series_id` | integer | Series ID; set when this event is part of a recurring series |
+| `series_index` | integer | Position within the series (0 = anchor occurrence) |
+| `series_title` | string | Canonical title from the series master row |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
+| `title_override` | string | Local title override (takes precedence over series title) |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `version` | integer | Version counter, incremented on each publish |
-| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
 
 ---
 
@@ -434,13 +580,14 @@ Add an attendee to an event
 | `checked_in_at` | string (date-time) | Check-in time |
 | `contact_id` | string | Contact UUID |
 | `created_at` | string (date-time) | Created timestamp |
-| `event_id` | integer | Event ID |
+| `event_id` | integer | Event ID (when attending a specific occurrence) |
 | `id` | integer | Attendee record ID |
 | `invited_at` | string (date-time) | When invited |
 | `is_checked_in` | boolean | Whether checked in |
 | `notes` | string | Optional notes |
 | `org_id` | string | Organization ID |
 | `responded_at` | string (date-time) | When responded |
+| `series_id` | integer | Series ID (when attending all occurrences in a series) |
 | `status` | `"invited"` | `"confirmed"` | `"declined"` | `"tentative"` | `"checked_in"` | Attendance status |
 | `updated_at` | string (date-time) | Updated timestamp |
 
@@ -546,13 +693,14 @@ Update attendee status
 | `checked_in_at` | string (date-time) | Check-in time |
 | `contact_id` | string | Contact UUID |
 | `created_at` | string (date-time) | Created timestamp |
-| `event_id` | integer | Event ID |
+| `event_id` | integer | Event ID (when attending a specific occurrence) |
 | `id` | integer | Attendee record ID |
 | `invited_at` | string (date-time) | When invited |
 | `is_checked_in` | boolean | Whether checked in |
 | `notes` | string | Optional notes |
 | `org_id` | string | Organization ID |
 | `responded_at` | string (date-time) | When responded |
+| `series_id` | integer | Series ID (when attending all occurrences in a series) |
 | `status` | `"invited"` | `"confirmed"` | `"declined"` | `"tentative"` | `"checked_in"` | Attendance status |
 | `updated_at` | string (date-time) | Updated timestamp |
 
@@ -573,6 +721,227 @@ Check in an attendee
 | `id` | path | integer | ✓ |  |
 | `contact_id` | path | string | ✓ |  |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+
+---
+
+## `listAutomations`
+
+List automations attached to an event
+
+**GET** `/api/v1/events/{id}/automations`
+
+**Signature:** `lb.events.listAutomations({ path: \{ id \}, query?: \{ page, size \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `page` | query | integer |  | Page number (1-based) |
+| `size` | query | integer |  | Items per page |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | List of results |
+| `page` | integer | Current page (1-based) |
+| `size` | integer | Page size |
+| `total` | integer | Total matching records |
+
+---
+
+## `createAutomation`
+
+Create an automation attached to an event
+
+**POST** `/api/v1/events/{id}/automations`
+
+**Signature:** `lb.events.createAutomation({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `actions` | body | ['array', 'null'] | ✓ |  |
+| `description` | body | string |  |  |
+| `enabled` | body | boolean |  |  |
+| `name` | body | string | ✓ |  |
+| `trigger` | body | object | ✓ |  |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `actions` | ['array', 'null'] |  |
+| `created_at` | string (date-time) |  |
+| `description` | string |  |
+| `enabled` | boolean |  |
+| `id` | string |  |
+| `name` | string |  |
+| `trigger` | object |  |
+| `updated_at` | string (date-time) |  |
+
+---
+
+## `automationTemplates`
+
+List event automation templates
+
+**GET** `/api/v1/events/{id}/automations/templates`
+
+**Signature:** `lb.events.automationTemplates({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+
+
+**Returns:**
+
+**Response:** `['array', 'null']`
+
+---
+
+## `deleteAutomation`
+
+Delete an event automation
+
+**DELETE** `/api/v1/events/{id}/automations/{rule_id}`
+
+**Signature:** `lb.events.deleteAutomation({ path: \{ id, rule_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `rule_id` | path | string | ✓ | Automation rule ID |
+
+---
+
+## `getAutomation`
+
+Get an event automation
+
+**GET** `/api/v1/events/{id}/automations/{rule_id}`
+
+**Signature:** `lb.events.getAutomation({ path: \{ id, rule_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `rule_id` | path | string | ✓ | Automation rule ID |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `actions` | ['array', 'null'] |  |
+| `created_at` | string (date-time) |  |
+| `description` | string |  |
+| `enabled` | boolean |  |
+| `id` | string |  |
+| `name` | string |  |
+| `trigger` | object |  |
+| `updated_at` | string (date-time) |  |
+
+---
+
+## `updateAutomation`
+
+Update an event automation
+
+**PUT** `/api/v1/events/{id}/automations/{rule_id}`
+
+**Signature:** `lb.events.updateAutomation({ path: \{ id, rule_id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `rule_id` | path | string | ✓ | Automation rule ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `actions` | body | ['array', 'null'] | ✓ |  |
+| `description` | body | string |  |  |
+| `enabled` | body | boolean |  |  |
+| `name` | body | string | ✓ |  |
+| `trigger` | body | object | ✓ |  |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `actions` | ['array', 'null'] |  |
+| `created_at` | string (date-time) |  |
+| `description` | string |  |
+| `enabled` | boolean |  |
+| `id` | string |  |
+| `name` | string |  |
+| `trigger` | object |  |
+| `updated_at` | string (date-time) |  |
+
+---
+
+## `executeAutomation`
+
+Run an event automation now
+
+**POST** `/api/v1/events/{id}/automations/{rule_id}/execute`
+
+**Signature:** `lb.events.executeAutomation({ path: \{ id, rule_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `rule_id` | path | string | ✓ | Automation rule ID |
+
+---
+
+## `listAutomationExecutions`
+
+List execution history for an event automation
+
+**GET** `/api/v1/events/{id}/automations/{rule_id}/executions`
+
+**Signature:** `lb.events.listAutomationExecutions({ path: \{ id, rule_id \}, query?: \{ page, size \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `rule_id` | path | string | ✓ | Automation rule ID |
+| `page` | query | integer |  | Page number (1-based) |
+| `size` | query | integer |  | Items per page |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | List of results |
+| `page` | integer | Current page (1-based) |
+| `size` | integer | Page size |
+| `total` | integer | Total matching records |
 
 ---
 
@@ -602,6 +971,7 @@ Upload event cover image (multipart/form-data, field: file)
 | `created_dt` | string (date-time) | Business creation date |
 | `creator_id` | string | Creator profile ID |
 | `description` | string | Event description |
+| `description_override` | string | Local description override |
 | `end_dt` | string (date-time) | End datetime (UTC) |
 | `id` | integer | Event ID |
 | `is_deleted` | boolean | Soft-deleted flag |
@@ -610,17 +980,22 @@ Upload event cover image (multipart/form-data, field: file)
 | `latitude` | number | Venue latitude |
 | `longitude` | number | Venue longitude |
 | `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `series_id` | integer | Series ID; set when this event is part of a recurring series |
+| `series_index` | integer | Position within the series (0 = anchor occurrence) |
+| `series_title` | string | Canonical title from the series master row |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
+| `title_override` | string | Local title override (takes precedence over series title) |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `version` | integer | Version counter, incremented on each publish |
-| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
 
 ---
 
@@ -726,6 +1101,7 @@ Get draft version of an event
 | `created_dt` | string (date-time) | Business creation date |
 | `creator_id` | string | Creator profile ID |
 | `description` | string | Event description |
+| `description_override` | string | Local description override |
 | `end_dt` | string (date-time) | End datetime (UTC) |
 | `id` | integer | Event ID |
 | `is_deleted` | boolean | Soft-deleted flag |
@@ -734,17 +1110,22 @@ Get draft version of an event
 | `latitude` | number | Venue latitude |
 | `longitude` | number | Venue longitude |
 | `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `series_id` | integer | Series ID; set when this event is part of a recurring series |
+| `series_index` | integer | Position within the series (0 = anchor occurrence) |
+| `series_title` | string | Canonical title from the series master row |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
+| `title_override` | string | Local title override (takes precedence over series title) |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `version` | integer | Version counter, incremented on each publish |
-| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
 
 ---
 
@@ -773,6 +1154,7 @@ Start editing (creates draft clone)
 | `created_dt` | string (date-time) | Business creation date |
 | `creator_id` | string | Creator profile ID |
 | `description` | string | Event description |
+| `description_override` | string | Local description override |
 | `end_dt` | string (date-time) | End datetime (UTC) |
 | `id` | integer | Event ID |
 | `is_deleted` | boolean | Soft-deleted flag |
@@ -781,17 +1163,90 @@ Start editing (creates draft clone)
 | `latitude` | number | Venue latitude |
 | `longitude` | number | Venue longitude |
 | `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `series_id` | integer | Series ID; set when this event is part of a recurring series |
+| `series_index` | integer | Position within the series (0 = anchor occurrence) |
+| `series_title` | string | Canonical title from the series master row |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
+| `title_override` | string | Local title override (takes precedence over series title) |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `version` | integer | Version counter, incremented on each publish |
-| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=tenant, 40=public |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
+
+---
+
+## `listLinks`
+
+List cross-reference links for this event
+
+**GET** `/api/v1/events/{id}/links`
+
+**Signature:** `lb.events.listLinks({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+
+
+**Returns:**
+
+**Response:** `['array', 'null']`
+
+---
+
+## `addLink`
+
+Link another event as a cross-reference
+
+**POST** `/api/v1/events/{id}/links`
+
+**Signature:** `lb.events.addLink({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `target_id` | body | integer | ✓ | Target event ID to link |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `event_id` | integer | Source event ID |
+| `id` | integer | Link ID |
+| `series_id` | integer | Series ID (when link applies to all occurrences) |
+| `target_id` | integer | Target event ID |
+
+---
+
+## `removeLink`
+
+Remove a cross-reference link
+
+**DELETE** `/api/v1/events/{id}/links/{target_id}`
+
+**Signature:** `lb.events.removeLink({ path: \{ id, target_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `target_id` | path | integer | ✓ | Target event ID to unlink |
 
 ---
 
@@ -851,11 +1306,60 @@ Add a manager to an event
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `accepted_at` | string (date-time) | When the invite was accepted |
 | `created_at` | string (date-time) | Created timestamp |
-| `event_id` | integer | Event ID |
+| `event_id` | integer | Event ID (when managing a specific occurrence) |
+| `expires_at` | string (date-time) | When the pending invite expires (7 days from invite) |
 | `id` | integer | Record ID |
+| `invite_token` | string | Opaque token embedded in the invite email link |
+| `invited_at` | string (date-time) | When the invite was (last) sent |
+| `invited_by` | string | Profile ID of the user who sent the invite |
+| `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `series_id` | integer | Series ID (when managing all occurrences in a series) |
+| `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `user_id` | string | Profile ID of the manager |
+
+---
+
+## `inviteManager`
+
+Invite a manager to an event by email
+
+**POST** `/api/v1/events/{id}/managers/invite`
+
+**Signature:** `lb.events.inviteManager({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `email` | body | string | ✓ | Email address of the user to invite |
+| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant on acceptance |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `accepted_at` | string (date-time) | When the invite was accepted |
+| `created_at` | string (date-time) | Created timestamp |
+| `event_id` | integer | Event ID (when managing a specific occurrence) |
+| `expires_at` | string (date-time) | When the pending invite expires (7 days from invite) |
+| `id` | integer | Record ID |
+| `invite_token` | string | Opaque token embedded in the invite email link |
+| `invited_at` | string (date-time) | When the invite was (last) sent |
+| `invited_by` | string | Profile ID of the user who sent the invite |
+| `invited_email` | string | Email address the invite was sent to |
+| `org_id` | string | Organization ID |
+| `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `series_id` | integer | Series ID (when managing all occurrences in a series) |
+| `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `user_id` | string | Profile ID of the manager |
 
@@ -899,11 +1403,19 @@ Get a single event manager
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `accepted_at` | string (date-time) | When the invite was accepted |
 | `created_at` | string (date-time) | Created timestamp |
-| `event_id` | integer | Event ID |
+| `event_id` | integer | Event ID (when managing a specific occurrence) |
+| `expires_at` | string (date-time) | When the pending invite expires (7 days from invite) |
 | `id` | integer | Record ID |
+| `invite_token` | string | Opaque token embedded in the invite email link |
+| `invited_at` | string (date-time) | When the invite was (last) sent |
+| `invited_by` | string | Profile ID of the user who sent the invite |
+| `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `series_id` | integer | Series ID (when managing all occurrences in a series) |
+| `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `user_id` | string | Profile ID of the manager |
 
@@ -932,11 +1444,19 @@ Update an event manager's permissions
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `accepted_at` | string (date-time) | When the invite was accepted |
 | `created_at` | string (date-time) | Created timestamp |
-| `event_id` | integer | Event ID |
+| `event_id` | integer | Event ID (when managing a specific occurrence) |
+| `expires_at` | string (date-time) | When the pending invite expires (7 days from invite) |
 | `id` | integer | Record ID |
+| `invite_token` | string | Opaque token embedded in the invite email link |
+| `invited_at` | string (date-time) | When the invite was (last) sent |
+| `invited_by` | string | Profile ID of the user who sent the invite |
+| `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `series_id` | integer | Series ID (when managing all occurrences in a series) |
+| `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `user_id` | string | Profile ID of the manager |
 
@@ -986,7 +1506,7 @@ Add a milestone event to a base event
 | `id` | path | integer | ✓ | Base Event ID |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
 | `milestone_event_id` | body | integer | ✓ | Event ID to use as milestone |
-| `sequence` | body | integer | ✓ | Display order |
+| `sequence` | body | integer |  | Display order (defaults to 0) |
 
 
 **Returns:**
@@ -999,6 +1519,10 @@ Add a milestone event to a base event
 | `id` | integer | Record ID |
 | `milestone_event_id` | integer | Milestone event ID |
 | `sequence` | integer | Display order |
+| `series_id` | integer | Series ID (when milestone applies to all occurrences) |
+| `status` | `"planned"` | `"ready"` | `"active"` | `"completed"` | `"skipped"` | Milestone lifecycle status |
+| `status_mode` | `"derived"` | `"manual"` | How milestone status is controlled |
+| `status_updated_at` | string (date-time) | When lifecycle status was last recalculated or manually changed |
 | `updated_at` | string (date-time) | Updated timestamp |
 
 ---
@@ -1017,6 +1541,43 @@ Remove a milestone from an event
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Base Event ID |
 | `milestone_event_id` | path | integer | ✓ | Milestone Event ID |
+
+---
+
+## `patchMilestoneLifecycle`
+
+Update milestone lifecycle status or reset to automatic mode
+
+**PATCH** `/api/v1/events/{id}/milestones/{milestone_event_id}`
+
+**Signature:** `lb.events.patchMilestoneLifecycle({ path: \{ id, milestone_event_id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Base Event ID |
+| `milestone_event_id` | path | integer | ✓ | Milestone Event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `reset_to_derived` | body | boolean |  | Reset milestone lifecycle back to date-driven automatic mode |
+| `status` | body | `"planned"` | `"ready"` | `"active"` | `"completed"` | `"skipped"` |  | New manual lifecycle status |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `base_event_id` | integer | Base event ID |
+| `created_at` | string (date-time) | Created timestamp |
+| `id` | integer | Record ID |
+| `milestone_event_id` | integer | Milestone event ID |
+| `sequence` | integer | Display order |
+| `series_id` | integer | Series ID (when milestone applies to all occurrences) |
+| `status` | `"planned"` | `"ready"` | `"active"` | `"completed"` | `"skipped"` | Milestone lifecycle status |
+| `status_mode` | `"derived"` | `"manual"` | How milestone status is controlled |
+| `status_updated_at` | string (date-time) | When lifecycle status was last recalculated or manually changed |
+| `updated_at` | string (date-time) | Updated timestamp |
 
 ---
 
@@ -1048,6 +1609,10 @@ Update milestone sequence
 | `id` | integer | Record ID |
 | `milestone_event_id` | integer | Milestone event ID |
 | `sequence` | integer | Display order |
+| `series_id` | integer | Series ID (when milestone applies to all occurrences) |
+| `status` | `"planned"` | `"ready"` | `"active"` | `"completed"` | `"skipped"` | Milestone lifecycle status |
+| `status_mode` | `"derived"` | `"manual"` | How milestone status is controlled |
+| `status_updated_at` | string (date-time) | When lifecycle status was last recalculated or manually changed |
 | `updated_at` | string (date-time) | Updated timestamp |
 
 ---
@@ -1065,6 +1630,276 @@ Publish an event
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `channels` | body | ['array', 'null'] |  | Override delivery channels (email/push/sms); service defaults apply if omitted |
+| `message` | body | string |  | Custom message; omit to use the service default |
+| `notify` | body | boolean |  | Send a notification to affected parties (default: false) |
+| `priority` | body | string |  | Notification priority: normal (default) or high |
+
+---
+
+## `deleteSeries`
+
+Remove from series (scope: this | future | all)
+
+**DELETE** `/api/v1/events/{id}/series`
+
+**Signature:** `lb.events.deleteSeries({ path: \{ id \}, query?: \{ scope \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `scope` | query | `"this"` | `"future"` | `"all"` | ✓ | Deletion scope |
+
+---
+
+## `getSeries`
+
+Get series rule and all occurrences for a recurring event
+
+**GET** `/api/v1/events/{id}/series`
+
+**Signature:** `lb.events.getSeries({ path: \{ id \}, query?: \{ page, limit \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID (any occurrence in the series) |
+| `page` | query | integer |  | Page number for occurrences (1-based) |
+| `limit` | query | integer |  | Occurrences per page |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `attendee_counts` | object | Attendee counts by status |
+| `limit` | integer | Page size |
+| `occurrences` | ['array', 'null'] | Occurrence events for the current page |
+| `page` | integer | Current page (1-based) |
+| `series` | object |  |
+| `total` | integer | Total number of occurrences |
+| `total_attendees` | integer | Total unique attendees |
+| `total_pages` | integer | Total number of pages |
+
+---
+
+## `patchSeries`
+
+Update series fields. Cascades to occurrences without overrides.
+
+**PATCH** `/api/v1/events/{id}/series`
+
+**Signature:** `lb.events.patchSeries({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID of any occurrence in the series |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `address` | body | string |  | New venue address |
+| `cover_image_key` | body | string |  | New canonical cover image storage key |
+| `description` | body | string |  | New canonical series description |
+| `end_count` | body | integer |  | Max number of occurrences |
+| `end_date` | body | string (date-time) |  | Last allowed start date |
+| `end_dt` | body | string (date-time) |  | New canonical end datetime |
+| `ends_on` | body | `"never"` | `"on_date"` | `"after_n"` |  | How the series ends |
+| `freq` | body | `"daily"` | `"weekly"` | `"monthly"` | `"custom"` |  | New recurrence frequency |
+| `interval` | body | integer |  | Repeat every N units |
+| `keywords` | body | Array<string> |  | New keywords |
+| `latitude` | body | number |  | New venue latitude |
+| `longitude` | body | number |  | New venue longitude |
+| `metadata` | body | object |  | Merge into series metadata (omit to keep existing) |
+| `repeat_days` | body | Array<integer> |  | ISO weekdays to repeat on [1-7] |
+| `start_dt` | body | string (date-time) |  | New canonical start datetime |
+| `timezone` | body | string |  | New timezone |
+| `title` | body | string |  | New canonical series title |
+| `visibility` | body | integer |  | New visibility (10=private,20=members-only,30=org,40=public) |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `address` | string | Venue address |
+| `cover_image_key` | string | Canonical cover image storage key |
+| `created_at` | string (date-time) | Created timestamp |
+| `creator_id` | string | Profile ID of the creator |
+| `description` | string | Canonical series description |
+| `duration` | string | Duration of each occurrence as a Postgres interval string |
+| `end_count` | integer | Max number of occurrences including anchor (used when ends_on=after_n) |
+| `end_date` | string (date-time) | Last allowed start date (used when ends_on=on_date) |
+| `end_dt` | string (date-time) | Canonical end datetime |
+| `ends_on` | `"never"` | `"on_date"` | `"after_n"` | How the series ends |
+| `freq` | `"daily"` | `"weekly"` | `"monthly"` | `"custom"` | Recurrence frequency |
+| `id` | integer | Series ID |
+| `interval` | integer | Repeat every N units of freq (e.g. 2 = every 2 weeks) |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `keywords` | ['array', 'null'] | Search keywords |
+| `latitude` | number | Venue latitude |
+| `longitude` | number | Venue longitude |
+| `metadata` | object | Canonical series metadata (theme, cover, etc.) |
+| `org_id` | string | Organization ID (nil for personal events) |
+| `published_at` | string (date-time) | When the series was most recently published |
+| `published_id` | integer | ID of the published version (if currently a draft) |
+| `repeat_days` | ['array', 'null'] | ISO weekdays to repeat on [1-7]; used for weekly/custom freq |
+| `series_manager_accepted_at` | string (date-time) | When invite was accepted |
+| `series_manager_expires_at` | string (date-time) | When invite expires |
+| `series_manager_id` | string | Profile ID of the series manager (active) |
+| `series_manager_invite_token` | string | Invite token for pending manager |
+| `series_manager_invited_at` | string (date-time) | When invite was sent |
+| `series_manager_invited_by` | string | Profile ID who sent invite |
+| `series_manager_invited_email` | string | Email of invitee |
+| `series_manager_status` | string | Manager status: pending, active, revoked |
+| `start_dt` | string (date-time) | Canonical start datetime |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status: draft, published, archived |
+| `timezone` | string | IANA timezone for canonical occurrence |
+| `title` | string | Canonical series title (master event name) |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version number (incremented on each publish) |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
+
+---
+
+## `createSeries`
+
+Convert an event into the anchor of a new recurring series
+
+**POST** `/api/v1/events/{id}/series`
+
+**Signature:** `lb.events.createSeries({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID of the anchor occurrence |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `end_count` | body | integer |  | Max occurrences including anchor (required when ends_on=after_n) |
+| `end_date` | body | string (date-time) |  | Series end date (required when ends_on=on_date) |
+| `ends_on` | body | `"never"` | `"on_date"` | `"after_n"` | ✓ | How the series ends (default: never) |
+| `freq` | body | `"daily"` | `"weekly"` | `"monthly"` | `"custom"` | ✓ | Recurrence frequency |
+| `interval` | body | integer | ✓ | Repeat every N units (default 1) |
+| `repeat_days` | body | ['array', 'null'] |  | ISO weekdays [1-7]; required for weekly/custom freq |
+
+
+**Returns:**
+
+**Response:** `['array', 'null']`
+
+---
+
+## `inviteSeriesManager`
+
+Invite series manager
+
+**POST** `/api/v1/events/{id}/series/manager`
+
+**Signature:** `lb.events.inviteSeriesManager({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID (any occurrence in the series) |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `email` | body | string | ✓ | Email address to invite as series manager |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `address` | string | Venue address |
+| `cover_image_key` | string | Canonical cover image storage key |
+| `created_at` | string (date-time) | Created timestamp |
+| `creator_id` | string | Profile ID of the creator |
+| `description` | string | Canonical series description |
+| `duration` | string | Duration of each occurrence as a Postgres interval string |
+| `end_count` | integer | Max number of occurrences including anchor (used when ends_on=after_n) |
+| `end_date` | string (date-time) | Last allowed start date (used when ends_on=on_date) |
+| `end_dt` | string (date-time) | Canonical end datetime |
+| `ends_on` | `"never"` | `"on_date"` | `"after_n"` | How the series ends |
+| `freq` | `"daily"` | `"weekly"` | `"monthly"` | `"custom"` | Recurrence frequency |
+| `id` | integer | Series ID |
+| `interval` | integer | Repeat every N units of freq (e.g. 2 = every 2 weeks) |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `keywords` | ['array', 'null'] | Search keywords |
+| `latitude` | number | Venue latitude |
+| `longitude` | number | Venue longitude |
+| `metadata` | object | Canonical series metadata (theme, cover, etc.) |
+| `org_id` | string | Organization ID (nil for personal events) |
+| `published_at` | string (date-time) | When the series was most recently published |
+| `published_id` | integer | ID of the published version (if currently a draft) |
+| `repeat_days` | ['array', 'null'] | ISO weekdays to repeat on [1-7]; used for weekly/custom freq |
+| `series_manager_accepted_at` | string (date-time) | When invite was accepted |
+| `series_manager_expires_at` | string (date-time) | When invite expires |
+| `series_manager_id` | string | Profile ID of the series manager (active) |
+| `series_manager_invite_token` | string | Invite token for pending manager |
+| `series_manager_invited_at` | string (date-time) | When invite was sent |
+| `series_manager_invited_by` | string | Profile ID who sent invite |
+| `series_manager_invited_email` | string | Email of invitee |
+| `series_manager_status` | string | Manager status: pending, active, revoked |
+| `start_dt` | string (date-time) | Canonical start datetime |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status: draft, published, archived |
+| `timezone` | string | IANA timezone for canonical occurrence |
+| `title` | string | Canonical series title (master event name) |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version number (incremented on each publish) |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
+
+---
+
+## `listOccurrences`
+
+List occurrences of the series this event belongs to (paginated)
+
+**GET** `/api/v1/events/{id}/series/occurrences`
+
+**Signature:** `lb.events.listOccurrences({ path: \{ id \}, query?: \{ page, limit \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID (any occurrence in the series) |
+| `page` | query | integer |  | Page number (1-based) |
+| `limit` | query | integer |  | Items per page |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | Occurrence events for this page |
+| `limit` | integer | Page size |
+| `page` | integer | Current page (1-based) |
+| `total` | integer | Total number of occurrences in the series |
+| `total_pages` | integer | Total number of pages |
+
+---
+
+## `publishSeries`
+
+Publish series
+
+**POST** `/api/v1/events/{id}/series/publish`
+
+**Signature:** `lb.events.publishSeries({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID (any occurrence in the series) |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
 | `channels` | body | ['array', 'null'] |  | Override delivery channels (email/push/sms); service defaults apply if omitted |
 | `message` | body | string |  | Custom message; omit to use the service default |
