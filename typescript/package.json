@@ -1,7 +1,28 @@
 {
   "name": "@linebundle-sdk/ts",
-  "version": "0.1.53",
+  "version": "0.1.58",
+  "description": "Auto-generated, type-safe TypeScript client for the LineBundle API.",
   "author": "LineBundle",
+  "license": "MIT",
+  "keywords": [
+    "linebundle",
+    "sdk",
+    "typescript",
+    "openapi",
+    "events",
+    "spaces",
+    "api-client",
+    "type-safe"
+  ],
+  "homepage": "https://docs.linebundle.com/sdks/typescript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LineBundle/linebundle-sdks.git",
+    "directory": "typescript"
+  },
+  "bugs": {
+    "url": "https://github.com/LineBundle/linebundle-sdks/issues"
+  },
   "type": "module",
   "main": "./esm/index.js",
   "exports": {
@@ -19,15 +40,13 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
+    "@hey-api/client-fetch": "^0.13.1",
     "@eslint/js": "^9.19.0",
     "eslint": "^9.19.0",
     "globals": "^15.14.0",
     "tsup": "^8.5.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.26.0"
-  },
-  "peerDependencies": {
-    "zod": "^3 || ^4"
   },
   "publishConfig": {
     "access": "public",

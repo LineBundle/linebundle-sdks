@@ -1,6 +1,15 @@
-# LineBundle TypeScript SDK
+# @linebundle-sdk/ts
 
-Type-safe TypeScript SDK for the [LineBundle API](https://docs.linebundle.com).
+[![npm](https://img.shields.io/npm/v/@linebundle-sdk/ts)](https://www.npmjs.com/package/@linebundle-sdk/ts)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-linebundle.com-blue)](https://docs.linebundle.com/sdks/typescript)
+
+Auto-generated, type-safe TypeScript client for the [LineBundle API](https://linebundle.com). Generated from the OpenAPI spec on every release — types and methods are always up to date.
+
+## Requirements
+
+- Node.js 18+ (or any runtime with native `fetch`)
+- ESM project (`"type": "module"`)
 
 ## Installation
 
@@ -8,47 +17,90 @@ Type-safe TypeScript SDK for the [LineBundle API](https://docs.linebundle.com).
 npm install @linebundle-sdk/ts
 ```
 
+## Get your API credential
+
+Generate a token inside the [LineBundle Studio](https://studio.linebundle.com):
+**Organization → Settings → API Credentials → New Credential**
+
+Then set your environment variables:
+
+```bash
+LINEBUNDLE_TOKEN=sk_lb_your_token_here
+LINEBUNDLE_ORG_ID=your-org-uuid-here
+```
+
 ## Quick Start
 
 ```typescript
-import { Linebundle } from '@linebundle-sdk/ts';
+import { createLinebundle } from '@linebundle-sdk/ts';
 
-const sdk = new Linebundle({
-  auth: () => 'YOUR_API_KEY',
+const lb = createLinebundle({
+  token: process.env.LINEBUNDLE_TOKEN!,
+  orgId: process.env.LINEBUNDLE_ORG_ID!,
 });
 
-// List events
-const events = await sdk.events.list();
+// List upcoming events
+const { data, error } = await lb.events.list({
+  query: { page: 1, size: 20, sort_by: 'start_dt', sort_dir: 'asc' },
+});
+if (error) throw error;
+console.log(data.items);  // typed EventResponse[]
 
-// Create an event
-const event = await sdk.events.create({
-  body: {
-    title: 'My Event',
-    start_dt: '2026-05-01',
-    start_tm: '10:00',
-    end_dt: '2026-05-01',
-    end_tm: '14:00',
-    timezone: 'Africa/Accra',
-  },
+// Get a single event
+const { data: event } = await lb.events.get({ path: { id: 123 } });
+console.log(event.title);
+
+// List spaces
+const { data: spaces } = await lb.spaces.list({
+  query: { page: 1, size: 50, sort_by: 'title', sort_dir: 'asc' },
 });
 ```
 
-## Authentication
+## Response Pattern
 
-Pass a bearer token via the `auth` option. The function is called per-request, so it handles token refresh automatically:
+Every method returns `{ data, error, response }`. HTTP errors are captured in `error` — **they never throw**:
 
 ```typescript
-const sdk = new Linebundle({
-  auth: async () => {
-    const token = await getTokenFromYourAuthProvider();
-    return token;
-  },
+const { data, error, response } = await lb.events.get({ path: { id: 123 } });
+
+if (error) {
+  if (response.status === 404) console.warn('Not found');
+  else throw error;
+} else {
+  console.log(data.title);
+}
+```
+
+## TypeScript Types
+
+All types are generated from the API schema and exported from the package:
+
+```typescript
+import type { Event, Space } from '@linebundle-sdk/ts';
+```
+
+## Environments
+
+| Environment | Base URL |
+|-------------|----------|
+| Production  | `https://api.linebundle.com` (default) |
+| Staging     | `https://staging-api.linebundle.com` |
+
+To use staging, pass `baseUrl`:
+
+```typescript
+const lb = createLinebundle({
+  token: process.env.LINEBUNDLE_TOKEN!,
+  orgId: process.env.LINEBUNDLE_ORG_ID!,
+  baseUrl: 'https://staging-api.linebundle.com',
 });
 ```
 
-## SDK Reference
+## Documentation
 
-See the full [SDK Reference](https://docs.linebundle.com/sdk-reference/event) for all available methods.
+- **Full SDK guide**: https://docs.linebundle.com/sdks/typescript
+- **API Reference**: https://docs.linebundle.com/sdk-reference/events
+- **Changelog**: https://docs.linebundle.com/changelog
 
 ## License
 
