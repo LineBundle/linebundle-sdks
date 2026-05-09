@@ -20,7 +20,7 @@ List places
 
 **GET** `/api/v1/places`
 
-**Signature:** `lb.places.list({ query?: \{ page, size, search, sort_by, sort_dir \} })`
+**Signature:** `lb.places.list({ query?: \{ page, size, search, sort_by, sort_dir, status \} })`
 
 **Parameters:**
 
@@ -31,6 +31,7 @@ List places
 | `search` | query | string |  | Search term |
 | `sort_by` | query | string |  | Field to sort by |
 | `sort_dir` | query | `"asc"` | `"desc"` |  | Sort direction |
+| `status` | query | `"published"` | `"draft"` |  | Filter by publish status. Omit to return both published and standalone drafts. |
 
 
 **Returns:**
