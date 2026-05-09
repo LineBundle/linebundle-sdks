@@ -51,7 +51,7 @@ List spaces
 
 **GET** `/api/v1/spaces`
 
-**Signature:** `lb.spaces.list({ query?: \{ page, size, search, sort_by, sort_dir, status \} })`
+**Signature:** `lb.spaces.list({ query?: \{ page, size, search, sort_by, sort_dir, status, visibility \} })`
 
 **Parameters:**
 
@@ -63,6 +63,7 @@ List spaces
 | `sort_by` | query | string |  | Field to sort by |
 | `sort_dir` | query | `"asc"` | `"desc"` |  | Sort direction |
 | `status` | query | `"published"` | `"draft"` |  | Filter by publish status. Omit to return both published and standalone drafts. |
+| `visibility` | query | integer |  | Filter by visibility level: 10=private, 20=members-only, 30=organization, 40=public. Omit or pass 0 to return all visibl |
 
 
 **Returns:**
