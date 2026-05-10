@@ -174,6 +174,7 @@ Accept a space manager invitation
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned space manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. space_manager:full); NULL for custom permission combinations. |
 | `space_id` | integer | Space ID |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -858,8 +859,9 @@ Add a manager to a space
 | `channels` | body | ['array', 'null'] |  | Override delivery channels (email/push/sms); service defaults apply if omitted |
 | `message` | body | string |  | Custom message; omit to use the service default |
 | `notify` | body | boolean |  | Send a notification to affected parties (default: false) |
-| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant |
+| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant. Ignored when role is set. |
 | `priority` | body | string |  | Notification priority: normal (default) or high |
+| `role` | body | string |  | Optional space manager role bundle (e.g. space_manager:full). When set, the role REPLACES the permissions list. |
 | `user_id` | body | string | ✓ | Profile ID of the manager |
 
 
@@ -878,6 +880,7 @@ Add a manager to a space
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned space manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. space_manager:full); NULL for custom permission combinations. |
 | `space_id` | integer | Space ID |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -900,7 +903,8 @@ Invite a user to become a space manager by email
 | `id` | path | integer | ✓ | Space ID |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
 | `email` | body | string | ✓ | Email address of the user to invite |
-| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant upon acceptance |
+| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant upon acceptance. Ignored when role is set. |
+| `role` | body | string |  | Optional space manager role bundle (e.g. space_manager:full). When set, the role REPLACES the permissions list. |
 
 
 **Returns:**
@@ -918,6 +922,7 @@ Invite a user to become a space manager by email
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned space manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. space_manager:full); NULL for custom permission combinations. |
 | `space_id` | integer | Space ID |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -973,6 +978,7 @@ Get a single space manager
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned space manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. space_manager:full); NULL for custom permission combinations. |
 | `space_id` | integer | Space ID |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -1013,6 +1019,7 @@ Update a space manager's permissions
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned space manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. space_manager:full); NULL for custom permission combinations. |
 | `space_id` | integer | Space ID |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |

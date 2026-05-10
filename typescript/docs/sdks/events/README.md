@@ -245,6 +245,7 @@ Accept an event manager invite via token
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. event_manager:full); NULL for custom permission combinations. |
 | `series_id` | integer | Series ID (when managing all occurrences in a series) |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -1298,8 +1299,9 @@ Add a manager to an event
 | `channels` | body | ['array', 'null'] |  | Override delivery channels (email/push/sms); service defaults apply if omitted |
 | `message` | body | string |  | Custom message; omit to use the service default |
 | `notify` | body | boolean |  | Send a notification to affected parties (default: false) |
-| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant |
+| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant. Ignored when role is set. |
 | `priority` | body | string |  | Notification priority: normal (default) or high |
+| `role` | body | string |  | Optional event manager role bundle (e.g. event_manager:full). When set, the role REPLACES the permissions list. |
 | `user_id` | body | string | ✓ | Profile ID of the manager |
 
 
@@ -1319,6 +1321,7 @@ Add a manager to an event
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. event_manager:full); NULL for custom permission combinations. |
 | `series_id` | integer | Series ID (when managing all occurrences in a series) |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -1341,7 +1344,8 @@ Invite a manager to an event by email
 | `id` | path | integer | ✓ | Event ID |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
 | `email` | body | string | ✓ | Email address of the user to invite |
-| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant on acceptance |
+| `permissions` | body | ['array', 'null'] | ✓ | Permissions to grant on acceptance. Ignored when role is set. |
+| `role` | body | string |  | Optional event manager role bundle (e.g. event_manager:full). When set, the role REPLACES the permissions list. |
 
 
 **Returns:**
@@ -1360,6 +1364,7 @@ Invite a manager to an event by email
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. event_manager:full); NULL for custom permission combinations. |
 | `series_id` | integer | Series ID (when managing all occurrences in a series) |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -1416,6 +1421,7 @@ Get a single event manager
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. event_manager:full); NULL for custom permission combinations. |
 | `series_id` | integer | Series ID (when managing all occurrences in a series) |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -1457,6 +1463,7 @@ Update an event manager's permissions
 | `invited_email` | string | Email address the invite was sent to |
 | `org_id` | string | Organization ID |
 | `permissions` | ['array', 'null'] | Assigned event manager permissions |
+| `role` | string | Pre-defined role bundle name (e.g. event_manager:full); NULL for custom permission combinations. |
 | `series_id` | integer | Series ID (when managing all occurrences in a series) |
 | `status` | `"pending"` | `"active"` | `"revoked"` | Lifecycle status: pending, active, revoked |
 | `updated_at` | string (date-time) | Updated timestamp |
