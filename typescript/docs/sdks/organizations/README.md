@@ -57,7 +57,6 @@ Create an organization
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
-| `allow_public_visibility` | boolean | Allow public resource visibility |
 | `created_at` | string (date-time) | Created timestamp |
 | `deleted_at` | string (date-time) | Soft-deleted timestamp |
 | `external_org_id` | string | Identity-provider organization ID |
@@ -104,7 +103,6 @@ Get an organization
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
-| `allow_public_visibility` | boolean | Allow public resource visibility |
 | `created_at` | string (date-time) | Created timestamp |
 | `deleted_at` | string (date-time) | Soft-deleted timestamp |
 | `external_org_id` | string | Identity-provider organization ID |
@@ -129,7 +127,6 @@ Update an organization
 |-----------|-----|------|----------|-------------|
 | `id` | path | string | ✓ | Organization ID |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
-| `allow_public_visibility` | body | boolean | ✓ | Allow B2C public access to published resources |
 | `name` | body | string | ✓ | Organization name |
 
 
@@ -138,7 +135,6 @@ Update an organization
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
-| `allow_public_visibility` | boolean | Allow public resource visibility |
 | `created_at` | string (date-time) | Created timestamp |
 | `deleted_at` | string (date-time) | Soft-deleted timestamp |
 | `external_org_id` | string | Identity-provider organization ID |
