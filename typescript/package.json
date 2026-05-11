@@ -1,6 +1,6 @@
 {
   "name": "@linebundle-sdk/ts",
-  "version": "1.0.0-rc.21",
+  "version": "1.0.0-rc.22",
   "description": "Auto-generated, type-safe TypeScript client for the LineBundle API.",
   "author": "LineBundle",
   "license": "MIT",
