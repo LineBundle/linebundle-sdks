@@ -39,6 +39,9 @@
 | `listMembers` | GET | `/api/v1/spaces/{id}/members` | List space members |
 | `addMember` | POST | `/api/v1/spaces/{id}/members` | Add a member to a space |
 | `removeMember` | DELETE | `/api/v1/spaces/{id}/members/{user_id}` | Remove a member from a space |
+| `listParents` | GET | `/api/v1/spaces/{id}/parents` | List parent spaces of a space |
+| `addParent` | POST | `/api/v1/spaces/{id}/parents` | Add a parent to a space |
+| `removeParent` | DELETE | `/api/v1/spaces/{id}/parents/{parent_id}` | Remove a parent from a space |
 | `publish` | POST | `/api/v1/spaces/{id}/publish` | Publish a space |
 | `getSettings` | GET | `/api/v1/spaces/{id}/settings` | Get settings for a space |
 | `patchSettings` | PATCH | `/api/v1/spaces/{id}/settings` | Partially update settings for a space |
@@ -92,7 +95,7 @@ Create a space
 |-----------|-----|------|----------|-------------|
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
 | `description` | body | string |  | Space description |
-| `parent_id` | body | integer |  | Parent space ID |
+| `parent_ids` | body | ['array', 'null'] |  | Parent space IDs |
 | `position` | body | integer |  | Order within parent |
 | `timezone` | body | string |  | IANA timezone |
 | `title` | body | string | ✓ | Space title |
@@ -110,7 +113,7 @@ Create a space
 | `id` | integer | Space ID |
 | `is_deleted` | boolean | Soft-deleted flag |
 | `org_id` | string | Organization ID (nil = personal space) |
-| `parent_id` | integer | Parent space ID |
+| `parent_ids` | ['array', 'null'] | Parent space IDs |
 | `position` | integer | Order within parent |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
@@ -244,7 +247,7 @@ Get a space
 | `id` | integer | Space ID |
 | `is_deleted` | boolean | Soft-deleted flag |
 | `org_id` | string | Organization ID (nil = personal space) |
-| `parent_id` | integer | Parent space ID |
+| `parent_ids` | ['array', 'null'] | Parent space IDs |
 | `position` | integer | Order within parent |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
@@ -289,7 +292,7 @@ Partially update a space (merge-patch)
 | `id` | integer | Space ID |
 | `is_deleted` | boolean | Soft-deleted flag |
 | `org_id` | string | Organization ID (nil = personal space) |
-| `parent_id` | integer | Parent space ID |
+| `parent_ids` | ['array', 'null'] | Parent space IDs |
 | `position` | integer | Order within parent |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
@@ -334,7 +337,7 @@ Update a space
 | `id` | integer | Space ID |
 | `is_deleted` | boolean | Soft-deleted flag |
 | `org_id` | string | Organization ID (nil = personal space) |
-| `parent_id` | integer | Parent space ID |
+| `parent_ids` | ['array', 'null'] | Parent space IDs |
 | `position` | integer | Order within parent |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
@@ -684,7 +687,7 @@ Get draft version of a space
 | `id` | integer | Space ID |
 | `is_deleted` | boolean | Soft-deleted flag |
 | `org_id` | string | Organization ID (nil = personal space) |
-| `parent_id` | integer | Parent space ID |
+| `parent_ids` | ['array', 'null'] | Parent space IDs |
 | `position` | integer | Order within parent |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
@@ -723,7 +726,7 @@ Start editing (creates draft clone)
 | `id` | integer | Space ID |
 | `is_deleted` | boolean | Soft-deleted flag |
 | `org_id` | string | Organization ID (nil = personal space) |
-| `parent_id` | integer | Parent space ID |
+| `parent_ids` | ['array', 'null'] | Parent space IDs |
 | `position` | integer | Order within parent |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
@@ -1103,6 +1106,65 @@ Remove a member from a space
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Space ID |
 | `user_id` | path | string | ✓ | Profile ID |
+
+---
+
+## `listParents`
+
+List parent spaces of a space
+
+**GET** `/api/v1/spaces/{id}/parents`
+
+**Signature:** `lb.spaces.listParents({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | Parent spaces |
+
+---
+
+## `addParent`
+
+Add a parent to a space
+
+**POST** `/api/v1/spaces/{id}/parents`
+
+**Signature:** `lb.spaces.addParent({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `parent_id` | body | integer | ✓ | Parent space ID to add |
+
+---
+
+## `removeParent`
+
+Remove a parent from a space
+
+**DELETE** `/api/v1/spaces/{id}/parents/{parent_id}`
+
+**Signature:** `lb.spaces.removeParent({ path: \{ id, parent_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Space ID |
+| `parent_id` | path | integer | ✓ | Parent space ID to remove |
 
 ---
 
