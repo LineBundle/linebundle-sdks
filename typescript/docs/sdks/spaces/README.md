@@ -9,6 +9,7 @@
 | `managerPermissions` | GET | `/api/v1/spaces/manager-permissions` | List all assignable space manager permissions |
 | `acceptManagerInvite` | POST | `/api/v1/spaces/managers/accept` | Accept a space manager invitation |
 | `listPendingManagerInvites` | GET | `/api/v1/spaces/managers/pending` | List pending space manager invitations for the current user |
+| `tree` | GET | `/api/v1/spaces/tree` | Get spaces as a hierarchical tree |
 | `delete` | DELETE | `/api/v1/spaces/{id}` | Delete a space |
 | `get` | GET | `/api/v1/spaces/{id}` | Get a space |
 | `patch` | PATCH | `/api/v1/spaces/{id}` | Partially update a space (merge-patch) |
@@ -202,6 +203,26 @@ List pending space manager invitations for the current user
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
 | `items` | ['array', 'null'] | List of pending manager invitations |
+
+---
+
+## `tree`
+
+Get spaces as a hierarchical tree
+
+**GET** `/api/v1/spaces/tree`
+
+**Signature:** `lb.spaces.tree()`
+
+*No parameters.*
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] | Spaces arranged as a multi-root hierarchy. Multi-parent spaces appear under each of their parents. |
 
 ---
 
@@ -489,7 +510,9 @@ Link an announcement to a space
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
 | `body` | body | string | ✓ | Rich-text body |
 | `send_email` | body | boolean | ✓ | Send email notification to all space contacts |
+| `send_whatsapp` | body | boolean | ✓ | Send WhatsApp message to all space contacts with a WhatsApp number |
 | `title` | body | string | ✓ | Announcement title |
+| `whatsapp_sender_id` | body | string | ✓ | WhatsApp Business phone number ID to send from (required when send_whatsapp is true) |
 
 
 **Returns:**

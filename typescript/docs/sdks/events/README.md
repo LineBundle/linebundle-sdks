@@ -73,7 +73,7 @@ List events
 
 **GET** `/api/v1/events`
 
-**Signature:** `lb.events.list({ query?: \{ page, size, search, sort_by, sort_dir, status, visibility \} })`
+**Signature:** `lb.events.list({ query?: \{ page, size, search, sort_by, sort_dir, status, visibility, start_dt_after, start_dt_before, space_ids \} })`
 
 **Parameters:**
 
@@ -86,6 +86,9 @@ List events
 | `sort_dir` | query | `"asc"` | `"desc"` |  | Sort direction |
 | `status` | query | `"published"` | `"draft"` |  | Filter by publish status. Omit to return both published and standalone drafts. |
 | `visibility` | query | integer |  | Filter by visibility level: 10=private, 20=members-only, 30=organization, 40=public. Omit or pass 0 to return all visibl |
+| `start_dt_after` | query | string (date-time) |  | Return only events whose start date is at or after this datetime (UTC ISO-8601). Omit for no lower bound. |
+| `start_dt_before` | query | string (date-time) |  | Return only events whose start date is at or before this datetime (UTC ISO-8601). Omit for no upper bound. |
+| `space_ids` | query | ['array', 'null'] |  | Filter to events belonging to any of these space IDs (repeatable). Omit or pass empty to return events from all spaces. |
 
 
 **Returns:**
@@ -154,6 +157,7 @@ Create an event
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
 | `series_index` | integer | Position within the series (0 = anchor occurrence) |
 | `series_title` | string | Canonical title from the series master row |
+| `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
@@ -369,6 +373,7 @@ Get an event
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
 | `series_index` | integer | Position within the series (0 = anchor occurrence) |
 | `series_title` | string | Canonical title from the series master row |
+| `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
@@ -435,6 +440,7 @@ Partial-update an event (merge-patch)
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
 | `series_index` | integer | Position within the series (0 = anchor occurrence) |
 | `series_title` | string | Canonical title from the series master row |
+| `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
@@ -500,6 +506,7 @@ Update an event
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
 | `series_index` | integer | Position within the series (0 = anchor occurrence) |
 | `series_title` | string | Canonical title from the series master row |
+| `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
@@ -991,6 +998,7 @@ Upload event cover image (multipart/form-data, field: file)
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
 | `series_index` | integer | Position within the series (0 = anchor occurrence) |
 | `series_title` | string | Canonical title from the series master row |
+| `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
@@ -1121,6 +1129,7 @@ Get draft version of an event
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
 | `series_index` | integer | Position within the series (0 = anchor occurrence) |
 | `series_title` | string | Canonical title from the series master row |
+| `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |
@@ -1174,6 +1183,7 @@ Start editing (creates draft clone)
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
 | `series_index` | integer | Position within the series (0 = anchor occurrence) |
 | `series_title` | string | Canonical title from the series master row |
+| `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
 | `timezone` | string | IANA timezone |

@@ -11,6 +11,9 @@
 | `get` | GET | `/api/v1/contacts/{id}` | Get a contact |
 | `update` | PUT | `/api/v1/contacts/{id}` | Update a contact |
 | `toggleFavorite` | PATCH | `/api/v1/contacts/{id}/favorite` | Toggle contact favorite |
+| `listIntegrationFields` | GET | `/api/v1/contacts/{id}/integration-fields` | List integration-linked fields for a contact |
+| `upsertIntegrationField` | PUT | `/api/v1/contacts/{id}/integration-fields` | Create or update an integration-linked field on a contact |
+| `deleteIntegrationField` | DELETE | `/api/v1/contacts/{id}/integration-fields/{app_id}/{field_key}` | Remove an integration-linked field from a contact |
 
 ---
 
@@ -81,6 +84,7 @@ Create a contact
 | `state_province` | body | string |  | State/Province |
 | `tags` | body | ['array', 'null'] |  | Tags |
 | `website` | body | string |  | Website URL |
+| `whatsapp` | body | string |  | WhatsApp number (E.164 without leading +, e.g. 2348012345678) |
 
 
 **Returns:**
@@ -115,6 +119,7 @@ Create a contact
 | `tags` | ['array', 'null'] | Tags |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `website` | ['string', 'null'] | Website URL |
+| `whatsapp` | ['string', 'null'] | WhatsApp number (E.164 without leading +, e.g. 2348012345678) |
 
 ---
 
@@ -208,6 +213,7 @@ Get a contact
 | `tags` | ['array', 'null'] | Tags |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `website` | ['string', 'null'] | Website URL |
+| `whatsapp` | ['string', 'null'] | WhatsApp number (E.164 without leading +, e.g. 2348012345678) |
 
 ---
 
@@ -247,6 +253,7 @@ Update a contact
 | `state_province` | body | string |  | State/Province |
 | `tags` | body | ['array', 'null'] |  | Tags |
 | `website` | body | string |  | Website URL |
+| `whatsapp` | body | string |  | WhatsApp number (E.164 without leading +, e.g. 2348012345678) |
 
 
 **Returns:**
@@ -281,6 +288,7 @@ Update a contact
 | `tags` | ['array', 'null'] | Tags |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `website` | ['string', 'null'] | Website URL |
+| `whatsapp` | ['string', 'null'] | WhatsApp number (E.164 without leading +, e.g. 2348012345678) |
 
 ---
 
@@ -333,5 +341,84 @@ Toggle contact favorite
 | `tags` | ['array', 'null'] | Tags |
 | `updated_at` | string (date-time) | Updated timestamp |
 | `website` | ['string', 'null'] | Website URL |
+| `whatsapp` | ['string', 'null'] | WhatsApp number (E.164 without leading +, e.g. 2348012345678) |
+
+---
+
+## `listIntegrationFields`
+
+List integration-linked fields for a contact
+
+**GET** `/api/v1/contacts/{id}/integration-fields`
+
+**Signature:** `lb.contacts.listIntegrationFields({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | string | ✓ | Contact ID |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] |  |
+| `total` | integer |  |
+
+---
+
+## `upsertIntegrationField`
+
+Create or update an integration-linked field on a contact
+
+**PUT** `/api/v1/contacts/{id}/integration-fields`
+
+**Signature:** `lb.contacts.upsertIntegrationField({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | string | ✓ | Contact ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `app_id` | body | string | ✓ |  |
+| `field_key` | body | string | ✓ |  |
+| `value` | body | string | ✓ |  |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `app_id` | string |  |
+| `contact_id` | string |  |
+| `created_at` | string (date-time) |  |
+| `field_key` | string |  |
+| `id` | string |  |
+| `org_id` | string |  |
+| `updated_at` | string (date-time) |  |
+| `value` | string |  |
+
+---
+
+## `deleteIntegrationField`
+
+Remove an integration-linked field from a contact
+
+**DELETE** `/api/v1/contacts/{id}/integration-fields/{app_id}/{field_key}`
+
+**Signature:** `lb.contacts.deleteIntegrationField({ path: \{ id, app_id, field_key \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | string | ✓ | Contact ID |
+| `app_id` | path | string | ✓ | Integration app ID |
+| `field_key` | path | string | ✓ | Field key (e.g. instagram_igsid) |
 
 ---
