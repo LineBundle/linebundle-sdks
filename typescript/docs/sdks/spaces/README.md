@@ -508,11 +508,11 @@ Link an announcement to a space
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Space ID |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
-| `body` | body | string | ✓ | Rich-text body |
-| `send_email` | body | boolean | ✓ | Send email notification to all space contacts |
-| `send_whatsapp` | body | boolean | ✓ | Send WhatsApp message to all space contacts with a WhatsApp number |
+| `body` | body | string |  | Rich-text body |
+| `send_email` | body | boolean |  | Send email notification to all space contacts |
+| `send_whatsapp` | body | boolean |  | Send WhatsApp message to all space contacts with a WhatsApp number |
 | `title` | body | string | ✓ | Announcement title |
-| `whatsapp_sender_id` | body | string | ✓ | WhatsApp Business phone number ID to send from (required when send_whatsapp is true) |
+| `whatsapp_sender_id` | body | string |  | WhatsApp Business phone number ID to send from (required when send_whatsapp is true) |
 
 
 **Returns:**

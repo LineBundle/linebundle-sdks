@@ -4,6 +4,7 @@
 
 | Method | HTTP | Path | Description |
 |--------|------|------|-------------|
+| `attachments.remove` | DELETE | `/api/v1/attachments/{id}` | Remove an attachment |
 | `list` | GET | `/api/v1/events` | List events |
 | `create` | POST | `/api/v1/events` | Create an event |
 | `calendar` | GET | `/api/v1/events/calendar` | List events overlapping a date range (calendar view) |
@@ -11,6 +12,12 @@
 | `acceptManagerInvite` | POST | `/api/v1/events/managers/accept` | Accept an event manager invite via token |
 | `listPendingManagerInvites` | GET | `/api/v1/events/managers/pending` | List pending event manager invites for the current user |
 | `createWithSeries` | POST | `/api/v1/events/with-series` | Create an event and optionally a recurring series in one atomic call |
+| `activity.list` | GET | `/api/v1/events/{event_id}/activity` | List activity for an event |
+| `activity.append` | POST | `/api/v1/events/{event_id}/activity` | Append an activity row |
+| `attachments.list` | GET | `/api/v1/events/{event_id}/attachments` | List attachments on an event |
+| `attachments.add` | POST | `/api/v1/events/{event_id}/attachments` | Attach a file / reference to an event |
+| `participants.list` | GET | `/api/v1/events/{event_id}/participants` | List participants on an event |
+| `participants.add` | POST | `/api/v1/events/{event_id}/participants` | Add a participant to an event |
 | `delete` | DELETE | `/api/v1/events/{id}` | Delete an event |
 | `get` | GET | `/api/v1/events/{id}` | Get an event |
 | `patch` | PATCH | `/api/v1/events/{id}` | Partial-update an event (merge-patch) |
@@ -64,6 +71,24 @@
 | `listSpaces` | GET | `/api/v1/events/{id}/spaces` | List spaces this event belongs to |
 | `addSpace` | POST | `/api/v1/events/{id}/spaces` | Add event to a space |
 | `removeSpace` | DELETE | `/api/v1/events/{id}/spaces/{space_id}` | Remove event from a space |
+| `transition` | POST | `/api/v1/events/{id}/transition` | Transition an event to a new state per its template's state machine |
+| `participants.remove` | DELETE | `/api/v1/participants/{id}` | Remove a participant |
+
+---
+
+## `attachments.remove`
+
+Remove an attachment
+
+**DELETE** `/api/v1/attachments/{id}`
+
+**Signature:** `lb.events.attachments.remove({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Attachment record ID |
 
 ---
 
@@ -73,7 +98,7 @@ List events
 
 **GET** `/api/v1/events`
 
-**Signature:** `lb.events.list({ query?: \{ page, size, search, sort_by, sort_dir, status, visibility, start_dt_after, start_dt_before, space_ids \} })`
+**Signature:** `lb.events.list({ query?: \{ page, size, search, sort_by, sort_dir, status, visibility, start_dt_after, start_dt_before, space_ids, template, template_in \} })`
 
 **Parameters:**
 
@@ -89,6 +114,8 @@ List events
 | `start_dt_after` | query | string (date-time) |  | Return only events whose start date is at or after this datetime (UTC ISO-8601). Omit for no lower bound. |
 | `start_dt_before` | query | string (date-time) |  | Return only events whose start date is at or before this datetime (UTC ISO-8601). Omit for no upper bound. |
 | `space_ids` | query | ['array', 'null'] |  | Filter to events belonging to any of these space IDs (repeatable). Omit or pass empty to return events from all spaces. |
+| `template` | query | string |  | Filter to events of this exact template id (e.g. 'announcement'). Omit for no filter. |
+| `template_in` | query | ['array', 'null'] |  | Filter to events whose template is in this list (repeatable). Combined with Template via OR if both are set. |
 
 
 **Returns:**
@@ -125,6 +152,8 @@ Create an event
 | `metadata` | body | object |  | Flexible metadata (theme, cover, etc.) |
 | `parent_event_id` | body | integer |  | Parent event ID |
 | `start_dt` | body | string (date-time) |  | Start datetime (UTC) |
+| `template` | body | string |  | Event template id (kind). Server defaults to 'generic' when omitted. |
+| `template_version` | body | integer |  | Pin to a specific template version. When omitted, server uses the registry's latest. |
 | `timezone` | body | string |  | IANA timezone |
 | `title` | body | string | ✓ | Event title |
 | `visibility` | body | integer |  | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
@@ -152,6 +181,7 @@ Create an event
 | `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
+| `priority` | integer | Open numeric priority axis used by priority-aware templates. |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
@@ -159,7 +189,10 @@ Create an event
 | `series_title` | string | Canonical title from the series master row |
 | `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
+| `state` | string | Current node of the template's state machine; nil when the template has none. |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `template` | string | Event template id (kind discriminator). Defaults to 'generic'. |
+| `template_version` | integer | Schema version of the chosen template. 0 = legacy/pre-template; 1+ = explicit. |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `title_override` | string | Local title override (takes precedence over series title) |
@@ -315,6 +348,186 @@ Create an event and optionally a recurring series in one atomic call
 
 ---
 
+## `activity.list`
+
+List activity for an event
+
+**GET** `/api/v1/events/{event_id}/activity`
+
+**Signature:** `lb.events.activity.list({ path: \{ event_id \}, query?: \{ kind, limit \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `event_id` | path | integer | ✓ | Parent event ID |
+| `kind` | query | string |  | Filter to a single kind. Empty returns all kinds. |
+| `limit` | query | integer |  | Max rows (default 200, max 1000). |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] |  |
+
+---
+
+## `activity.append`
+
+Append an activity row
+
+**POST** `/api/v1/events/{event_id}/activity`
+
+**Signature:** `lb.events.activity.append({ path: \{ event_id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `event_id` | path | integer | ✓ | Parent event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `kind` | body | string | ✓ | Activity kind ('state_changed', 'edited', 'attachment_added', …). |
+| `payload` | body | object |  | Kind-specific payload (free-form JSONB). |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `actor_id` | string | Who caused it; nil for system-originated rows (automation, scheduled jobs). |
+| `at` | string (date-time) | When the activity happened (UTC). |
+| `event_id` | integer | Parent event id. |
+| `id` | integer | Record ID (bigserial — activity volume can grow large) |
+| `kind` | string | Activity kind: 'state_changed', 'attachment_added', 'published', 'edited', etc. Open string — templates declare which ki |
+| `org_id` | string | Organisation context. |
+| `payload` | object | Kind-specific shape. JSONB at the storage layer. |
+
+---
+
+## `attachments.list`
+
+List attachments on an event
+
+**GET** `/api/v1/events/{event_id}/attachments`
+
+**Signature:** `lb.events.attachments.list({ path: \{ event_id \}, query?: \{ kind \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `event_id` | path | integer | ✓ | Parent event ID |
+| `kind` | query | string |  | Filter to a single kind. Empty returns all kinds. |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] |  |
+
+---
+
+## `attachments.add`
+
+Attach a file / reference to an event
+
+**POST** `/api/v1/events/{event_id}/attachments`
+
+**Signature:** `lb.events.attachments.add({ path: \{ event_id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `event_id` | path | integer | ✓ | Parent event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `kind` | body | string | ✓ | Attachment kind ('image', 'document', 'proof_of_delivery'). Validated against the parent template's AllowedAttachmentKin |
+| `metadata` | body | object |  | Kind-specific payload: mime, size, content_hash, … |
+| `ref` | body | string | ✓ | Opaque storage identifier — URL, blob key, document_id depending on kind. |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `created_at` | string (date-time) | Created timestamp |
+| `created_by` | string | Profile id of who attached it. |
+| `event_id` | integer | Event scope — set when this attachment applies to a specific occurrence. |
+| `id` | integer | Record ID |
+| `kind` | string | Open string: 'image', 'document', 'signature', 'proof_of_delivery'. Validated against the parent template's AllowedAttac |
+| `metadata` | object | Kind-specific payload: mime, size, content_hash, dimensions, … |
+| `org_id` | string | Organisation context. |
+| `ref` | string | Opaque storage identifier — URL, blob key, document_id depending on kind. |
+| `series_id` | integer | Series scope — set when this attachment is shared across every occurrence in the series (study materials, etc.). |
+
+---
+
+## `participants.list`
+
+List participants on an event
+
+**GET** `/api/v1/events/{event_id}/participants`
+
+**Signature:** `lb.events.participants.list({ path: \{ event_id \}, query?: \{ role, actor_id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `event_id` | path | integer | ✓ | Parent event ID |
+| `role` | query | string |  | Filter to a single role. Empty string returns all roles. |
+| `actor_id` | query | string |  | Filter to a single actor across roles. Empty string returns all actors. |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] |  |
+
+---
+
+## `participants.add`
+
+Add a participant to an event
+
+**POST** `/api/v1/events/{event_id}/participants`
+
+**Signature:** `lb.events.participants.add({ path: \{ event_id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `event_id` | path | integer | ✓ | Parent event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `actor_id` | body | string | ✓ | Profile id (people) or service-account id (vendor / courier) of the participant. |
+| `role` | body | string | ✓ | Template-defined role: 'audience', 'recipient', 'vendor', 'courier', etc. |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `actor_id` | string | Profile id of the participant (people) or service-account id (vendor/courier). |
+| `created_at` | string (date-time) | Created timestamp. |
+| `created_by` | string | Profile id of who added this participant. |
+| `event_id` | integer | Event scope — set when this row applies to a specific occurrence. |
+| `id` | integer | Record ID |
+| `org_id` | string | Organisation context. |
+| `role` | string | Open string; semantics declared by the parent event's template (e.g. 'audience', 'recipient', 'vendor'). |
+| `series_id` | integer | Series scope — set when this row applies to every occurrence inherited from the series. |
+
+---
+
 ## `delete`
 
 Delete an event
@@ -368,6 +581,7 @@ Get an event
 | `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
+| `priority` | integer | Open numeric priority axis used by priority-aware templates. |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
@@ -375,7 +589,10 @@ Get an event
 | `series_title` | string | Canonical title from the series master row |
 | `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
+| `state` | string | Current node of the template's state machine; nil when the template has none. |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `template` | string | Event template id (kind discriminator). Defaults to 'generic'. |
+| `template_version` | integer | Schema version of the chosen template. 0 = legacy/pre-template; 1+ = explicit. |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `title_override` | string | Local title override (takes precedence over series title) |
@@ -407,7 +624,9 @@ Partial-update an event (merge-patch)
 | `latitude` | body | number |  | New venue latitude |
 | `longitude` | body | number |  | New venue longitude |
 | `metadata` | body | object |  | Merge into event metadata (omit to keep existing) |
+| `priority` | body | integer |  | New priority value (template-defined semantics). |
 | `start_dt` | body | string (date-time) |  | New start datetime (UTC) |
+| `template` | body | string |  | Reject-only: must omit. Sending any value returns 409 (template is immutable). |
 | `timezone` | body | string |  | New IANA timezone |
 | `title` | body | string |  | New title |
 | `visibility` | body | integer |  | New visibility: 10=private, 20=members-only, 30=organization, 40=public |
@@ -435,6 +654,7 @@ Partial-update an event (merge-patch)
 | `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
+| `priority` | integer | Open numeric priority axis used by priority-aware templates. |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
@@ -442,7 +662,10 @@ Partial-update an event (merge-patch)
 | `series_title` | string | Canonical title from the series master row |
 | `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
+| `state` | string | Current node of the template's state machine; nil when the template has none. |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `template` | string | Event template id (kind discriminator). Defaults to 'generic'. |
+| `template_version` | integer | Schema version of the chosen template. 0 = legacy/pre-template; 1+ = explicit. |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `title_override` | string | Local title override (takes precedence over series title) |
@@ -501,6 +724,7 @@ Update an event
 | `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
+| `priority` | integer | Open numeric priority axis used by priority-aware templates. |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
@@ -508,7 +732,10 @@ Update an event
 | `series_title` | string | Canonical title from the series master row |
 | `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
+| `state` | string | Current node of the template's state machine; nil when the template has none. |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `template` | string | Event template id (kind discriminator). Defaults to 'generic'. |
+| `template_version` | integer | Schema version of the chosen template. 0 = legacy/pre-template; 1+ = explicit. |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `title_override` | string | Local title override (takes precedence over series title) |
@@ -993,6 +1220,7 @@ Upload event cover image (multipart/form-data, field: file)
 | `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
+| `priority` | integer | Open numeric priority axis used by priority-aware templates. |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
@@ -1000,7 +1228,10 @@ Upload event cover image (multipart/form-data, field: file)
 | `series_title` | string | Canonical title from the series master row |
 | `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
+| `state` | string | Current node of the template's state machine; nil when the template has none. |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `template` | string | Event template id (kind discriminator). Defaults to 'generic'. |
+| `template_version` | integer | Schema version of the chosen template. 0 = legacy/pre-template; 1+ = explicit. |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `title_override` | string | Local title override (takes precedence over series title) |
@@ -1124,6 +1355,7 @@ Get draft version of an event
 | `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
+| `priority` | integer | Open numeric priority axis used by priority-aware templates. |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
@@ -1131,7 +1363,10 @@ Get draft version of an event
 | `series_title` | string | Canonical title from the series master row |
 | `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
+| `state` | string | Current node of the template's state machine; nil when the template has none. |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `template` | string | Event template id (kind discriminator). Defaults to 'generic'. |
+| `template_version` | integer | Schema version of the chosen template. 0 = legacy/pre-template; 1+ = explicit. |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `title_override` | string | Local title override (takes precedence over series title) |
@@ -1178,6 +1413,7 @@ Start editing (creates draft clone)
 | `metadata_override` | object | Local metadata override (merged with series metadata) |
 | `org_id` | string | Organization ID |
 | `parent_event_id` | integer | Parent event ID (milestones) |
+| `priority` | integer | Open numeric priority axis used by priority-aware templates. |
 | `published_at` | string (date-time) | When last published |
 | `published_id` | integer | For draft rows: ID of the published row this was cloned from |
 | `series_id` | integer | Series ID; set when this event is part of a recurring series |
@@ -1185,7 +1421,10 @@ Start editing (creates draft clone)
 | `series_title` | string | Canonical title from the series master row |
 | `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
 | `start_dt` | string (date-time) | Start datetime (UTC) |
+| `state` | string | Current node of the template's state machine; nil when the template has none. |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `template` | string | Event template id (kind discriminator). Defaults to 'generic'. |
+| `template_version` | integer | Schema version of the chosen template. 0 = legacy/pre-template; 1+ = explicit. |
 | `timezone` | string | IANA timezone |
 | `title` | string | Event title |
 | `title_override` | string | Local title override (takes precedence over series title) |
@@ -1778,6 +2017,8 @@ Update series fields. Cascades to occurrences without overrides.
 | `series_manager_status` | string | Manager status: pending, active, revoked |
 | `start_dt` | string (date-time) | Canonical start datetime |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status: draft, published, archived |
+| `template` | string | Event template id; every occurrence inherits this. |
+| `template_version` | integer | Schema version of the chosen template. |
 | `timezone` | string | IANA timezone for canonical occurrence |
 | `title` | string | Canonical series title (master event name) |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -1868,6 +2109,8 @@ Invite series manager
 | `series_manager_status` | string | Manager status: pending, active, revoked |
 | `start_dt` | string (date-time) | Canonical start datetime |
 | `status` | `"draft"` | `"published"` | `"archived"` | Publish status: draft, published, archived |
+| `template` | string | Event template id; every occurrence inherits this. |
+| `template_version` | integer | Schema version of the chosen template. |
 | `timezone` | string | IANA timezone for canonical occurrence |
 | `title` | string | Canonical series title (master event name) |
 | `updated_at` | string (date-time) | Updated timestamp |
@@ -2001,5 +2244,83 @@ Remove event from a space
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Event ID |
 | `space_id` | path | integer | ✓ | Space ID |
+
+---
+
+## `transition`
+
+Transition an event to a new state per its template's state machine
+
+**POST** `/api/v1/events/{id}/transition`
+
+**Signature:** `lb.events.transition({ path: \{ id \}, body: \{ ... \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Event ID |
+| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `payload` | body | object |  | Kind-specific data the state machine's guard inspects (e.g. proof_of_delivery for delivery's final hop). |
+| `reason` | body | string |  | Optional human-readable reason — captured on the activity row. |
+| `to_state` | body | string | ✓ | Target state, e.g. 'in_transit' or 'delivered'. |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `address` | string | Venue address |
+| `created_at` | string (date-time) | Created timestamp |
+| `created_dt` | string (date-time) | Business creation date |
+| `creator_id` | string | Creator profile ID |
+| `description` | string | Event description |
+| `description_override` | string | Local description override |
+| `end_dt` | string (date-time) | End datetime (UTC) |
+| `id` | integer | Event ID |
+| `is_deleted` | boolean | Soft-deleted flag |
+| `is_locked` | boolean | Locked from editing |
+| `keywords` | ['array', 'null'] | Search keywords |
+| `latitude` | number | Venue latitude |
+| `longitude` | number | Venue longitude |
+| `metadata` | object | Flexible JSONB metadata (theme, cover, etc.) |
+| `metadata_override` | object | Local metadata override (merged with series metadata) |
+| `org_id` | string | Organization ID |
+| `parent_event_id` | integer | Parent event ID (milestones) |
+| `priority` | integer | Open numeric priority axis used by priority-aware templates. |
+| `published_at` | string (date-time) | When last published |
+| `published_id` | integer | For draft rows: ID of the published row this was cloned from |
+| `series_id` | integer | Series ID; set when this event is part of a recurring series |
+| `series_index` | integer | Position within the series (0 = anchor occurrence) |
+| `series_title` | string | Canonical title from the series master row |
+| `spaces` | ['array', 'null'] | Spaces this event belongs to (populated in list responses) |
+| `start_dt` | string (date-time) | Start datetime (UTC) |
+| `state` | string | Current node of the template's state machine; nil when the template has none. |
+| `status` | `"draft"` | `"published"` | `"archived"` | Publish status |
+| `template` | string | Event template id (kind discriminator). Defaults to 'generic'. |
+| `template_version` | integer | Schema version of the chosen template. 0 = legacy/pre-template; 1+ = explicit. |
+| `timezone` | string | IANA timezone |
+| `title` | string | Event title |
+| `title_override` | string | Local title override (takes precedence over series title) |
+| `updated_at` | string (date-time) | Updated timestamp |
+| `version` | integer | Version counter, incremented on each publish |
+| `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
+
+---
+
+## `participants.remove`
+
+Remove a participant
+
+**DELETE** `/api/v1/participants/{id}`
+
+**Signature:** `lb.events.participants.remove({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | integer | ✓ | Participant record ID |
 
 ---
