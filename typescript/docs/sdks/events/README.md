@@ -5,6 +5,8 @@
 | Method | HTTP | Path | Description |
 |--------|------|------|-------------|
 | `attachments.remove` | DELETE | `/api/v1/attachments/{id}` | Remove an attachment |
+| `templates.list` | GET | `/api/v1/event-templates` | List all registered event templates |
+| `templates.get` | GET | `/api/v1/event-templates/{id}` | Get the latest version of a single event template |
 | `list` | GET | `/api/v1/events` | List events |
 | `create` | POST | `/api/v1/events` | Create an event |
 | `calendar` | GET | `/api/v1/events/calendar` | List events overlapping a date range (calendar view) |
@@ -16,8 +18,6 @@
 | `activity.append` | POST | `/api/v1/events/{event_id}/activity` | Append an activity row |
 | `attachments.list` | GET | `/api/v1/events/{event_id}/attachments` | List attachments on an event |
 | `attachments.add` | POST | `/api/v1/events/{event_id}/attachments` | Attach a file / reference to an event |
-| `participants.list` | GET | `/api/v1/events/{event_id}/participants` | List participants on an event |
-| `participants.add` | POST | `/api/v1/events/{event_id}/participants` | Add a participant to an event |
 | `delete` | DELETE | `/api/v1/events/{id}` | Delete an event |
 | `get` | GET | `/api/v1/events/{id}` | Get an event |
 | `patch` | PATCH | `/api/v1/events/{id}` | Partial-update an event (merge-patch) |
@@ -72,7 +72,6 @@
 | `addSpace` | POST | `/api/v1/events/{id}/spaces` | Add event to a space |
 | `removeSpace` | DELETE | `/api/v1/events/{id}/spaces/{space_id}` | Remove event from a space |
 | `transition` | POST | `/api/v1/events/{id}/transition` | Transition an event to a new state per its template's state machine |
-| `participants.remove` | DELETE | `/api/v1/participants/{id}` | Remove a participant |
 
 ---
 
@@ -89,6 +88,61 @@ Remove an attachment
 | Parameter | In | Type | Required | Description |
 |-----------|-----|------|----------|-------------|
 | `id` | path | integer | ✓ | Attachment record ID |
+
+---
+
+## `templates.list`
+
+List all registered event templates
+
+**GET** `/api/v1/event-templates`
+
+**Signature:** `lb.events.templates.list()`
+
+*No parameters.*
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `items` | ['array', 'null'] |  |
+
+---
+
+## `templates.get`
+
+Get the latest version of a single event template
+
+**GET** `/api/v1/event-templates/{id}`
+
+**Signature:** `lb.events.templates.get({ path: \{ id \} })`
+
+**Parameters:**
+
+| Parameter | In | Type | Required | Description |
+|-----------|-----|------|----------|-------------|
+| `id` | path | string | ✓ | Template id (e.g. 'announcement'). |
+
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `allowed_attachment_kinds` | ['array', 'null'] | Attachment kinds this template accepts. null = no restriction; [] = lockdown. |
+| `description` | string | One-line description. |
+| `id` | string | Stable template id. |
+| `illustration_svg` | string | Optional SVG markup for the template picker card. |
+| `json_schema` | any | Raw JSON Schema for metadata. Strict — additionalProperties: false. |
+| `label` | string | Human-readable name (used in pickers). |
+| `required_capabilities` | ['array', 'null'] | RBAC capabilities the caller must hold. |
+| `required_functions` | ['array', 'null'] | Attendee functions required for this template (e.g. patient, provider). |
+| `suggested_milestone_templates` | ['array', 'null'] | Hint to the milestone picker: which templates make natural children. |
+| `supports_milestones` | boolean | Whether events of this template can have child milestones. |
+| `supports_series` | boolean | Whether this template can be the canonical for an event_series. |
+| `version` | integer | Monotonic version. 0 is reserved for legacy pre-template events. |
 
 ---
 
@@ -164,6 +218,7 @@ Create an event
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `additional_fields` | ['array', 'null'] | User-defined key/label/value fields |
 | `address` | string | Venue address |
 | `created_at` | string (date-time) | Created timestamp |
 | `created_dt` | string (date-time) | Business creation date |
@@ -468,66 +523,6 @@ Attach a file / reference to an event
 
 ---
 
-## `participants.list`
-
-List participants on an event
-
-**GET** `/api/v1/events/{event_id}/participants`
-
-**Signature:** `lb.events.participants.list({ path: \{ event_id \}, query?: \{ role, actor_id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `event_id` | path | integer | ✓ | Parent event ID |
-| `role` | query | string |  | Filter to a single role. Empty string returns all roles. |
-| `actor_id` | query | string |  | Filter to a single actor across roles. Empty string returns all actors. |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
-| `items` | ['array', 'null'] |  |
-
----
-
-## `participants.add`
-
-Add a participant to an event
-
-**POST** `/api/v1/events/{event_id}/participants`
-
-**Signature:** `lb.events.participants.add({ path: \{ event_id \}, body: \{ ... \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `event_id` | path | integer | ✓ | Parent event ID |
-| `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
-| `actor_id` | body | string | ✓ | Profile id (people) or service-account id (vendor / courier) of the participant. |
-| `role` | body | string | ✓ | Template-defined role: 'audience', 'recipient', 'vendor', 'courier', etc. |
-
-
-**Returns:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `$schema` | string (uri) | A URL to the JSON Schema for this object. |
-| `actor_id` | string | Profile id of the participant (people) or service-account id (vendor/courier). |
-| `created_at` | string (date-time) | Created timestamp. |
-| `created_by` | string | Profile id of who added this participant. |
-| `event_id` | integer | Event scope — set when this row applies to a specific occurrence. |
-| `id` | integer | Record ID |
-| `org_id` | string | Organisation context. |
-| `role` | string | Open string; semantics declared by the parent event's template (e.g. 'audience', 'recipient', 'vendor'). |
-| `series_id` | integer | Series scope — set when this row applies to every occurrence inherited from the series. |
-
----
-
 ## `delete`
 
 Delete an event
@@ -564,6 +559,7 @@ Get an event
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `additional_fields` | ['array', 'null'] | User-defined key/label/value fields |
 | `address` | string | Venue address |
 | `created_at` | string (date-time) | Created timestamp |
 | `created_dt` | string (date-time) | Business creation date |
@@ -617,6 +613,7 @@ Partial-update an event (merge-patch)
 | `id` | path | integer | ✓ | Event ID |
 | `scope` | query | `"this"` | `"future"` | `"all"` |  | Series edit scope |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
+| `additional_fields` | body | ['array', 'null'] |  | Replace the full additional-fields list (omit to keep existing). Keys must be unique; max 50 entries. |
 | `address` | body | string |  | New venue address |
 | `description` | body | string |  | New description |
 | `end_dt` | body | string (date-time) |  | New end datetime (UTC) |
@@ -637,6 +634,7 @@ Partial-update an event (merge-patch)
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `additional_fields` | ['array', 'null'] | User-defined key/label/value fields |
 | `address` | string | Venue address |
 | `created_at` | string (date-time) | Created timestamp |
 | `created_dt` | string (date-time) | Business creation date |
@@ -707,6 +705,7 @@ Update an event
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `additional_fields` | ['array', 'null'] | User-defined key/label/value fields |
 | `address` | string | Venue address |
 | `created_at` | string (date-time) | Created timestamp |
 | `created_dt` | string (date-time) | Business creation date |
@@ -805,6 +804,7 @@ Add an attendee to an event
 | `id` | path | integer | ✓ | Event ID |
 | `$schema` | body | string (uri) |  | A URL to the JSON Schema for this object. |
 | `contact_id` | body | string | ✓ | Contact UUID |
+| `function` | body | string |  | The capacity in which this person attends — e.g. 'patient', 'provider', 'speaker', 'host'. Leave blank for generic atten |
 | `notes` | body | string |  | Optional notes |
 | `status` | body | `"invited"` | `"confirmed"` | `"declined"` | `"tentative"` | `"checked_in"` |  | Initial status |
 
@@ -818,6 +818,7 @@ Add an attendee to an event
 | `contact_id` | string | Contact UUID |
 | `created_at` | string (date-time) | Created timestamp |
 | `event_id` | integer | Event ID (when attending a specific occurrence) |
+| `function` | string | The capacity in which this person attends — e.g. 'patient', 'provider', 'speaker', 'host'. Template-driven; nil for gene |
 | `id` | integer | Attendee record ID |
 | `invited_at` | string (date-time) | When invited |
 | `is_checked_in` | boolean | Whether checked in |
@@ -931,6 +932,7 @@ Update attendee status
 | `contact_id` | string | Contact UUID |
 | `created_at` | string (date-time) | Created timestamp |
 | `event_id` | integer | Event ID (when attending a specific occurrence) |
+| `function` | string | The capacity in which this person attends — e.g. 'patient', 'provider', 'speaker', 'host'. Template-driven; nil for gene |
 | `id` | integer | Attendee record ID |
 | `invited_at` | string (date-time) | When invited |
 | `is_checked_in` | boolean | Whether checked in |
@@ -1203,6 +1205,7 @@ Upload event cover image (multipart/form-data, field: file)
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `additional_fields` | ['array', 'null'] | User-defined key/label/value fields |
 | `address` | string | Venue address |
 | `created_at` | string (date-time) | Created timestamp |
 | `created_dt` | string (date-time) | Business creation date |
@@ -1338,6 +1341,7 @@ Get draft version of an event
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `additional_fields` | ['array', 'null'] | User-defined key/label/value fields |
 | `address` | string | Venue address |
 | `created_at` | string (date-time) | Created timestamp |
 | `created_dt` | string (date-time) | Business creation date |
@@ -1396,6 +1400,7 @@ Start editing (creates draft clone)
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `additional_fields` | ['array', 'null'] | User-defined key/label/value fields |
 | `address` | string | Venue address |
 | `created_at` | string (date-time) | Created timestamp |
 | `created_dt` | string (date-time) | Business creation date |
@@ -2271,6 +2276,7 @@ Transition an event to a new state per its template's state machine
 | Field | Type | Description |
 |-------|------|-------------|
 | `$schema` | string (uri) | A URL to the JSON Schema for this object. |
+| `additional_fields` | ['array', 'null'] | User-defined key/label/value fields |
 | `address` | string | Venue address |
 | `created_at` | string (date-time) | Created timestamp |
 | `created_dt` | string (date-time) | Business creation date |
@@ -2306,21 +2312,5 @@ Transition an event to a new state per its template's state machine
 | `updated_at` | string (date-time) | Updated timestamp |
 | `version` | integer | Version counter, incremented on each publish |
 | `visibility` | integer | Visibility: 10=private, 20=members-only, 30=organization, 40=public |
-
----
-
-## `participants.remove`
-
-Remove a participant
-
-**DELETE** `/api/v1/participants/{id}`
-
-**Signature:** `lb.events.participants.remove({ path: \{ id \} })`
-
-**Parameters:**
-
-| Parameter | In | Type | Required | Description |
-|-----------|-----|------|----------|-------------|
-| `id` | path | integer | ✓ | Participant record ID |
 
 ---
